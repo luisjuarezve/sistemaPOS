@@ -13,9 +13,11 @@ import javax.swing.JTextField;
  */
 public class RoundedTextField extends JTextField{
     private Shape shape;
+    private final int cornerRadius;
     
     public RoundedTextField() {
         setOpaque(false); // Para que el fondo sea transparente
+        this.cornerRadius = 50;
     }
     
     @Override
@@ -23,7 +25,7 @@ public class RoundedTextField extends JTextField{
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());
-        g2.fill(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15));
+        g2.fill(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius));
         super.paintComponent(g);
     }
 
@@ -31,14 +33,14 @@ public class RoundedTextField extends JTextField{
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getForeground());
-        g2.draw(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15));
+        g2.setColor(getBackground());
+        g2.draw(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius));
     }
-
+    
     @Override
     public boolean contains(int x, int y) {
         if (shape == null || !shape.getBounds().equals(getBounds())) {
-            shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
+            shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
         }
         return shape.contains(x, y);
     }
