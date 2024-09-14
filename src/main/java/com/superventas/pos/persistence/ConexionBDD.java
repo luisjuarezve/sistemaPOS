@@ -1,4 +1,4 @@
-package com.superventas.pos.controller;
+package com.superventas.pos.persistence;
 
 
 import java.sql.Connection;
@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConexionBDD {
-    String DB_URL = "jdbc:sqlite:src\\main\\java\\com\\superventas\\pos\\controller\\pos.db";
+    String DB_URL = "jdbc:sqlite:src\\main\\java\\com\\superventas\\pos\\persistence\\pos.db";
     Connection connection = null;
 
     public ConexionBDD() {
