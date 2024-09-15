@@ -1,12 +1,18 @@
 package com.superventas.pos.view;
 
+import java.awt.Color;
+
+
 public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setBackground(new Color(0,0,0,0));
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -17,6 +23,8 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
