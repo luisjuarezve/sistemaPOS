@@ -5,17 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
-/**
- *
- * @author conta
- */
-public class RoundedTextField extends JTextField{
-    private Shape shape;
+public class RoundedPasswordField extends JPasswordField{
+     private Shape shape;
     private final int cornerRadius;
     
-    public RoundedTextField() {
+    public RoundedPasswordField() {
         setOpaque(false); // Para que el fondo sea transparente
         this.cornerRadius = 10;
     }

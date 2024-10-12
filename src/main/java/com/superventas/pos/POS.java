@@ -1,11 +1,13 @@
 package com.superventas.pos;
 
-import com.superventas.pos.view.Login;
+import com.superventas.pos.view.SuperPOS;
+import com.superventas.pos.view.components.SearchBar;
 
 public class POS {
 
     public static void main(String[] args) {
-        Login lg = new Login();
-        lg.setVisible(true);
+        SuperPOS sp = new SuperPOS();
+        sp.setVisible(true);
+
     }
 }
