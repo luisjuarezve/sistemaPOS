@@ -4,6 +4,7 @@ public class BillingSection extends javax.swing.JPanel {
 
     public BillingSection() {
         initComponents();
+        invoice_section.add(new Invoice());
     }
 
     /**
@@ -15,22 +16,20 @@ public class BillingSection extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        invoice_section = new javax.swing.JPanel();
+
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(440, 1024));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 440, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 944, Short.MAX_VALUE)
-        );
+        invoice_section.setOpaque(false);
+        invoice_section.setPreferredSize(new java.awt.Dimension(420, 984));
+        invoice_section.setLayout(new java.awt.BorderLayout());
+        add(invoice_section, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel invoice_section;
     // End of variables declaration//GEN-END:variables
 }
