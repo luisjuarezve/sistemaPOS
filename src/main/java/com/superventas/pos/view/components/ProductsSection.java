@@ -7,7 +7,7 @@ public class ProductsSection extends javax.swing.JPanel {
 
     public ProductsSection() {
         initComponents();
-        cargarProductos(10);
+        cargarProductos(30);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
     }
 
@@ -20,23 +20,31 @@ public class ProductsSection extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        section_search = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         searchBar1 = new com.superventas.pos.view.components.SearchBar();
         btn_search = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        section_items = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         row_items = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        section_categories = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        categorieButton1 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton2 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton3 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton4 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton5 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton6 = new com.superventas.pos.view.components.CategorieButton();
+        categorieButton7 = new com.superventas.pos.view.components.CategorieButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(840, 944));
         setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(840, 100));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
+        section_search.setBackground(new java.awt.Color(204, 204, 204));
+        section_search.setOpaque(false);
+        section_search.setPreferredSize(new java.awt.Dimension(840, 100));
+        section_search.setLayout(new java.awt.GridBagLayout());
 
         jPanel3.setOpaque(false);
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
@@ -53,13 +61,13 @@ public class ProductsSection extends javax.swing.JPanel {
         btn_search.setPreferredSize(new java.awt.Dimension(60, 60));
         jPanel3.add(btn_search);
 
-        jPanel1.add(jPanel3, new java.awt.GridBagConstraints());
+        section_search.add(jPanel3, new java.awt.GridBagConstraints());
 
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        add(section_search, java.awt.BorderLayout.PAGE_START);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setOpaque(false);
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        section_items.setBackground(new java.awt.Color(255, 255, 255));
+        section_items.setOpaque(false);
+        section_items.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setOpaque(false);
@@ -80,25 +88,90 @@ public class ProductsSection extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(row_items);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        section_items.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
-        add(jPanel4, java.awt.BorderLayout.CENTER);
+        add(section_items, java.awt.BorderLayout.CENTER);
 
-        jPanel2.setBackground(new java.awt.Color(102, 153, 0));
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 137));
-        add(jPanel2, java.awt.BorderLayout.PAGE_END);
+        section_categories.setBackground(new java.awt.Color(255, 255, 255));
+        section_categories.setOpaque(false);
+        section_categories.setPreferredSize(new java.awt.Dimension(100, 137));
+        section_categories.setLayout(new java.awt.GridBagLayout());
+
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+
+        categorieButton1.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton1.setBorder(null);
+        categorieButton1.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton1.setText("Categoria 1");
+        categorieButton1.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton1);
+
+        categorieButton2.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton2.setBorder(null);
+        categorieButton2.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton2.setText("Categoria 2");
+        categorieButton2.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton2);
+
+        categorieButton3.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton3.setBorder(null);
+        categorieButton3.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton3.setText("Categoria 3");
+        categorieButton3.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton3);
+
+        categorieButton4.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton4.setBorder(null);
+        categorieButton4.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton4.setText("Categoria 4");
+        categorieButton4.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton4);
+
+        categorieButton5.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton5.setBorder(null);
+        categorieButton5.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton5.setText("Categoria 5");
+        categorieButton5.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton5);
+
+        categorieButton6.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton6.setBorder(null);
+        categorieButton6.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton6.setText("Categoria 6");
+        categorieButton6.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton6);
+
+        categorieButton7.setBackground(new java.awt.Color(168, 8, 72));
+        categorieButton7.setBorder(null);
+        categorieButton7.setForeground(new java.awt.Color(255, 255, 255));
+        categorieButton7.setText("Categoria 7");
+        categorieButton7.setPreferredSize(new java.awt.Dimension(123, 123));
+        jPanel1.add(categorieButton7);
+
+        section_categories.add(jPanel1, new java.awt.GridBagConstraints());
+
+        add(section_categories, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_search;
+    private com.superventas.pos.view.components.CategorieButton categorieButton1;
+    private com.superventas.pos.view.components.CategorieButton categorieButton2;
+    private com.superventas.pos.view.components.CategorieButton categorieButton3;
+    private com.superventas.pos.view.components.CategorieButton categorieButton4;
+    private com.superventas.pos.view.components.CategorieButton categorieButton5;
+    private com.superventas.pos.view.components.CategorieButton categorieButton6;
+    private com.superventas.pos.view.components.CategorieButton categorieButton7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel row_items;
     private com.superventas.pos.view.components.SearchBar searchBar1;
+    private javax.swing.JPanel section_categories;
+    private javax.swing.JPanel section_items;
+    private javax.swing.JPanel section_search;
     // End of variables declaration//GEN-END:variables
    
     
