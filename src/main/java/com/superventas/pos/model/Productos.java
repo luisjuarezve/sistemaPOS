@@ -1,17 +1,24 @@
 package com.superventas.pos.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Productos {
-    int producto_id;
-    int codigo;
-    String nombre;
-    String descripcion;
-    String foto;
-    String tipo_venta;
-    double precio_compra;
-    double ganancia;
-    double precio_venta;
-    double precio_mayoreo;
-    double impuesto;
-    Proveedor proveedor_id;
-    Categorias categoria_id;
+    private int producto_id;
+    private int codigo;
+    private String nombre;
+    private String descripcion;
+    private String foto;
+    private String tipo_venta;
+    private double precio_compra;
+    private double ganancia;
+    private double precio_venta;
+    private double precio_mayoreo;
+    private double impuesto;
+    private Proveedor proveedor_id;
+    private Categorias categoria_id;
 }

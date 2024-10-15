@@ -1,11 +1,6 @@
 package com.superventas.pos.view.components;
 
-import java.awt.Color;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class ProductsSection extends javax.swing.JPanel {
@@ -110,7 +105,6 @@ public class ProductsSection extends javax.swing.JPanel {
             GridLayout gl = new GridLayout(3, 6, 10, 10);
             row_items.setLayout(gl);
             for (int i = 1; i < 18; i++) {
-                System.out.println(i);
                 if (i<=cant_prod) {
                     row_items.add(new Item("Nombre Articulo " + (i), 100.00));
                 }else{

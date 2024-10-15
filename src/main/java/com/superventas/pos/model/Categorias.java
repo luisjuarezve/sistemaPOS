@@ -1,7 +1,14 @@
 package com.superventas.pos.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Categorias {
-    int categoria_id;
-    String nombre;
-    String descripcion;
+    private int categoria_id;
+    private String nombre;
+    private String descripcion;
 }
