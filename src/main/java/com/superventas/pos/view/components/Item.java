@@ -70,7 +70,7 @@ public class Item extends javax.swing.JPanel {
         container_item.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_img.setIcon(new javax.swing.ImageIcon("C:\\Users\\conta\\OneDrive\\Documentos\\NetBeansProjects\\POS\\src\\main\\java\\com\\superventas\\pos\\img\\producto_item.jpg")); // NOI18N
+        lbl_img.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\producto_item.jpg")); // NOI18N
         lbl_img.setPreferredSize(new java.awt.Dimension(120, 118));
         container_item.add(lbl_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 

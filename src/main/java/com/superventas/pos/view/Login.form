@@ -86,7 +86,7 @@
             <Component class="javax.swing.JLabel" name="Logo">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\conta\OneDrive\Documentos\NetBeansProjects\POS\src\main\java\com\superventas\pos\img\logo.png"/>
+                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\logo.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -98,7 +98,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\conta\OneDrive\Documentos\NetBeansProjects\POS\src\main\java\com\superventas\pos\img\background.png"/>
+                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\background.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -149,7 +149,7 @@
                 <Component class="javax.swing.JButton" name="jButton1">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\conta\OneDrive\Documentos\NetBeansProjects\POS\src\main\java\com\superventas\pos\img\close.png"/>
+                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\close.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>

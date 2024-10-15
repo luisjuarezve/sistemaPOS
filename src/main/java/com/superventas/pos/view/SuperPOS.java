@@ -48,7 +48,7 @@ public class SuperPOS extends javax.swing.JFrame {
         nav_menu_options.setOpaque(false);
         nav_menu_options.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        btn_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\conta\\OneDrive\\Documentos\\NetBeansProjects\\POS\\src\\main\\java\\com\\superventas\\pos\\img\\menu.png")); // NOI18N
+        btn_menu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\menu.png")); // NOI18N
         btn_menu.setText("jButton1");
         btn_menu.setBorderPainted(false);
         btn_menu.setContentAreaFilled(false);
@@ -81,10 +81,11 @@ public class SuperPOS extends javax.swing.JFrame {
         nav_logout_options.setOpaque(false);
         nav_logout_options.setRequestFocusEnabled(false);
 
-        btn_logout.setIcon(new javax.swing.ImageIcon("C:\\Users\\conta\\OneDrive\\Documentos\\NetBeansProjects\\POS\\src\\main\\java\\com\\superventas\\pos\\img\\logout.png")); // NOI18N
+        btn_logout.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\logout.png")); // NOI18N
         btn_logout.setText("jButton2");
         btn_logout.setBorderPainted(false);
         btn_logout.setContentAreaFilled(false);
+        btn_logout.setFocusable(false);
         btn_logout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_logout.setPreferredSize(new java.awt.Dimension(40, 37));
         btn_logout.addActionListener(new java.awt.event.ActionListener() {

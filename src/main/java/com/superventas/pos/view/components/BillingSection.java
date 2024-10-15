@@ -23,7 +23,7 @@ public class BillingSection extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         invoice_section.setOpaque(false);
-        invoice_section.setPreferredSize(new java.awt.Dimension(420, 984));
+        invoice_section.setPreferredSize(new java.awt.Dimension(420, 904));
         invoice_section.setLayout(new java.awt.BorderLayout());
         add(invoice_section, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
