@@ -21,8 +21,9 @@ public class ProductsSection extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        searchBar1 = new com.superventas.pos.view.components.SearchBar();
+        btn_search = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         row_items = new javax.swing.JPanel();
@@ -32,22 +33,27 @@ public class ProductsSection extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(840, 944));
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(840, 100));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jTextField1.setText("jTextField1");
-        jTextField1.setBorder(null);
-        jTextField1.setPreferredSize(new java.awt.Dimension(200, 22));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField1);
+        jPanel3.setOpaque(false);
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        jButton1.setText("jButton1");
-        jButton1.setContentAreaFilled(false);
-        jPanel1.add(jButton1);
+        searchBar1.setText("ESCRIBE EL NOMBRE O CODIGO DEL PRODUCTO A BUSCAR");
+        searchBar1.setPreferredSize(new java.awt.Dimension(735, 60));
+        jPanel3.add(searchBar1);
+
+        btn_search.setIcon(new javax.swing.ImageIcon("C:\\Users\\conta\\OneDrive\\Documentos\\NetBeansProjects\\POS\\src\\main\\java\\com\\superventas\\pos\\img\\search.png")); // NOI18N
+        btn_search.setBorder(null);
+        btn_search.setBorderPainted(false);
+        btn_search.setContentAreaFilled(false);
+        btn_search.setFocusable(false);
+        btn_search.setPreferredSize(new java.awt.Dimension(60, 60));
+        jPanel3.add(btn_search);
+
+        jPanel1.add(jPanel3, new java.awt.GridBagConstraints());
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -83,19 +89,16 @@ public class ProductsSection extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_search;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel row_items;
+    private com.superventas.pos.view.components.SearchBar searchBar1;
     // End of variables declaration//GEN-END:variables
    
     
