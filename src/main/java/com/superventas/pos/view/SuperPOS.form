@@ -76,8 +76,8 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btn_menu">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\menu.png"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new ImageIcon(&quot;src\\main\\java\\com\\superventas\\pos\\img\\menu.png&quot;)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jButton1"/>
                     <Property name="borderPainted" type="boolean" value="false"/>
@@ -142,8 +142,8 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="btn_logout">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\logout.png"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new ImageIcon(&quot;src\\main\\java\\com\\superventas\\pos\\img\\logout.png&quot;)" type="code"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="jButton2"/>
                     <Property name="borderPainted" type="boolean" value="false"/>

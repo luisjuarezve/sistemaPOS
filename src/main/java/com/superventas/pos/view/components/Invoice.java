@@ -1,5 +1,7 @@
 package com.superventas.pos.view.components;
 
+import javax.swing.ImageIcon;
+
 public class Invoice extends javax.swing.JPanel {
 
     /**
@@ -38,12 +40,12 @@ public class Invoice extends javax.swing.JPanel {
         products_container = new javax.swing.JPanel();
         jsp_products = new javax.swing.JScrollPane();
         items = new javax.swing.JPanel();
-        itemInvoice2 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice1 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice3 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice4 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice5 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice6 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice7 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice8 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice9 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice10 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice11 = new com.superventas.pos.view.components.ItemInvoice();
+        itemInvoice12 = new com.superventas.pos.view.components.ItemInvoice();
         payment_invoice = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -56,7 +58,7 @@ public class Invoice extends javax.swing.JPanel {
         header_invoice.setRoundTopRight(5);
         header_invoice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\bill (4) (1).png")); // NOI18N
+        jLabel2.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\bill.png"));
         header_invoice.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         content_text.setOpaque(false);
@@ -115,7 +117,7 @@ public class Invoice extends javax.swing.JPanel {
 
         header_invoice.add(content_text, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\close.png")); // NOI18N
+        jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
         jButton1.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -140,89 +142,18 @@ public class Invoice extends javax.swing.JPanel {
         products_container.setOpaque(false);
         products_container.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jsp_products.setBorder(null);
         jsp_products.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jsp_products.setPreferredSize(new java.awt.Dimension(376, 465));
 
         items.setBackground(new java.awt.Color(255, 255, 255));
         items.setLayout(new java.awt.GridLayout(6, 0, 0, 10));
-
-        javax.swing.GroupLayout itemInvoice2Layout = new javax.swing.GroupLayout(itemInvoice2);
-        itemInvoice2.setLayout(itemInvoice2Layout);
-        itemInvoice2Layout.setHorizontalGroup(
-            itemInvoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice2Layout.setVerticalGroup(
-            itemInvoice2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice2);
-
-        javax.swing.GroupLayout itemInvoice1Layout = new javax.swing.GroupLayout(itemInvoice1);
-        itemInvoice1.setLayout(itemInvoice1Layout);
-        itemInvoice1Layout.setHorizontalGroup(
-            itemInvoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice1Layout.setVerticalGroup(
-            itemInvoice1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice1);
-
-        javax.swing.GroupLayout itemInvoice3Layout = new javax.swing.GroupLayout(itemInvoice3);
-        itemInvoice3.setLayout(itemInvoice3Layout);
-        itemInvoice3Layout.setHorizontalGroup(
-            itemInvoice3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice3Layout.setVerticalGroup(
-            itemInvoice3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice3);
-
-        javax.swing.GroupLayout itemInvoice4Layout = new javax.swing.GroupLayout(itemInvoice4);
-        itemInvoice4.setLayout(itemInvoice4Layout);
-        itemInvoice4Layout.setHorizontalGroup(
-            itemInvoice4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice4Layout.setVerticalGroup(
-            itemInvoice4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice4);
-
-        javax.swing.GroupLayout itemInvoice5Layout = new javax.swing.GroupLayout(itemInvoice5);
-        itemInvoice5.setLayout(itemInvoice5Layout);
-        itemInvoice5Layout.setHorizontalGroup(
-            itemInvoice5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice5Layout.setVerticalGroup(
-            itemInvoice5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice5);
-
-        javax.swing.GroupLayout itemInvoice6Layout = new javax.swing.GroupLayout(itemInvoice6);
-        itemInvoice6.setLayout(itemInvoice6Layout);
-        itemInvoice6Layout.setHorizontalGroup(
-            itemInvoice6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
-        );
-        itemInvoice6Layout.setVerticalGroup(
-            itemInvoice6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-
-        items.add(itemInvoice6);
+        items.add(itemInvoice7);
+        items.add(itemInvoice8);
+        items.add(itemInvoice9);
+        items.add(itemInvoice10);
+        items.add(itemInvoice11);
+        items.add(itemInvoice12);
 
         jsp_products.setViewportView(items);
 
@@ -253,12 +184,12 @@ public class Invoice extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel content_text;
     private com.superventas.pos.view.components.RoundedPanel header_invoice;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice1;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice2;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice3;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice4;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice5;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice6;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice10;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice11;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice12;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice7;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice8;
+    private com.superventas.pos.view.components.ItemInvoice itemInvoice9;
     private javax.swing.JPanel items;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

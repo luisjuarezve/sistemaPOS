@@ -2,7 +2,7 @@ package com.superventas.pos.view;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
-
+import javax.swing.ImageIcon;
 
 public class Login extends javax.swing.JFrame {
 
@@ -62,10 +62,10 @@ public class Login extends javax.swing.JFrame {
         Title.setText("Super POS");
         Main_logo.add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
 
-        Logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\logo.png")); // NOI18N
+        Logo.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\logo.png"));
         Main_logo.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\background.png")); // NOI18N
+        jLabel1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\background.png"));
         Main_logo.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         Main.add(Main_logo, java.awt.BorderLayout.WEST);
@@ -81,7 +81,7 @@ public class Login extends javax.swing.JFrame {
         Main_options.setPreferredSize(new java.awt.Dimension(300, 50));
         Main_options.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\close.png")); // NOI18N
+        jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
         jButton1.setFocusPainted(false);

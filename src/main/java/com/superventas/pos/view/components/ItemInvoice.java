@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.superventas.pos.view.components;
-
+import javax.swing.ImageIcon;
 /**
  *
  * @author conta
@@ -48,13 +48,14 @@ public class ItemInvoice extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         lbl_totalPrecioBolivares = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(376, 85));
+        setPreferredSize(new java.awt.Dimension(356, 85));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setOpaque(false);
-        jPanel1.setPreferredSize(new java.awt.Dimension(356, 75));
+        jPanel1.setPreferredSize(new java.awt.Dimension(336, 75));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setOpaque(false);
@@ -132,10 +133,16 @@ public class ItemInvoice extends javax.swing.JPanel {
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
+        jLabel1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\producto_item_invoice.jpg")
+        );
         jLabel1.setPreferredSize(new java.awt.Dimension(65, 65));
         jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 5, -1, -1));
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setPreferredSize(new java.awt.Dimension(356, 2));
+        add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 83, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -156,6 +163,7 @@ public class ItemInvoice extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lbl_cantidad;
     private javax.swing.JLabel lbl_nombreArticulo;
     private javax.swing.JLabel lbl_precioBolivares;
