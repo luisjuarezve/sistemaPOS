@@ -1,9 +1,19 @@
 package com.superventas.pos.view.components;
 
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
 public class ProductsSection extends javax.swing.JPanel {
 
     public ProductsSection() {
         initComponents();
+        cargarProductos(10);
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
     }
 
     /**
@@ -16,32 +26,108 @@ public class ProductsSection extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        searchBar1 = new com.superventas.pos.view.components.SearchBar();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        row_items = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
 
-        setBackground(new java.awt.Color(102, 0, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(840, 944));
         setLayout(new java.awt.BorderLayout());
 
         jPanel1.setOpaque(false);
+        jPanel1.setPreferredSize(new java.awt.Dimension(840, 100));
 
-        searchBar1.setText("searchBar1");
-        searchBar1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setText("jTextField1");
+        jTextField1.setBorder(null);
+        jTextField1.setPreferredSize(new java.awt.Dimension(200, 22));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBar1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
-        jPanel1.add(searchBar1);
+        jPanel1.add(jTextField1);
+
+        jButton1.setText("jButton1");
+        jButton1.setContentAreaFilled(false);
+        jPanel1.add(jButton1);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setOpaque(false);
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setOpaque(false);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(800, 687));
+
+        row_items.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout row_itemsLayout = new javax.swing.GroupLayout(row_items);
+        row_items.setLayout(row_itemsLayout);
+        row_itemsLayout.setHorizontalGroup(
+            row_itemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+        row_itemsLayout.setVerticalGroup(
+            row_itemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 687, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(row_items);
+
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        add(jPanel4, java.awt.BorderLayout.CENTER);
+
+        jPanel2.setBackground(new java.awt.Color(102, 153, 0));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 137));
+        add(jPanel2, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchBar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBar1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_searchBar1ActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private com.superventas.pos.view.components.SearchBar searchBar1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel row_items;
     // End of variables declaration//GEN-END:variables
+   
+    
+    private void cargarProductos(int cant_prod){
+        int row_prod = (cant_prod/6);
+        if (cant_prod <= 18) {
+            GridLayout gl = new GridLayout(3, 6, 10, 10);
+            row_items.setLayout(gl);
+            for (int i = 1; i < 18; i++) {
+                System.out.println(i);
+                if (i<=cant_prod) {
+                    row_items.add(new Item("Nombre Articulo " + (i), 100.00));
+                }else{
+                    JPanel njp = new JPanel();
+                    njp.setOpaque(false);
+                    row_items.add(njp);
+                }
+            }
+        }else{
+            if (row_prod % 2 != 0) {
+                row_prod += 1;
+            }
+            GridLayout gl = new GridLayout(row_prod, 6, 10, 10);
+            row_items.setLayout(gl);
+            for (int i = 0; i < cant_prod; i++) {
+                row_items.add(new Item("Nombre Articulo " + (i+1), 100.00));
+            }
+        }
+    }
 }
