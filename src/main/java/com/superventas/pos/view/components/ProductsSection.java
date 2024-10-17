@@ -1,13 +1,19 @@
 package com.superventas.pos.view.components;
 
+import com.superventas.pos.model.Productos;
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 public class ProductsSection extends javax.swing.JPanel {
 
     public ProductsSection() {
         initComponents();
-        cargarProductos(30);
+        List<Productos> listaProductos = new ArrayList<>();
+        listaProductos.add(new Productos(1, 123, "Leche en polvo", "", "", "UNIDAD", 10.0, 0.30, 13.0, 12.0, 0.0, 1, 1));
+        listaProductos.add(new Productos(2, 456, "Mantequilla", "", "", "UNIDAD", 20.0, 0.30, 26.0, 24.0, 0.0, 1, 1));
+        cargarProductos(listaProductos);
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
         jsp_categoria.getHorizontalScrollBar().setUnitIncrement(16);
     }
@@ -193,14 +199,15 @@ public class ProductsSection extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
    
     
-    private void cargarProductos(int cant_prod){
+    private void cargarProductos(List<Productos> listaProductos){
+        int cant_prod = listaProductos.size()-1;
         int row_prod = (cant_prod/6);
-        if (cant_prod <= 18) {
+        if (cant_prod <= 17) {
             GridLayout gl = new GridLayout(3, 6, 10, 10);
             row_items.setLayout(gl);
-            for (int i = 1; i < 18; i++) {
+            for (int i = 0; i <= 17; i++) {
                 if (i<=cant_prod) {
-                    row_items.add(new Item("Nombre Articulo " + (i), 100.00));
+                    row_items.add(new Item(listaProductos.get(i).getNombre(), listaProductos.get(i).getPrecio_venta()));
                 }else{
                     JPanel njp = new JPanel();
                     njp.setOpaque(false);

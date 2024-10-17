@@ -66,9 +66,6 @@
             </Component>
             <Component class="javax.swing.JButton" name="btn_search">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\search.png"/>
-                </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>

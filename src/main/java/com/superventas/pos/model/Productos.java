@@ -19,6 +19,8 @@ public class Productos {
     private double precio_venta;
     private double precio_mayoreo;
     private double impuesto;
-    private Proveedor proveedor_id;
-    private Categorias categoria_id;
-}
+    private int proveedor_id;
+    private int categoria_id;
+    
+        
+    }
