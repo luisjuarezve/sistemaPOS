@@ -63,12 +63,21 @@ public class ItemInvoice extends javax.swing.JPanel {
 
         jPanel8.setOpaque(false);
 
-        btn_menos.setText("-");
-        btn_menos.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_menos.setBackground(new java.awt.Color(168, 8, 72));
+        btn_menos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_menos.setText("+");
+        btn_menos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_menos.setFocusable(false);
+        btn_menos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btn_menos.setPreferredSize(new java.awt.Dimension(35, 35));
         jPanel8.add(btn_menos);
 
-        btn_mas.setText("+");
-        btn_mas.setPreferredSize(new java.awt.Dimension(30, 30));
+        btn_mas.setBackground(new java.awt.Color(41, 1, 138));
+        btn_mas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_mas.setText("-");
+        btn_mas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_mas.setFocusable(false);
+        btn_mas.setPreferredSize(new java.awt.Dimension(35, 35));
         jPanel8.add(btn_mas);
 
         jPanel3.add(jPanel8, new java.awt.GridBagConstraints());
