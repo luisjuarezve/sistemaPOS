@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package com.superventas.pos.view.components;
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 /**
  *
@@ -13,8 +14,10 @@ public class ItemInvoice extends javax.swing.JPanel {
     /**
      * Creates new form ItemInvoice
      */
-    public ItemInvoice() {
+    public ItemInvoice(Dimension size) {
         initComponents();
+        this.setPreferredSize(size);
+        jPanel1.setPreferredSize(new Dimension(size.width-20, size.height-10));
     }
 
     /**
@@ -54,6 +57,7 @@ public class ItemInvoice extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(356, 85));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(336, 75));
         jPanel1.setLayout(new java.awt.BorderLayout());
@@ -147,10 +151,10 @@ public class ItemInvoice extends javax.swing.JPanel {
         jLabel1.setPreferredSize(new java.awt.Dimension(65, 65));
         jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 5, -1, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
 
         jPanel9.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel9.setPreferredSize(new java.awt.Dimension(356, 2));
+        jPanel9.setPreferredSize(new java.awt.Dimension(365, 2));
         add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 83, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 

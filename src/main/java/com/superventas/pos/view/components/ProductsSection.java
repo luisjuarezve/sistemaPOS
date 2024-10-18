@@ -1,21 +1,22 @@
 package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Productos;
+import com.superventas.pos.persistence.ProductosDAO;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 public class ProductsSection extends javax.swing.JPanel {
 
     public ProductsSection() {
         initComponents();
-        List<Productos> listaProductos = new ArrayList<>();
-        listaProductos.add(new Productos(1, 123, "Leche en polvo", "", "", "UNIDAD", 10.0, 0.30, 13.0, 12.0, 0.0, 1, 1));
-        listaProductos.add(new Productos(2, 456, "Mantequilla", "", "", "UNIDAD", 20.0, 0.30, 26.0, 24.0, 0.0, 1, 1));
-        cargarProductos(listaProductos);
-        jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
-        jsp_categoria.getHorizontalScrollBar().setUnitIncrement(16);
+        responsive();
+        ProductosDAO proD = new ProductosDAO();
+        cargarProductos(proD.LeerTodosProductos());
     }
 
     /**
@@ -62,7 +63,7 @@ public class ProductsSection extends javax.swing.JPanel {
         searchBar1.setPreferredSize(new java.awt.Dimension(735, 60));
         jPanel3.add(searchBar1);
 
-        btn_search.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\search.png")); // NOI18N
+        btn_search.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\search.png"));
         btn_search.setBorder(null);
         btn_search.setBorderPainted(false);
         btn_search.setContentAreaFilled(false);
@@ -171,7 +172,7 @@ public class ProductsSection extends javax.swing.JPanel {
 
         jPanel2.add(jsp_categoria, java.awt.BorderLayout.CENTER);
 
-        section_categories.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 0, -1, -1));
+        section_categories.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
         add(section_categories, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
@@ -224,5 +225,17 @@ public class ProductsSection extends javax.swing.JPanel {
                 row_items.add(new Item("Nombre Articulo " + (i+1), 100.00));
             }
         }
+    }
+    
+    private void responsive(){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension ProductsSectionSize = null;
+        setPreferredSize(ProductsSectionSize = new Dimension((int) (screenSize.width*0.70), screenSize.height-80));
+        int sectionSize = (int)(screenSize.width*0.70);
+        section_search.setPreferredSize(new Dimension(sectionSize-30,60));
+        jScrollPane2.setPreferredSize(new Dimension(sectionSize-20, screenSize.height-327));
+        jPanel2.setPreferredSize(new Dimension(sectionSize-20, 137));
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
+        jsp_categoria.getHorizontalScrollBar().setUnitIncrement(16);
     }
 }

@@ -1,10 +1,15 @@
 package com.superventas.pos.view.components;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 public class BillingSection extends javax.swing.JPanel {
 
     public BillingSection() {
         initComponents();
-        invoice_section.add(new Invoice());
+        responsive();
     }
 
     /**
@@ -32,4 +37,12 @@ public class BillingSection extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel invoice_section;
     // End of variables declaration//GEN-END:variables
+    private void responsive(){
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension billingSize = billingSize = new Dimension((int) (screenSize.width*0.30), screenSize.height-80);
+        setPreferredSize(billingSize);
+        Dimension invoiceSize = new Dimension((int) ((screenSize.width*0.30)-20), screenSize.height-120);
+        invoice_section.setPreferredSize(invoiceSize);
+        invoice_section.add(new Invoice(invoiceSize));
+    }
 }

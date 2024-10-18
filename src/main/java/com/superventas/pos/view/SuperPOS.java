@@ -2,6 +2,7 @@ package com.superventas.pos.view;
 
 import com.superventas.pos.view.components.BillingSection;
 import com.superventas.pos.view.components.ProductsSection;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 
@@ -9,7 +10,7 @@ public class SuperPOS extends javax.swing.JFrame {
 
     public SuperPOS() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         body.add(new ProductsSection(), new java.awt.BorderLayout().WEST);
         body.add(new BillingSection(), new java.awt.BorderLayout().EAST);
     }

@@ -1,5 +1,7 @@
 package com.superventas.pos.view.components;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 
 public class Invoice extends javax.swing.JPanel {
@@ -7,8 +9,19 @@ public class Invoice extends javax.swing.JPanel {
     /**
      * Creates new form Invoice
      */
-    public Invoice() {
+    public Invoice(Dimension invoiceSize) {
         initComponents();
+        Dimension itemsSize = new Dimension(invoiceSize.width-44, invoiceSize.height-417);
+        Dimension itemsInvoiceSize = new Dimension(invoiceSize.width-64, 85);
+        jsp_products.setPreferredSize(itemsSize);
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        items.add(new ItemInvoice(itemsInvoiceSize));
+        Contenedor_totalPagar.setPreferredSize(new Dimension(invoiceSize.width, 78));
+        Contenedor_totalapagar.setPreferredSize(new Dimension(invoiceSize.width, 68));
         jsp_products.getVerticalScrollBar().setUnitIncrement(16);
     }
 
@@ -34,18 +47,13 @@ public class Invoice extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         lbl_cedula = new javax.swing.JLabel();
         lbl_cedula_cliente = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         products_invoice = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         products_container = new javax.swing.JPanel();
         jsp_products = new javax.swing.JScrollPane();
         items = new javax.swing.JPanel();
-        itemInvoice7 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice8 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice9 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice10 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice11 = new com.superventas.pos.view.components.ItemInvoice();
-        itemInvoice12 = new com.superventas.pos.view.components.ItemInvoice();
         Contenedor_montoaPagar = new javax.swing.JPanel();
         Contenedor_totalPagar = new javax.swing.JPanel();
         Contenedor_totalapagar = new com.superventas.pos.view.components.RoundedPanel();
@@ -82,14 +90,15 @@ public class Invoice extends javax.swing.JPanel {
         header_invoice.setPreferredSize(new java.awt.Dimension(430, 100));
         header_invoice.setRoundTopLeft(5);
         header_invoice.setRoundTopRight(5);
-        header_invoice.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        header_invoice.setLayout(new java.awt.BorderLayout());
 
         jLabel2.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\bill.png"));
-        header_invoice.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+        header_invoice.add(jLabel2, java.awt.BorderLayout.WEST);
 
         content_text.setOpaque(false);
         content_text.setPreferredSize(new java.awt.Dimension(300, 80));
-        content_text.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        content_text.setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new java.awt.GridLayout(3, 0, 0, 10));
@@ -139,9 +148,12 @@ public class Invoice extends javax.swing.JPanel {
 
         jPanel1.add(jPanel4);
 
-        content_text.add(jPanel1);
+        content_text.add(jPanel1, new java.awt.GridBagConstraints());
 
-        header_invoice.add(content_text, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
+        header_invoice.add(content_text, java.awt.BorderLayout.CENTER);
+
+        jPanel5.setOpaque(false);
+        jPanel5.setLayout(new java.awt.BorderLayout());
 
         jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
         jButton1.setBorder(null);
@@ -152,7 +164,9 @@ public class Invoice extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        header_invoice.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
+        jPanel5.add(jButton1, java.awt.BorderLayout.PAGE_START);
+
+        header_invoice.add(jPanel5, java.awt.BorderLayout.EAST);
 
         add(header_invoice, java.awt.BorderLayout.PAGE_START);
 
@@ -174,13 +188,6 @@ public class Invoice extends javax.swing.JPanel {
 
         items.setBackground(new java.awt.Color(255, 255, 255));
         items.setLayout(new java.awt.GridLayout(6, 0, 0, 10));
-        items.add(itemInvoice7);
-        items.add(itemInvoice8);
-        items.add(itemInvoice9);
-        items.add(itemInvoice10);
-        items.add(itemInvoice11);
-        items.add(itemInvoice12);
-
         jsp_products.setViewportView(items);
 
         products_container.add(jsp_products, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 0, -1, -1));
@@ -211,7 +218,7 @@ public class Invoice extends javax.swing.JPanel {
         lbl_totalApagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         Contenedor_totalapagar.add(lbl_totalApagar, java.awt.BorderLayout.CENTER);
 
-        Contenedor_totalPagar.add(Contenedor_totalapagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
+        Contenedor_totalPagar.add(Contenedor_totalapagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
 
         Contenedor_montoaPagar.add(Contenedor_totalPagar, java.awt.BorderLayout.NORTH);
 
@@ -344,12 +351,6 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel contenedor_subtotalImpuestoTotal;
     private javax.swing.JPanel content_text;
     private com.superventas.pos.view.components.RoundedPanel header_invoice;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice10;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice11;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice12;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice7;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice8;
-    private com.superventas.pos.view.components.ItemInvoice itemInvoice9;
     private javax.swing.JPanel items;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -364,6 +365,7 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
