@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.superventas.pos.view.components;
 
+import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Inventario;
+import com.superventas.pos.model.Productos;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 /**
@@ -12,14 +11,19 @@ import javax.swing.ImageIcon;
  */
 public class Item extends javax.swing.JPanel {
 
-    /**
-     * Creates new form item
-     */
-    
-    public Item(String nom, double precio) {
+    private Productos producto;
+    private Inventario inventario;
+    private Carrito carrito;
+    private BillingSection bs;
+            
+    public Item(Productos producto, Inventario inventario, Carrito carrito, BillingSection bs) {
+        this.producto = producto;
+        this.inventario = inventario;
+        this.carrito = carrito;
+        this.bs = bs;
         initComponents();
-        lbl_nom_art.setText(nom);
-        lbl_precio_dolar.setText(String.valueOf(precio)+" $");
+        lbl_nom_art.setText(producto.getNombre());
+        lbl_precio_dolar.setText(String.valueOf(producto.getPrecio_venta())+" $");
         btn_agregar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     }
 
@@ -107,10 +111,20 @@ public class Item extends javax.swing.JPanel {
         btn_agregar.setForeground(new java.awt.Color(255, 255, 255));
         btn_agregar.setText("Agregar Carrito");
         btn_agregar.setPreferredSize(new java.awt.Dimension(120, 30));
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
         container_item.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 155, -1, -1));
 
         add(container_item, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+        carrito.agregarProducto(producto, inventario);
+        bs.responsive();
+    }//GEN-LAST:event_btn_agregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

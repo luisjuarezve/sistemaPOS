@@ -4,6 +4,7 @@ package com.superventas.pos.persistence;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class ConexionBDD {
     String DB_URL = "jdbc:sqlite:src\\main\\java\\com\\superventas\\pos\\persistence\\pos.db";
@@ -31,6 +32,9 @@ public class ConexionBDD {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(DB_URL);
+             try (Statement stmt = connection.createStatement()) {
+                stmt.execute("PRAGMA foreign_keys = ON;");
+            }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

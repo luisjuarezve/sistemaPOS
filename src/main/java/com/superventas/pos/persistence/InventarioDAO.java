@@ -43,9 +43,9 @@ public class InventarioDAO {
             }
         }
     }
-   public Inventario leerInventario(String id) {
+   public Inventario leerInventario(int producto_id) {
     Inventario inventario = null;
-    String sql = "SELECT * FROM INVENTARIO WHERE ID = ?";
+    String sql = "SELECT * FROM INVENTARIO WHERE PRODUCTO_ID = ?";
     ConexionBDD cn = new ConexionBDD();
     Connection connection = null;
     PreparedStatement pstmt = null;
@@ -53,17 +53,15 @@ public class InventarioDAO {
     try {
         connection = cn.getConnection();
         pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, id);
+        pstmt.setInt(1, producto_id);
         rs = pstmt.executeQuery();
         if (rs.next()) {
             // Assuming the table INVENTARIO has the columns ID, CANTIDAD, INVENTARIO_MIN, INVENTARIO_MAX, ID_PRODUCTO
-            
+            int id= rs.getInt("ID");
             double cantidad = rs.getDouble("CANTIDAD");
             double inventarioMin = rs.getDouble("INVENTARIO_MIN");
             double inventarioMax = rs.getDouble("INVENTARIO_MAX");
-            int producto_id= rs.getInt("PRODUCTO_ID");
-
-            inventario = new Inventario(Integer.parseInt(id), cantidad, inventarioMin, inventarioMax, producto_id);
+            inventario = new Inventario(id, cantidad, inventarioMin, inventarioMax, producto_id);
         } else {
             System.out.println("Inventario no encontrado.");
         }

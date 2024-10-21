@@ -1,28 +1,34 @@
 package com.superventas.pos.view.components;
 
+import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.ItemCarrito;
+import com.superventas.pos.model.Productos;
+import com.superventas.pos.persistence.ProductosDAO;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class Invoice extends javax.swing.JPanel {
-
+    
+    private ProductosDAO proDAO = new ProductosDAO();
+    private Dimension invoiceSize;
+    private Dimension itemsSize;
+    private Dimension itemsInvoiceSize;
+    private BillingSection bs;
     /**
      * Creates new form Invoice
-     */
-    public Invoice(Dimension invoiceSize) {
+     */ /////////asdasdsad le puedo pasar billing section
+    public Invoice(Dimension invoiceSize, Carrito carrito, BillingSection bs) {
         initComponents();
-        Dimension itemsSize = new Dimension(invoiceSize.width-44, invoiceSize.height-417);
-        Dimension itemsInvoiceSize = new Dimension(invoiceSize.width-64, 85);
-        jsp_products.setPreferredSize(itemsSize);
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        items.add(new ItemInvoice(itemsInvoiceSize));
-        Contenedor_totalPagar.setPreferredSize(new Dimension(invoiceSize.width, 78));
-        Contenedor_totalapagar.setPreferredSize(new Dimension(invoiceSize.width, 68));
-        jsp_products.getVerticalScrollBar().setUnitIncrement(16);
+        this.invoiceSize = invoiceSize;
+        this.itemsSize = new Dimension(invoiceSize.width - 44, invoiceSize.height - 417);
+        this.itemsInvoiceSize = new Dimension(invoiceSize.width - 64, 85);
+        this.bs = bs;
+        responsive();
+        cargarProductos(carrito);
     }
 
     /**
@@ -187,7 +193,18 @@ public class Invoice extends javax.swing.JPanel {
         jsp_products.setPreferredSize(new java.awt.Dimension(376, 465));
 
         items.setBackground(new java.awt.Color(255, 255, 255));
-        items.setLayout(new java.awt.GridLayout(6, 0, 0, 10));
+
+        javax.swing.GroupLayout itemsLayout = new javax.swing.GroupLayout(items);
+        items.setLayout(itemsLayout);
+        itemsLayout.setHorizontalGroup(
+            itemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 376, Short.MAX_VALUE)
+        );
+        itemsLayout.setVerticalGroup(
+            itemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 465, Short.MAX_VALUE)
+        );
+
         jsp_products.setViewportView(items);
 
         products_container.add(jsp_products, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 0, -1, -1));
@@ -390,4 +407,20 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel products_invoice;
     private com.superventas.pos.view.components.RoundedButton1_Invoice roundedButton1_Invoice1;
     // End of variables declaration//GEN-END:variables
+    
+    private void cargarProductos(Carrito carrito){
+        int cant_prod = carrito.getItems().size();
+        GridLayout gl = new GridLayout(cant_prod, 1, 10, 10);
+        items.setLayout(gl);
+        for (ItemCarrito item : carrito.getItems()) {
+            items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), carrito.getInventario(), carrito, bs));
+        }
+    }
+    
+    private void responsive(){
+        jsp_products.setPreferredSize(itemsSize);
+        Contenedor_totalPagar.setPreferredSize(new Dimension(invoiceSize.width, 78));
+        Contenedor_totalapagar.setPreferredSize(new Dimension(invoiceSize.width, 68));
+        jsp_products.getVerticalScrollBar().setUnitIncrement(16);
+    }
 }

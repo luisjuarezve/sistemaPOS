@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.superventas.pos.view.components;
+import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Inventario;
+import com.superventas.pos.model.Productos;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 /**
@@ -10,13 +9,23 @@ import javax.swing.ImageIcon;
  * @author conta
  */
 public class ItemInvoice extends javax.swing.JPanel {
-
-    /**
-     * Creates new form ItemInvoice
-     */
-    public ItemInvoice(Dimension size) {
+    
+    private Carrito carrito;
+    private Productos productos;
+    private BillingSection bs;
+    private Inventario inventario;
+    
+    public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, BillingSection bs) {
         initComponents();
+        this.bs = bs;
+        this.productos = producto;
+        this.carrito = carrito;
+        this.inventario = inventario;
         this.setPreferredSize(size);
+        lbl_cantidad.setText(String.valueOf(cantidad));
+        lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));
+        lbl_nombreArticulo.setText(producto.getNombre());
+        lbl_precioDolares.setText(String.valueOf(producto.getPrecio_venta()*cantidad)+" $");
         jPanel1.setPreferredSize(new Dimension(size.width-20, size.height-10));
     }
 
@@ -45,6 +54,9 @@ public class ItemInvoice extends javax.swing.JPanel {
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         lbl_cantidad = new javax.swing.JLabel();
+        lbl_asd = new javax.swing.JLabel();
+        lbl_existencia1 = new javax.swing.JLabel();
+        lbl_cantidad_existencia = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lbl_totalPrecioDolares = new javax.swing.JLabel();
@@ -74,6 +86,11 @@ public class ItemInvoice extends javax.swing.JPanel {
         btn_menos.setFocusable(false);
         btn_menos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_menos.setPreferredSize(new java.awt.Dimension(35, 35));
+        btn_menos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_menosActionPerformed(evt);
+            }
+        });
         jPanel8.add(btn_menos);
 
         btn_mas.setBackground(new java.awt.Color(41, 1, 138));
@@ -82,6 +99,11 @@ public class ItemInvoice extends javax.swing.JPanel {
         btn_mas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_mas.setFocusable(false);
         btn_mas.setPreferredSize(new java.awt.Dimension(35, 35));
+        btn_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masActionPerformed(evt);
+            }
+        });
         jPanel8.add(btn_mas);
 
         jPanel3.add(jPanel8, new java.awt.GridBagConstraints());
@@ -119,11 +141,20 @@ public class ItemInvoice extends javax.swing.JPanel {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        jLabel4.setText("Cantidad:");
+        jLabel4.setText("Und");
         jPanel6.add(jLabel4);
 
         lbl_cantidad.setText("10");
         jPanel6.add(lbl_cantidad);
+
+        lbl_asd.setText("-");
+        jPanel6.add(lbl_asd);
+
+        lbl_existencia1.setText("Existencia:");
+        jPanel6.add(lbl_existencia1);
+
+        lbl_cantidad_existencia.setText("0");
+        jPanel6.add(lbl_cantidad_existencia);
 
         jPanel4.add(jPanel6);
 
@@ -158,6 +189,16 @@ public class ItemInvoice extends javax.swing.JPanel {
         add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 83, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masActionPerformed
+        carrito.disminuirProducto(productos);
+        bs.responsive();
+    }//GEN-LAST:event_btn_masActionPerformed
+
+    private void btn_menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menosActionPerformed
+        carrito.agregarProducto(productos, inventario);
+        bs.responsive();
+    }//GEN-LAST:event_btn_menosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_mas;
@@ -177,7 +218,10 @@ public class ItemInvoice extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lbl_asd;
     private javax.swing.JLabel lbl_cantidad;
+    private javax.swing.JLabel lbl_cantidad_existencia;
+    private javax.swing.JLabel lbl_existencia1;
     private javax.swing.JLabel lbl_nombreArticulo;
     private javax.swing.JLabel lbl_precioBolivares;
     private javax.swing.JLabel lbl_precioDolares;

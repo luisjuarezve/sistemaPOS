@@ -1,6 +1,9 @@
 package com.superventas.pos.view.components;
 
+import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
+import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -11,11 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
 public class ProductsSection extends javax.swing.JPanel {
-
-    public ProductsSection() {
+    ProductosDAO proD = new ProductosDAO();
+    InventarioDAO invD = new InventarioDAO();
+    Carrito carrito;
+    BillingSection bs;
+    
+    public ProductsSection(Carrito carrito, BillingSection bs) {
+        this.carrito = carrito;
+        this.bs = bs;
         initComponents();
         responsive();
-        ProductosDAO proD = new ProductosDAO();
         cargarProductos(proD.LeerTodosProductos());
     }
 
@@ -208,7 +216,9 @@ public class ProductsSection extends javax.swing.JPanel {
             row_items.setLayout(gl);
             for (int i = 0; i <= 17; i++) {
                 if (i<=cant_prod) {
-                    row_items.add(new Item(listaProductos.get(i).getNombre(), listaProductos.get(i).getPrecio_venta()));
+                    Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
+                    Item item = new Item(listaProductos.get(i), inventario, carrito, bs);
+                    row_items.add(item);
                 }else{
                     JPanel njp = new JPanel();
                     njp.setOpaque(false);
@@ -222,7 +232,8 @@ public class ProductsSection extends javax.swing.JPanel {
             GridLayout gl = new GridLayout(row_prod, 6, 10, 10);
             row_items.setLayout(gl);
             for (int i = 0; i < cant_prod; i++) {
-                row_items.add(new Item("Nombre Articulo " + (i+1), 100.00));
+                Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
+                row_items.add(new Item(listaProductos.get(i), inventario, carrito,bs));
             }
         }
     }

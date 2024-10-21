@@ -16,7 +16,7 @@ public class CategoriasDAO {
         ConexionBDD cn = new ConexionBDD();
         Connection connection = null;
         PreparedStatement pstmt = null;
-
+        
         try {
             connection = cn.getConnection(); 
             pstmt = connection.prepareStatement(sql);
