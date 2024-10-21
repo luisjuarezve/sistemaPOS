@@ -1,6 +1,7 @@
 package com.superventas.pos.view;
 
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.components.BillingSection;
 import com.superventas.pos.view.components.ProductsSection;
 import java.awt.Toolkit;
@@ -9,12 +10,15 @@ import javax.swing.ImageIcon;
 
 public class SuperPOS extends javax.swing.JFrame {
     
+    private Empleados empleado;
     private Carrito carrito = new Carrito();
     private BillingSection bs = new BillingSection(carrito);
     private ProductsSection ps = new ProductsSection(carrito, bs);
     
-    public SuperPOS() {
+    public SuperPOS(Empleados empleado) {
         initComponents();
+        this.empleado = empleado;
+        lbl_user.setText(empleado.getNombre()+" "+empleado.getApellido());
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         body.add(ps, new java.awt.BorderLayout().WEST);
         body.add(bs, new java.awt.BorderLayout().EAST);

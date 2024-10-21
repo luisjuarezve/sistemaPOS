@@ -1,19 +1,27 @@
 package com.superventas.pos.view;
 
+import com.superventas.pos.model.Empleados;
+import com.superventas.pos.persistence.EmpleadosDAO;
 import java.awt.Color;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 public class Login extends javax.swing.JFrame {
-
+    
+    private Empleados empleado;
+    private EmpleadosDAO empDAO = new EmpleadosDAO();
+    private int intentos = 0;
+            
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setBackground(new Color(0,0,0,0));
     }
 
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +38,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         Main_form = new com.superventas.pos.view.components.RoundedPanel();
         Main_options = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btn_close = new javax.swing.JButton();
         Main_body = new javax.swing.JPanel();
         lbl_usuario = new javax.swing.JLabel();
+        lbl_error = new javax.swing.JLabel();
         lbl_contrasena = new javax.swing.JLabel();
         txt_usuario = new com.superventas.pos.view.components.RoundedTextField();
         txt_contrasena = new com.superventas.pos.view.components.RoundedPasswordField();
@@ -81,18 +90,18 @@ public class Login extends javax.swing.JFrame {
         Main_options.setPreferredSize(new java.awt.Dimension(300, 50));
         Main_options.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.TRAILING));
 
-        jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
-        jButton1.setBorder(null);
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusPainted(false);
-        jButton1.setFocusable(false);
-        jButton1.setPreferredSize(new java.awt.Dimension(32, 32));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_close.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
+        btn_close.setBorder(null);
+        btn_close.setContentAreaFilled(false);
+        btn_close.setFocusPainted(false);
+        btn_close.setFocusable(false);
+        btn_close.setPreferredSize(new java.awt.Dimension(32, 32));
+        btn_close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_closeActionPerformed(evt);
             }
         });
-        Main_options.add(jButton1);
+        Main_options.add(btn_close);
 
         Main_form.add(Main_options, java.awt.BorderLayout.PAGE_START);
 
@@ -102,6 +111,9 @@ public class Login extends javax.swing.JFrame {
         lbl_usuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_usuario.setText("Usuario:");
         Main_body.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
+
+        lbl_error.setForeground(new java.awt.Color(255, 0, 0));
+        Main_body.add(lbl_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         lbl_contrasena.setText("Contraseña:");
         Main_body.add(lbl_contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
@@ -117,11 +129,6 @@ public class Login extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txt_usuarioFocusLost(evt);
-            }
-        });
-        txt_usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_usuarioActionPerformed(evt);
             }
         });
         Main_body.add(txt_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
@@ -166,13 +173,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_closeActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void txt_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usuarioActionPerformed
-        
-    }//GEN-LAST:event_txt_usuarioActionPerformed
+    }//GEN-LAST:event_btn_closeActionPerformed
 
     private void txt_usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usuarioFocusGained
         if (txt_usuario.getText().equals("usuario")) {
@@ -201,9 +204,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_contrasenaFocusLost
 
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
-        if (txt_usuario.getText().equals("admin") && new String(txt_contrasena.getPassword()).equals("123456")) {
-            this.dispose();
-            JOptionPane.showMessageDialog(null, "Inicio de Sesión exitoso!", "Inicio Exitoso!",JOptionPane.INFORMATION_MESSAGE);
+        empleado = empDAO.Login(txt_usuario.getText(), new String(txt_contrasena.getPassword()));
+        if (empleado!=null) {
+           SuperPOS sp = new SuperPOS(empleado);
+           sp.setVisible(true);
+           this.dispose();
+        }else{
+           manejarIntentos();
+           lbl_error.setText("Intento: "+intentos);
         }
     }//GEN-LAST:event_btn_loginActionPerformed
 
@@ -219,13 +227,64 @@ public class Login extends javax.swing.JFrame {
     private com.superventas.pos.view.components.RoundedPanel Main_logo;
     private javax.swing.JPanel Main_options;
     private javax.swing.JLabel Title;
+    private javax.swing.JButton btn_close;
     private com.superventas.pos.view.components.RoundedButtonGradient btn_login;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbl_contrasena;
+    private javax.swing.JLabel lbl_error;
     private javax.swing.JLabel lbl_usuario;
     private com.superventas.pos.view.components.RoundedPasswordField txt_contrasena;
     private com.superventas.pos.view.components.RoundedTextField txt_usuario;
     // End of variables declaration//GEN-END:variables
+    
+    public void manejarIntentos() {
+        intentos++;
+        int tiempoEspera = 0;
+
+        if (intentos == 3) {
+            tiempoEspera = 1;
+        } else if (intentos == 4) {
+            tiempoEspera = 3;
+        } else if (intentos == 5) {
+            tiempoEspera = 5;
+        } else if (intentos >= 6) {
+            tiempoEspera = 10;
+        }
+
+        if (tiempoEspera > 0) {
+            final int finalTiempoEspera = tiempoEspera * 60; // Tiempo en segundos
+
+            // Desactiva el botón de inicio de sesión
+            btn_login.setEnabled(false);
+            btn_close.setEnabled(false);
+            // Variables para el tiempo restante
+            final int[] segundosRestantes = {finalTiempoEspera};
+
+            // Timer para actualizar lbl_error y reactivar el botón después de esperar
+            Timer countDownTimer = new Timer(1000, e -> {
+                if (segundosRestantes[0] > 0) {
+                    lbl_error.setText("Espera " + (segundosRestantes[0] / 60) + " minutos y " + (segundosRestantes[0] % 60) + " segundos");
+                    segundosRestantes[0]--;
+                } else {
+                    // Reactivar el botón y detener el temporizador cuando el tiempo se agote
+                    ((Timer) e.getSource()).stop();
+                    lbl_error.setText("");
+                    btn_login.setEnabled(true);
+                    btn_close.setEnabled(true);
+                }
+            });
+            countDownTimer.start();
+
+            // Simula el tiempo de espera sin bloquear el hilo de la interfaz gráfica
+            new Thread(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(finalTiempoEspera);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }).start();
+        }
+    }
+
 }
