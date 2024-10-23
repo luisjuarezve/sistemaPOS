@@ -3,25 +3,31 @@ package com.superventas.pos.view;
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.components.BillingSection;
+import com.superventas.pos.view.components.MenuPrincipal;
+import com.superventas.pos.view.components.PanelClientes;
 import com.superventas.pos.view.components.ProductsSection;
+import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 public class SuperPOS extends javax.swing.JFrame {
     
     private Empleados empleado;
-    private Carrito carrito = new Carrito();
-    private BillingSection bs = new BillingSection(carrito);
-    private ProductsSection ps = new ProductsSection(carrito, bs);
+
+    
     
     public SuperPOS(Empleados empleado) {
         initComponents();
         this.empleado = empleado;
         lbl_user.setText(empleado.getNombre()+" "+empleado.getApellido());
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        body.add(ps, new java.awt.BorderLayout().WEST);
-        body.add(bs, new java.awt.BorderLayout().EAST);
+        body.add(new MenuPrincipal(body), new java.awt.BorderLayout().CENTER);
+        
+        
+
+        
     }
 
     /**
@@ -119,7 +125,11 @@ public class SuperPOS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuActionPerformed
-        JOptionPane.showMessageDialog(null, "Activar menu");
+        
+        body.removeAll();
+        body.add(new MenuPrincipal(body), new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
     }//GEN-LAST:event_btn_menuActionPerformed
 
     private void btn_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logoutActionPerformed

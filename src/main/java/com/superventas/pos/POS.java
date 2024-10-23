@@ -9,10 +9,13 @@ import com.superventas.pos.view.Login;
 import com.superventas.pos.view.SuperPOS;
 
 
+
 public class POS {
 
     public static void main(String[] args) {
         Login lg = new Login();
         lg.setVisible(true);
+        
+        
     }
 }
