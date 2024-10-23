@@ -22,7 +22,6 @@ public class Carrito {
                     // Si el producto ya está en el carrito, aumenta la cantidad
                     item.setCantidad(item.getCantidad() + 1);
                     inventario.setCantidad(inventario.getCantidad() - 1); // Reduce la cantidad en inventario
-                    System.out.println("Cantidad en inventario de: "+inventario.getCantidad());
                     return;
                 }
             }
@@ -51,5 +50,6 @@ public class Carrito {
     public ArrayList<ItemCarrito> getItems() {
         return items;
     }
+    
     
 }

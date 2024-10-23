@@ -22,10 +22,14 @@ public class ItemInvoice extends javax.swing.JPanel {
         this.carrito = carrito;
         this.inventario = inventario;
         this.setPreferredSize(size);
+        double tasa = 39.0;
         lbl_cantidad.setText(String.valueOf(cantidad));
         lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));
         lbl_nombreArticulo.setText(producto.getNombre());
-        lbl_precioDolares.setText(String.valueOf(producto.getPrecio_venta()*cantidad)+" $");
+        lbl_precioDolares.setText(String.valueOf(producto.getPrecio_venta())+" $");
+        lbl_precioBolivares.setText(String.valueOf(producto.getPrecio_venta()*tasa)+" Bs");
+        lbl_totalPrecioDolares.setText(String.valueOf(producto.getPrecio_venta()*cantidad)+" $");
+        lbl_totalPrecioBolivares.setText(String.valueOf(producto.getPrecio_venta()*cantidad*tasa)+" Bs");
         jPanel1.setPreferredSize(new Dimension(size.width-20, size.height-10));
     }
 
@@ -41,8 +45,8 @@ public class ItemInvoice extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
-        btn_menos = new javax.swing.JButton();
         btn_mas = new javax.swing.JButton();
+        btn_menos = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_nombreArticulo = new javax.swing.JLabel();
@@ -79,8 +83,23 @@ public class ItemInvoice extends javax.swing.JPanel {
 
         jPanel8.setOpaque(false);
 
+        btn_mas.setBackground(new java.awt.Color(41, 1, 138));
+        btn_mas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_mas.setForeground(new java.awt.Color(255, 255, 255));
+        btn_mas.setText("-");
+        btn_mas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btn_mas.setFocusable(false);
+        btn_mas.setPreferredSize(new java.awt.Dimension(35, 35));
+        btn_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_masActionPerformed(evt);
+            }
+        });
+        jPanel8.add(btn_mas);
+
         btn_menos.setBackground(new java.awt.Color(168, 8, 72));
         btn_menos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btn_menos.setForeground(new java.awt.Color(255, 255, 255));
         btn_menos.setText("+");
         btn_menos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btn_menos.setFocusable(false);
@@ -92,19 +111,6 @@ public class ItemInvoice extends javax.swing.JPanel {
             }
         });
         jPanel8.add(btn_menos);
-
-        btn_mas.setBackground(new java.awt.Color(41, 1, 138));
-        btn_mas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_mas.setText("-");
-        btn_mas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        btn_mas.setFocusable(false);
-        btn_mas.setPreferredSize(new java.awt.Dimension(35, 35));
-        btn_mas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_masActionPerformed(evt);
-            }
-        });
-        jPanel8.add(btn_mas);
 
         jPanel3.add(jPanel8, new java.awt.GridBagConstraints());
 

@@ -146,6 +146,11 @@ public class Login extends javax.swing.JFrame {
                 txt_contrasenaFocusLost(evt);
             }
         });
+        txt_contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_contrasenaKeyPressed(evt);
+            }
+        });
         Main_body.add(txt_contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         btn_login.setBorder(null);
@@ -214,6 +219,21 @@ public class Login extends javax.swing.JFrame {
            lbl_error.setText("Intento: "+intentos);
         }
     }//GEN-LAST:event_btn_loginActionPerformed
+
+    private void txt_contrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contrasenaKeyPressed
+        String password = new String(txt_contrasena.getPassword());
+        if (evt.getKeyCode() == 10 && !txt_usuario.getText().equals("usuario") && !password.equals("*********") && !password.isEmpty() && !txt_usuario.getText().isEmpty()) {
+          empleado = empDAO.Login(txt_usuario.getText(), new String(txt_contrasena.getPassword()));
+            if (empleado!=null) {
+               SuperPOS sp = new SuperPOS(empleado);
+               sp.setVisible(true);
+               this.dispose();
+            }else{
+               manejarIntentos();
+               lbl_error.setText("Intento: "+intentos);
+            }  
+        }
+    }//GEN-LAST:event_txt_contrasenaKeyPressed
 
     /**
      * @param args the command line arguments
