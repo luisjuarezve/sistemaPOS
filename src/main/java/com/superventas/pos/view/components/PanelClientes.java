@@ -6,6 +6,8 @@ package com.superventas.pos.view.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,13 +20,9 @@ public class PanelClientes extends javax.swing.JPanel {
      * Creates new form Clientes
      */
     public PanelClientes(Dimension tamaño) {
-        
         initComponents();
         this.setPreferredSize(tamaño);
         responsive(tamaño);
-
-        
-        
     }
 
     /**
@@ -121,7 +119,6 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_nuevoCliente.setBackground(new java.awt.Color(168, 8, 72));
         btn_nuevoCliente.setBorder(null);
         btn_nuevoCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btn_nuevoCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\AggClient.png")); // NOI18N
         btn_nuevoCliente.setText("Nuevo");
         btn_nuevoCliente.setFocusable(false);
         btn_nuevoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -132,7 +129,6 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_eliminarCliente.setBackground(new java.awt.Color(168, 8, 72));
         btn_eliminarCliente.setBorder(null);
         btn_eliminarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btn_eliminarCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\DeletUser.png")); // NOI18N
         btn_eliminarCliente.setText("Eliminar");
         btn_eliminarCliente.setFocusable(false);
         btn_eliminarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -143,7 +139,6 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_modificarCliente.setBackground(new java.awt.Color(168, 8, 72));
         btn_modificarCliente.setBorder(null);
         btn_modificarCliente.setForeground(new java.awt.Color(255, 255, 255));
-        btn_modificarCliente.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\SistemaPOS\\sistemaPOS\\src\\main\\java\\com\\superventas\\pos\\img\\Modify.png")); // NOI18N
         btn_modificarCliente.setText("Modificar");
         btn_modificarCliente.setFocusable(false);
         btn_modificarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -174,24 +169,32 @@ public class PanelClientes extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void responsive(Dimension tamaño){
-        
         int contPriW = (int)(tamaño.getWidth()*0.9);
         int contPriH = (int)(tamaño.getHeight()*0.7);
         int contTablW = (int)(tamaño.getWidth()*0.8);
         int contTablH = (int)(tamaño.getHeight()*0.7)-80;
         int contBtnW =  (int) (tamaño.getWidth()*0.2);
-        int contBtnH =  (int) (tamaño.getWidth()*0.7)-80;
-        
-        
+        int contBtnH =  (int) (tamaño.getHeight()*0.7)-80;
         
         Contenedor_Principal.setPreferredSize(new Dimension(contPriW, contPriH));
         Contenedor_table.setPreferredSize(new Dimension(contTablW, contTablH));
         jScrollPane2.setPreferredSize(new Dimension((int) (contTablW*0.8), (int) (contTablH*0.8)));
-        //jTable2.setPreferredSize(new Dimension(jScrollPane2.getWidth(),jScrollPane2.getHeight()));
-        //jScrollPane2.setBackground(Color.blue);
-        //Contenedor_table.setBackground(Color.red);
         Contenedor_Button.setPreferredSize(new Dimension(contBtnW, contBtnH));
-        roundedPanel2.setPreferredSize(new Dimension((int)(contBtnW*0.8),(int)(contBtnH*0.6)));
+        roundedPanel2.setPreferredSize(new Dimension((int)(contBtnW*0.8),(int)(contBtnH*0.8)));
+        btn_nuevoCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\NewUser.png", 32, 32));
+        btn_modificarCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\Modify.png", 32, 32));
+        btn_eliminarCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\DeletUser.png", 32, 32));
+    }
+    
+    private ImageIcon redimencionarIcon (String url, int width,int height){
+        ImageIcon icon = new ImageIcon(url);
+        // Obtener la imagen original
+        Image img = icon.getImage();
+        // Redimensionar la imagen
+        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        // Crear un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon newIcon = new ImageIcon(newImg);
         
+        return newIcon;
     }
 }

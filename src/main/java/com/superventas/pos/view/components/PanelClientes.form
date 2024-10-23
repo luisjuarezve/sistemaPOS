@@ -232,9 +232,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\AggClient.png"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Nuevo"/>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -255,9 +252,6 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
                     </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\DeletUser.png"/>
-                    </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -277,9 +271,6 @@
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="2" name="C:\Users\Admin\Documents\NetBeansProjects\SistemaPOS\sistemaPOS\src\main\java\com\superventas\pos\img\Modify.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Modificar"/>
                     <Property name="focusable" type="boolean" value="false"/>
