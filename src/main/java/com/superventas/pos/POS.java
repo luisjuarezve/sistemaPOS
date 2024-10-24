@@ -7,6 +7,7 @@ import com.superventas.pos.persistence.EmpleadosDAO;
 import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.view.Login;
 import com.superventas.pos.view.SuperPOS;
+import com.superventas.pos.view.components.CrearCliente;
 
 
 
@@ -16,6 +17,6 @@ public class POS {
         Login lg = new Login();
         lg.setVisible(true);
         
-        
+
     }
 }
