@@ -1,9 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.superventas.pos.view.components;
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Empleados;
+import com.superventas.pos.view.SuperPOS;
+import com.superventas.pos.view.form_tasaDolar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -13,19 +12,13 @@ import javax.swing.JPanel;
  */
 public class MenuPrincipal extends javax.swing.JPanel {
     private Carrito carrito = new Carrito();
-    private double tasa;
-    private BillingSection bs;
-    private ProductsSection ps;
     private JPanel body;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(JPanel body, double tasa) {
+    public MenuPrincipal(JPanel body) {
         initComponents();
         this.body= body;
-        this.tasa = tasa;
-        this.bs = new BillingSection(carrito, tasa);
-        this.ps = new ProductsSection(carrito, bs, tasa);
     }
 
     /**
@@ -216,19 +209,25 @@ public class MenuPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void roundedButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton8ActionPerformed
-       body.removeAll();
-       body.add(new PanelClientes(body.getSize()),new java.awt.BorderLayout().CENTER);
-       body.revalidate();
-       body.repaint();
+        //body.removeAll();
+        //body.add(new PanelClientes(body.getSize()),new java.awt.BorderLayout().CENTER);
+        //body.revalidate();
+        //body.repaint();
         // TODO add your handling code here:
     }//GEN-LAST:event_roundedButton8ActionPerformed
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
-       body.removeAll();
-       body.add(ps, new java.awt.BorderLayout().WEST);
-       body.add(bs, new java.awt.BorderLayout().EAST);
-       body.revalidate();
-       body.repaint();  // TODO add your handling code here:
+        if (SuperPOS.getTasa() == 0) {
+            form_tasaDolar ftd = new form_tasaDolar(body, carrito);
+            ftd.setVisible(true);
+        }else{
+            body.removeAll();
+            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa());
+            body.add(new ProductsSection(carrito, bs, SuperPOS.getTasa()), new java.awt.BorderLayout().WEST);
+            body.add(bs, new java.awt.BorderLayout().EAST);
+            body.revalidate();
+            body.repaint();  // TODO add your handling code here:
+        }
     }//GEN-LAST:event_roundedButton2ActionPerformed
 
 

@@ -16,7 +16,6 @@ public class BillingSection extends javax.swing.JPanel {
         this.tasa = tasa;
         initComponents();
         responsive();
-        System.out.println(tasa);
     }
 
     /**

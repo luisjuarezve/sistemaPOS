@@ -1,19 +1,24 @@
 package com.superventas.pos.view;
 
-import com.superventas.pos.model.Empleados;
+import com.superventas.pos.model.Carrito;
+import com.superventas.pos.view.components.BillingSection;
+import com.superventas.pos.view.components.ProductsSection;
 import java.awt.Color;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 public class form_tasaDolar extends javax.swing.JFrame {
 
-    private  Empleados empleado;
+    private JPanel body;
+    private Carrito carrito;
     
-    public form_tasaDolar(Empleados empleado) {
+    public form_tasaDolar(JPanel body, Carrito carrito) {
         initComponents();
-        this.empleado = empleado;
         this.setBackground(new Color(0,0,0,0));
         this.setLocationRelativeTo(null);
+        this.body = body;
+        this.carrito = carrito;
         
         txt_tasa.getDocument().addDocumentListener(new DocumentListener(){
             @Override
@@ -142,8 +147,13 @@ public class form_tasaDolar extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         double tasa = Double.valueOf(txt_tasa.getText());
-        SuperPOS sp = new SuperPOS(empleado, tasa);
-        sp.setVisible(true);
+        SuperPOS.setTasa(tasa);
+        body.removeAll();
+        BillingSection bs = new BillingSection(carrito, tasa);
+        body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
+        body.add(bs, new java.awt.BorderLayout().EAST);
+        body.revalidate();
+        body.repaint();  // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btn_guardarActionPerformed
 
