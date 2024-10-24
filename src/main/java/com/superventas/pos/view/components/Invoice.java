@@ -27,8 +27,25 @@ public class Invoice extends javax.swing.JPanel {
         this.itemsSize = new Dimension(invoiceSize.width - 44, invoiceSize.height - 417);
         this.itemsInvoiceSize = new Dimension(invoiceSize.width - 64, 85);
         this.bs = bs;
+        double tasa = 39;
         responsive();
         cargarProductos(carrito);
+        lbl_exento_dolar.setText(String.format("%.2f", carrito.calcularExcento()) + " $");
+        lbl_exento_bs.setText(String.format("%.2f", carrito.calcularExcento() * tasa) + " Bs");
+        lbl_big_dolar.setText(String.format("%.2f", carrito.calcularBIG()) + " $");
+        lbl_big_bs.setText(String.format("%.2f", carrito.calcularBIG() * tasa) + " Bs");
+        lbl_iva_dolar.setText(String.format("%.2f", carrito.calcularIVA()) + " $");
+        lbl_iva_bs.setText(String.format("%.2f", carrito.calcularIVA() * tasa) + " Bs");
+        lbl_precioTotalapagarDolares.setText(String.format("%.2f", carrito.calcularExcento() + carrito.calcularBIG() + carrito.calcularIVA()) + " $");
+        lbl_PrecioTotalapagarBolivares.setText(String.format("%.2f", (carrito.calcularExcento() + carrito.calcularBIG() + carrito.calcularIVA()) * tasa) + " Bs");
+        double monto_total = carrito.calcularExcento() + carrito.calcularBIG() + carrito.calcularIVA();
+        if ( monto_total > 0) {
+            btn_pagar.setEnabled(true);
+            btn_pagar.setText("Cobrar - "+String.format("%.2f", monto_total)+" $");
+        }else{
+            btn_pagar.setText("Cobrar");
+            btn_pagar.setEnabled(false);
+        }
     }
 
     /**
@@ -66,17 +83,22 @@ public class Invoice extends javax.swing.JPanel {
         lbl_totalApagar = new javax.swing.JLabel();
         contenedor_subtotalImpuestoTotal = new javax.swing.JPanel();
         Contenedor = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        lbl_exento = new javax.swing.JLabel();
+        lbl_exento_dolar = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lbl_exento_bs = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        lbl_subtotal = new javax.swing.JLabel();
-        lbl_precioSubtotalDolares = new javax.swing.JLabel();
+        lbl_big = new javax.swing.JLabel();
+        lbl_big_dolar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        lbl_precioSubtotalBolivares = new javax.swing.JLabel();
+        lbl_big_bs = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        lbl_porcentajeImpuesto = new javax.swing.JLabel();
-        lbl_precioImpuestoDolares = new javax.swing.JLabel();
+        lbl_iva = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        lbl_precioImpuestoBolivares = new javax.swing.JLabel();
+        lbl_iva_dolar = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lbl_iva_bs = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lbl_precioTotalapagarDolares = new javax.swing.JLabel();
@@ -86,7 +108,7 @@ public class Invoice extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         payment_invoice = new javax.swing.JPanel();
         contenedor_buttom = new javax.swing.JPanel();
-        roundedButton1_Invoice1 = new com.superventas.pos.view.components.RoundedButton1_Invoice();
+        btn_pagar = new com.superventas.pos.view.components.RoundedButton1_Invoice();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(420, 984));
@@ -216,11 +238,11 @@ public class Invoice extends javax.swing.JPanel {
         Contenedor_montoaPagar.setLayout(new java.awt.BorderLayout());
 
         Contenedor_totalPagar.setOpaque(false);
-        Contenedor_totalPagar.setPreferredSize(new java.awt.Dimension(430, 78));
+        Contenedor_totalPagar.setPreferredSize(new java.awt.Dimension(430, 58));
         Contenedor_totalPagar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Contenedor_totalapagar.setBackground(new java.awt.Color(168, 8, 72));
-        Contenedor_totalapagar.setPreferredSize(new java.awt.Dimension(400, 68));
+        Contenedor_totalapagar.setPreferredSize(new java.awt.Dimension(400, 48));
         Contenedor_totalapagar.setRoundBottomLeft(10);
         Contenedor_totalapagar.setRoundBottomRight(10);
         Contenedor_totalapagar.setRoundTopLeft(10);
@@ -233,6 +255,7 @@ public class Invoice extends javax.swing.JPanel {
         lbl_totalApagar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_totalApagar.setText("Monto a pagar");
         lbl_totalApagar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbl_totalApagar.setPreferredSize(new java.awt.Dimension(158, 25));
         Contenedor_totalapagar.add(lbl_totalApagar, java.awt.BorderLayout.CENTER);
 
         Contenedor_totalPagar.add(Contenedor_totalapagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 5, -1, -1));
@@ -244,65 +267,88 @@ public class Invoice extends javax.swing.JPanel {
 
         Contenedor.setOpaque(false);
         Contenedor.setPreferredSize(new java.awt.Dimension(320, 68));
-        Contenedor.setLayout(new java.awt.GridLayout(3, 0));
+        Contenedor.setLayout(new java.awt.GridLayout(4, 0));
+
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+
+        lbl_exento.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_exento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_exento.setText("EXENTO:");
+        lbl_exento.setToolTipText("");
+        jPanel7.add(lbl_exento);
+
+        lbl_exento_dolar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_exento_dolar.setText("200$");
+        jPanel7.add(lbl_exento_dolar);
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("-");
+        jPanel7.add(jLabel9);
+
+        lbl_exento_bs.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_exento_bs.setText("8000 bs");
+        jPanel7.add(lbl_exento_bs);
+
+        Contenedor.add(jPanel7);
 
         jPanel6.setOpaque(false);
-        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+        jPanel6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        lbl_subtotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_subtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_subtotal.setText("Subtotal:");
-        lbl_subtotal.setToolTipText("");
-        jPanel6.add(lbl_subtotal);
+        lbl_big.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_big.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbl_big.setText("BI G:");
+        lbl_big.setToolTipText("");
+        jPanel6.add(lbl_big);
 
-        lbl_precioSubtotalDolares.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_precioSubtotalDolares.setText("1000$");
-        jPanel6.add(lbl_precioSubtotalDolares);
+        lbl_big_dolar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_big_dolar.setText("800$");
+        jPanel6.add(lbl_big_dolar);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("-");
         jPanel6.add(jLabel7);
 
-        lbl_precioSubtotalBolivares.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_precioSubtotalBolivares.setText("400bs");
-        jPanel6.add(lbl_precioSubtotalBolivares);
+        lbl_big_bs.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_big_bs.setText("280000 Bs");
+        jPanel6.add(lbl_big_bs);
 
         Contenedor.add(jPanel6);
 
         jPanel8.setOpaque(false);
-        jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+        jPanel8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Impuesto");
-        jPanel8.add(jLabel4);
-
-        lbl_porcentajeImpuesto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_porcentajeImpuesto.setText("16% :");
-        jPanel8.add(lbl_porcentajeImpuesto);
-
-        lbl_precioImpuestoDolares.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_precioImpuestoDolares.setText("1000$");
-        jPanel8.add(lbl_precioImpuestoDolares);
+        lbl_iva.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_iva.setText("IVA 16% :");
+        jPanel8.add(lbl_iva);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("-");
         jPanel8.add(jLabel6);
 
-        lbl_precioImpuestoBolivares.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_precioImpuestoBolivares.setText("4000bs");
-        jPanel8.add(lbl_precioImpuestoBolivares);
+        lbl_iva_dolar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_iva_dolar.setText("128$");
+        jPanel8.add(lbl_iva_dolar);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("-");
+        jPanel8.add(jLabel10);
+
+        lbl_iva_bs.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbl_iva_bs.setText("5000 bs");
+        jPanel8.add(lbl_iva_bs);
 
         Contenedor.add(jPanel8);
 
         jPanel9.setOpaque(false);
-        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 2));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Total a pagar:");
+        jLabel5.setText("TOTAL A PAGAR:");
         jPanel9.add(jLabel5);
 
         lbl_precioTotalapagarDolares.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lbl_precioTotalapagarDolares.setText("10000$");
+        lbl_precioTotalapagarDolares.setText("1128$");
         jPanel9.add(lbl_precioTotalapagarDolares);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -341,13 +387,14 @@ public class Invoice extends javax.swing.JPanel {
         contenedor_buttom.setPreferredSize(new java.awt.Dimension(400, 90));
         contenedor_buttom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        roundedButton1_Invoice1.setBackground(new java.awt.Color(41, 1, 138));
-        roundedButton1_Invoice1.setBorder(null);
-        roundedButton1_Invoice1.setForeground(new java.awt.Color(255, 255, 255));
-        roundedButton1_Invoice1.setText("Cobrar");
-        roundedButton1_Invoice1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        roundedButton1_Invoice1.setPreferredSize(new java.awt.Dimension(400, 90));
-        contenedor_buttom.add(roundedButton1_Invoice1);
+        btn_pagar.setBackground(new java.awt.Color(41, 1, 138));
+        btn_pagar.setBorder(null);
+        btn_pagar.setForeground(new java.awt.Color(255, 255, 255));
+        btn_pagar.setText("Cobrar");
+        btn_pagar.setEnabled(false);
+        btn_pagar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btn_pagar.setPreferredSize(new java.awt.Dimension(400, 90));
+        contenedor_buttom.add(btn_pagar);
 
         payment_invoice.add(contenedor_buttom);
 
@@ -364,6 +411,7 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel Contenedor_totalPagar;
     private com.superventas.pos.view.components.RoundedPanel Contenedor_totalapagar;
     private javax.swing.JPanel Separador;
+    private com.superventas.pos.view.components.RoundedButton1_Invoice btn_pagar;
     private javax.swing.JPanel contenedor_buttom;
     private javax.swing.JPanel contenedor_subtotalImpuestoTotal;
     private javax.swing.JPanel content_text;
@@ -371,41 +419,45 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel items;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jsp_products;
     private javax.swing.JLabel lbl_PrecioTotalapagarBolivares;
+    private javax.swing.JLabel lbl_big;
+    private javax.swing.JLabel lbl_big_bs;
+    private javax.swing.JLabel lbl_big_dolar;
     private javax.swing.JLabel lbl_cedula;
     private javax.swing.JLabel lbl_cedula_cliente;
     private javax.swing.JLabel lbl_cliente;
     private javax.swing.JLabel lbl_cliente_nombre;
+    private javax.swing.JLabel lbl_exento;
+    private javax.swing.JLabel lbl_exento_bs;
+    private javax.swing.JLabel lbl_exento_dolar;
+    private javax.swing.JLabel lbl_iva;
+    private javax.swing.JLabel lbl_iva_bs;
+    private javax.swing.JLabel lbl_iva_dolar;
     private javax.swing.JLabel lbl_nota;
     private javax.swing.JLabel lbl_nro_nota;
-    private javax.swing.JLabel lbl_porcentajeImpuesto;
-    private javax.swing.JLabel lbl_precioImpuestoBolivares;
-    private javax.swing.JLabel lbl_precioImpuestoDolares;
-    private javax.swing.JLabel lbl_precioSubtotalBolivares;
-    private javax.swing.JLabel lbl_precioSubtotalDolares;
     private javax.swing.JLabel lbl_precioTotalapagarDolares;
-    private javax.swing.JLabel lbl_subtotal;
     private javax.swing.JLabel lbl_totalApagar;
     private javax.swing.JPanel payment_invoice;
     private javax.swing.JPanel products_container;
     private javax.swing.JPanel products_invoice;
-    private com.superventas.pos.view.components.RoundedButton1_Invoice roundedButton1_Invoice1;
     // End of variables declaration//GEN-END:variables
     
     private void cargarProductos(Carrito carrito){

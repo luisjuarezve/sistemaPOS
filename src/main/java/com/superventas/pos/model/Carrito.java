@@ -47,6 +47,34 @@ public class Carrito {
         }
     }
     
+    public double calcularBIG() {
+        double total = 0.0;
+        for (ItemCarrito item : items) {
+            if (item.getProducto().getImpuesto() > 0) {
+                total += item.getCantidad() * item.getProducto().getPrecio_venta();
+            }
+        }
+        return total;
+    }
+    
+    public double calcularExcento(){
+        double total = 0.0;
+        for (ItemCarrito item : items) {
+            if (item.getProducto().getImpuesto() == 0) {
+                total += item.getCantidad() * item.getProducto().getPrecio_venta();
+            }
+        }
+        return total;
+    }
+    
+    public double calcularIVA() {
+        double total = 0.0;
+        for (ItemCarrito item : items) {
+            total += item.getCantidad() * item.getProducto().getPrecio_venta() *item.getProducto().getImpuesto();
+        }
+        return total;
+    }
+    
     public ArrayList<ItemCarrito> getItems() {
         return items;
     }

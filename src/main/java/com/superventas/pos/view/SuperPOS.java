@@ -59,11 +59,12 @@ public class SuperPOS extends javax.swing.JFrame {
         header.setLayout(new java.awt.BorderLayout());
 
         nav_menu.setOpaque(false);
-        nav_menu.setPreferredSize(new java.awt.Dimension(213, 80));
-        nav_menu.setLayout(new java.awt.GridBagLayout());
+        nav_menu.setPreferredSize(new java.awt.Dimension(500, 80));
+        nav_menu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
         nav_menu_options.setOpaque(false);
-        nav_menu_options.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        nav_menu_options.setPreferredSize(new java.awt.Dimension(500, 70));
+        nav_menu_options.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 13));
 
         btn_menu.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\menu.png"));
         btn_menu.setText("jButton1");
@@ -87,7 +88,7 @@ public class SuperPOS extends javax.swing.JFrame {
         lbl_user.setText("LUIS JUAREZ");
         nav_menu_options.add(lbl_user);
 
-        nav_menu.add(nav_menu_options, new java.awt.GridBagConstraints());
+        nav_menu.add(nav_menu_options);
 
         header.add(nav_menu, java.awt.BorderLayout.WEST);
 
