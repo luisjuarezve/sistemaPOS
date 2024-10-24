@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.superventas.pos.view;
+import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 /**
  *
@@ -13,8 +14,14 @@ public class FormCliente extends javax.swing.JFrame {
     /**
      * Creates new form FormCliente
      */
-    public FormCliente() {
+    public FormCliente(String title) {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        LabelTOP.setText(title);
+        if (title.equals("Actualizar Cliente")) {
+            jPanel11.removeAll();
+        }
     }
 
     /**
@@ -89,7 +96,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_cedulaCliente.setBorder(null);
         txt_cedulaCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_cedulaCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_cedulaCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_cedulaCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel11.add(txt_cedulaCliente);
 
@@ -105,7 +112,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_nombreCliente.setBorder(null);
         txt_nombreCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_nombreCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_nombreCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_nombreCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel12.add(txt_nombreCliente);
 
@@ -121,7 +128,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_apellidoCliente.setBorder(null);
         txt_apellidoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_apellidoCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_apellidoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_apellidoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel13.add(txt_apellidoCliente);
 
@@ -137,7 +144,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_telefonoCliente.setBorder(null);
         txt_telefonoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_telefonoCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_telefonoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_telefonoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel14.add(txt_telefonoCliente);
 
@@ -153,7 +160,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_correoCliente.setBorder(null);
         txt_correoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_correoCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_correoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_correoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel15.add(txt_correoCliente);
 
@@ -169,7 +176,7 @@ public class FormCliente extends javax.swing.JFrame {
 
         txt_direccionCliente.setBorder(null);
         txt_direccionCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_direccionCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_direccionCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
         txt_direccionCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel16.add(txt_direccionCliente);
 
@@ -235,6 +242,11 @@ public class FormCliente extends javax.swing.JFrame {
         btn_volver.setFocusable(false);
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btn_volver.setPreferredSize(new java.awt.Dimension(100, 80));
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
         Button.add(btn_volver);
 
         ContenedorButtom.add(Button, new java.awt.GridBagConstraints());
@@ -265,41 +277,14 @@ public class FormCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormCliente().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;
     private javax.swing.JPanel ContenedorButtom;

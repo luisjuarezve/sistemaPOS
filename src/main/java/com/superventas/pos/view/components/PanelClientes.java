@@ -6,6 +6,7 @@ package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.persistence.ClienteDAO;
+import com.superventas.pos.view.FormCliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -161,6 +162,11 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_nuevoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_nuevoCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_nuevoCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_nuevoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_nuevoClienteActionPerformed(evt);
+            }
+        });
         roundedPanel2.add(btn_nuevoCliente);
 
         btn_eliminarCliente.setBackground(new java.awt.Color(168, 8, 72));
@@ -181,6 +187,11 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_modificarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_modificarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_modificarCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_modificarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarClienteActionPerformed(evt);
+            }
+        });
         roundedPanel2.add(btn_modificarCliente);
 
         Contenedor_Button.add(roundedPanel2, new java.awt.GridBagConstraints());
@@ -189,6 +200,14 @@ public class PanelClientes extends javax.swing.JPanel {
 
         add(Contenedor_Principal, new java.awt.GridBagConstraints());
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_nuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoClienteActionPerformed
+        new FormCliente("Registro de Cliente");
+    }//GEN-LAST:event_btn_nuevoClienteActionPerformed
+
+    private void btn_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarClienteActionPerformed
+        new FormCliente("Actualizar Cliente");
+    }//GEN-LAST:event_btn_modificarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

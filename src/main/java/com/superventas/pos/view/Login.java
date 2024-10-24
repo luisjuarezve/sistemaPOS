@@ -47,6 +47,7 @@ public class Login extends javax.swing.JFrame {
         txt_contrasena = new com.superventas.pos.view.components.RoundedPasswordField();
         btn_login = new com.superventas.pos.view.components.RoundedButtonGradient();
         jLabel2 = new javax.swing.JLabel();
+        lbl_error1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -113,7 +114,7 @@ public class Login extends javax.swing.JFrame {
         Main_body.add(lbl_usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
 
         lbl_error.setForeground(new java.awt.Color(255, 0, 0));
-        Main_body.add(lbl_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        Main_body.add(lbl_error, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
         lbl_contrasena.setText("Contraseña:");
         Main_body.add(lbl_contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, -1));
@@ -163,11 +164,14 @@ public class Login extends javax.swing.JFrame {
                 btn_loginActionPerformed(evt);
             }
         });
-        Main_body.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
+        Main_body.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Inicio de Sesión");
         Main_body.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 20, -1, -1));
+
+        lbl_error1.setForeground(new java.awt.Color(255, 0, 0));
+        Main_body.add(lbl_error1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
 
         Main_form.add(Main_body, java.awt.BorderLayout.CENTER);
 
@@ -216,6 +220,7 @@ public class Login extends javax.swing.JFrame {
            this.dispose();
         }else{
            manejarIntentos();
+           lbl_error1.setText("Usuario o contraseña incorrectos.");
            lbl_error.setText("Intento: "+intentos);
         }
     }//GEN-LAST:event_btn_loginActionPerformed
@@ -253,6 +258,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbl_contrasena;
     private javax.swing.JLabel lbl_error;
+    private javax.swing.JLabel lbl_error1;
     private javax.swing.JLabel lbl_usuario;
     private com.superventas.pos.view.components.RoundedPasswordField txt_contrasena;
     private com.superventas.pos.view.components.RoundedTextField txt_usuario;

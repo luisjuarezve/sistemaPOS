@@ -4,6 +4,7 @@ import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.ItemCarrito;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.ProductosDAO;
+import com.superventas.pos.view.FormCliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -71,7 +72,9 @@ public class Invoice extends javax.swing.JPanel {
         lbl_cedula = new javax.swing.JLabel();
         lbl_cedula_cliente = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         products_invoice = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         products_container = new javax.swing.JPanel();
@@ -141,7 +144,7 @@ public class Invoice extends javax.swing.JPanel {
 
         lbl_nro_nota.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_nro_nota.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_nro_nota.setText("00001");
+        lbl_nro_nota.setText("000000");
         jPanel2.add(lbl_nro_nota);
 
         jPanel1.add(jPanel2);
@@ -156,7 +159,6 @@ public class Invoice extends javax.swing.JPanel {
 
         lbl_cliente_nombre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_cliente_nombre.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_cliente_nombre.setText("Luis Juarez");
         jPanel3.add(lbl_cliente_nombre);
 
         jPanel1.add(jPanel3);
@@ -181,9 +183,11 @@ public class Invoice extends javax.swing.JPanel {
         header_invoice.add(content_text, java.awt.BorderLayout.CENTER);
 
         jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(new java.awt.GridLayout(1, 2, 5, 0));
+
+        jButton1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\search_user.png"));
         jButton1.setBorder(null);
         jButton1.setContentAreaFilled(false);
         jButton1.setPreferredSize(new java.awt.Dimension(40, 40));
@@ -192,7 +196,20 @@ public class Invoice extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton1, java.awt.BorderLayout.PAGE_START);
+        jPanel10.add(jButton1);
+
+        jButton3.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\close.png"));
+        jButton3.setBorder(null);
+        jButton3.setContentAreaFilled(false);
+        jButton3.setPreferredSize(new java.awt.Dimension(40, 40));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton3);
+
+        jPanel5.add(jPanel10);
 
         header_invoice.add(jPanel5, java.awt.BorderLayout.EAST);
 
@@ -404,6 +421,9 @@ public class Invoice extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Contenedor;
@@ -418,6 +438,7 @@ public class Invoice extends javax.swing.JPanel {
     private com.superventas.pos.view.components.RoundedPanel header_invoice;
     private javax.swing.JPanel items;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -428,6 +449,7 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
