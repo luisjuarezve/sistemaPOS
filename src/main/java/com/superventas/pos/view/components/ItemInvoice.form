@@ -260,7 +260,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="lbl_img">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new ImageIcon(&quot;src\\main\\java\\com\\superventas\\pos\\img\\producto_item_invoice.jpg&quot;)&#xd;&#xa;" type="code"/>

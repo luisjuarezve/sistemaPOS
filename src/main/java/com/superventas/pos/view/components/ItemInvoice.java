@@ -2,7 +2,9 @@ package com.superventas.pos.view.components;
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
+import com.superventas.pos.view.SuperPOS;
 import java.awt.Dimension;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 /**
  *
@@ -23,6 +25,7 @@ public class ItemInvoice extends javax.swing.JPanel {
         this.inventario = inventario;
         this.setPreferredSize(size);
         double tasa = 39.0;
+        lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 65, 65));
         lbl_cantidad.setText(String.valueOf(cantidad));
         lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));
         lbl_nombreArticulo.setText(producto.getNombre());
@@ -66,7 +69,7 @@ public class ItemInvoice extends javax.swing.JPanel {
         lbl_totalPrecioDolares = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lbl_totalPrecioBolivares = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lbl_img = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -183,10 +186,10 @@ public class ItemInvoice extends javax.swing.JPanel {
 
         jPanel1.add(jPanel4, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\producto_item_invoice.jpg")
+        lbl_img.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\producto_item_invoice.jpg")
         );
-        jLabel1.setPreferredSize(new java.awt.Dimension(65, 65));
-        jPanel1.add(jLabel1, java.awt.BorderLayout.WEST);
+        lbl_img.setPreferredSize(new java.awt.Dimension(65, 65));
+        jPanel1.add(lbl_img, java.awt.BorderLayout.WEST);
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
 
@@ -209,7 +212,6 @@ public class ItemInvoice extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_mas;
     private javax.swing.JButton btn_menos;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -228,10 +230,23 @@ public class ItemInvoice extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_cantidad;
     private javax.swing.JLabel lbl_cantidad_existencia;
     private javax.swing.JLabel lbl_existencia1;
+    private javax.swing.JLabel lbl_img;
     private javax.swing.JLabel lbl_nombreArticulo;
     private javax.swing.JLabel lbl_precioBolivares;
     private javax.swing.JLabel lbl_precioDolares;
     private javax.swing.JLabel lbl_totalPrecioBolivares;
     private javax.swing.JLabel lbl_totalPrecioDolares;
     // End of variables declaration//GEN-END:variables
+    
+    public ImageIcon redimensionarIcon (String url, int width,int height){
+        ImageIcon icon = new ImageIcon(url);
+        // Obtener la imagen original
+        Image img = icon.getImage();
+        // Redimensionar la imagen
+        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        // Crear un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon newIcon = new ImageIcon(newImg);
+        return newIcon;
+    }
+    
 }

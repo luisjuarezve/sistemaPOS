@@ -7,6 +7,7 @@ import com.superventas.pos.view.components.MenuPrincipal;
 import com.superventas.pos.view.components.PanelClientes;
 import com.superventas.pos.view.components.ProductsSection;
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
@@ -126,7 +127,6 @@ public class SuperPOS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuActionPerformed
-        
         body.removeAll();
         body.add(new MenuPrincipal(body), new java.awt.BorderLayout().CENTER);
         body.revalidate();
@@ -149,4 +149,7 @@ public class SuperPOS extends javax.swing.JFrame {
     private javax.swing.JPanel nav_menu;
     private javax.swing.JPanel nav_menu_options;
     // End of variables declaration//GEN-END:variables
+
+    
+    
 }

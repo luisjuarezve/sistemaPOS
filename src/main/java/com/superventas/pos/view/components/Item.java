@@ -4,6 +4,7 @@ import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
 import java.awt.Font;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 /**
  *
@@ -22,6 +23,7 @@ public class Item extends javax.swing.JPanel {
         this.carrito = carrito;
         this.bs = bs;
         initComponents();
+        lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 120, 118));
         lbl_nom_art.setText(producto.getNombre());
         lbl_precio_dolar.setText(String.valueOf(producto.getPrecio_venta())+" $");
         btn_agregar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -140,4 +142,16 @@ public class Item extends javax.swing.JPanel {
     private javax.swing.JLabel lbl_precio_dolar;
     private javax.swing.JLabel lbl_separador;
     // End of variables declaration//GEN-END:variables
+
+    public ImageIcon redimensionarIcon (String url, int width,int height){
+        ImageIcon icon = new ImageIcon(url);
+        // Obtener la imagen original
+        Image img = icon.getImage();
+        // Redimensionar la imagen
+        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        // Crear un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon newIcon = new ImageIcon(newImg);
+        return newIcon;
+    }
+    
 }

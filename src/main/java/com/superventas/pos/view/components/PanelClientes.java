@@ -181,12 +181,12 @@ public class PanelClientes extends javax.swing.JPanel {
         jScrollPane2.setPreferredSize(new Dimension((int) (contTablW*0.8), (int) (contTablH*0.8)));
         Contenedor_Button.setPreferredSize(new Dimension(contBtnW, contBtnH));
         roundedPanel2.setPreferredSize(new Dimension((int)(contBtnW*0.8),(int)(contBtnH*0.8)));
-        btn_nuevoCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\NewUser.png", 32, 32));
-        btn_modificarCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\Modify.png", 32, 32));
-        btn_eliminarCliente.setIcon(redimencionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\DeletUser.png", 32, 32));
+        btn_nuevoCliente.setIcon(redimensionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\NewUser.png", 32, 32));
+        btn_modificarCliente.setIcon(redimensionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\Modify.png", 32, 32));
+        btn_eliminarCliente.setIcon(redimensionarIcon("src\\main\\java\\com\\superventas\\pos\\img\\DeletUser.png", 32, 32));
     }
     
-    private ImageIcon redimencionarIcon (String url, int width,int height){
+    private static ImageIcon redimensionarIcon (String url, int width,int height){
         ImageIcon icon = new ImageIcon(url);
         // Obtener la imagen original
         Image img = icon.getImage();
@@ -194,7 +194,6 @@ public class PanelClientes extends javax.swing.JPanel {
         Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         // Crear un nuevo ImageIcon con la imagen redimensionada
         ImageIcon newIcon = new ImageIcon(newImg);
-        
         return newIcon;
     }
 }
