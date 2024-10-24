@@ -16,15 +16,15 @@ public class ItemInvoice extends javax.swing.JPanel {
     private Productos productos;
     private BillingSection bs;
     private Inventario inventario;
-    
-    public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, BillingSection bs) {
+    private double tasa;
+    public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, BillingSection bs, double tasa) {
         initComponents();
         this.bs = bs;
         this.productos = producto;
         this.carrito = carrito;
         this.inventario = inventario;
         this.setPreferredSize(size);
-        double tasa = 39.0;
+        this.tasa = tasa;
         lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 65, 65));
         lbl_cantidad.setText(String.valueOf(cantidad));
         lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));

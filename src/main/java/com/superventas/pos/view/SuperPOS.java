@@ -15,20 +15,18 @@ import javax.swing.JPanel;
 
 public class SuperPOS extends javax.swing.JFrame {
     
+    private static double tasa;
     private Empleados empleado;
 
     
     
-    public SuperPOS(Empleados empleado) {
+    public SuperPOS(Empleados empleado, double tasa) {
         initComponents();
+        this.tasa = tasa;
         this.empleado = empleado;
         lbl_user.setText(empleado.getNombre()+" "+empleado.getApellido());
         this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-        body.add(new MenuPrincipal(body), new java.awt.BorderLayout().CENTER);
-        
-        
-
-        
+        body.add(new MenuPrincipal(body, tasa), new java.awt.BorderLayout().CENTER);
     }
 
     /**
@@ -128,7 +126,7 @@ public class SuperPOS extends javax.swing.JFrame {
 
     private void btn_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menuActionPerformed
         body.removeAll();
-        body.add(new MenuPrincipal(body), new java.awt.BorderLayout().CENTER);
+        body.add(new MenuPrincipal(body, tasa), new java.awt.BorderLayout().CENTER);
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_btn_menuActionPerformed

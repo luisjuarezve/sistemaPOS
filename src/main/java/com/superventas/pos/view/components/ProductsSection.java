@@ -14,14 +14,16 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
 public class ProductsSection extends javax.swing.JPanel {
-    ProductosDAO proD = new ProductosDAO();
-    InventarioDAO invD = new InventarioDAO();
-    Carrito carrito;
-    BillingSection bs;
+    private ProductosDAO proD = new ProductosDAO();
+    private InventarioDAO invD = new InventarioDAO();
+    private Carrito carrito;
+    private BillingSection bs;
+    private double tasa;
     
-    public ProductsSection(Carrito carrito, BillingSection bs) {
+    public ProductsSection(Carrito carrito, BillingSection bs, double tasa) {
         this.carrito = carrito;
         this.bs = bs;
+        this.tasa = tasa;
         initComponents();
         responsive();
         cargarProductos(proD.LeerTodosProductos());
@@ -217,7 +219,7 @@ public class ProductsSection extends javax.swing.JPanel {
             for (int i = 0; i <= 17; i++) {
                 if (i<=cant_prod) {
                     Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
-                    Item item = new Item(listaProductos.get(i), inventario, carrito, bs);
+                    Item item = new Item(listaProductos.get(i), inventario, carrito, bs, tasa);
                     row_items.add(item);
                 }else{
                     JPanel njp = new JPanel();
@@ -233,7 +235,7 @@ public class ProductsSection extends javax.swing.JPanel {
             row_items.setLayout(gl);
             for (int i = 0; i < cant_prod; i++) {
                 Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
-                row_items.add(new Item(listaProductos.get(i), inventario, carrito,bs));
+                row_items.add(new Item(listaProductos.get(i), inventario, carrito,bs, tasa));
             }
         }
     }

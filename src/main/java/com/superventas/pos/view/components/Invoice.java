@@ -19,16 +19,17 @@ public class Invoice extends javax.swing.JPanel {
     private Dimension itemsSize;
     private Dimension itemsInvoiceSize;
     private BillingSection bs;
+    private double tasa;
     /**
      * Creates new form Invoice
      */ /////////asdasdsad le puedo pasar billing section
-    public Invoice(Dimension invoiceSize, Carrito carrito, BillingSection bs) {
+    public Invoice(Dimension invoiceSize, Carrito carrito, BillingSection bs, double tasa) {
         initComponents();
         this.invoiceSize = invoiceSize;
         this.itemsSize = new Dimension(invoiceSize.width - 44, invoiceSize.height - 417);
         this.itemsInvoiceSize = new Dimension(invoiceSize.width - 64, 85);
         this.bs = bs;
-        double tasa = 39;
+        this.tasa = tasa;
         responsive();
         cargarProductos(carrito);
         lbl_exento_dolar.setText(String.format("%.2f", carrito.calcularExcento()) + " $");
@@ -487,7 +488,7 @@ public class Invoice extends javax.swing.JPanel {
         GridLayout gl = new GridLayout(cant_prod, 1, 10, 10);
         items.setLayout(gl);
         for (ItemCarrito item : carrito.getItems()) {
-            items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), carrito.getInventario(), carrito, bs));
+            items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), carrito.getInventario(), carrito, bs, tasa));
         }
     }
     

@@ -9,11 +9,14 @@ import java.awt.Toolkit;
 public class BillingSection extends javax.swing.JPanel {
     
     private Carrito carrito;
+    private double tasa;
     
-    public BillingSection(Carrito carrito) {
+    public BillingSection(Carrito carrito, double tasa) {
         this.carrito = carrito;
+        this.tasa = tasa;
         initComponents();
         responsive();
+        System.out.println(tasa);
     }
 
     /**
@@ -49,7 +52,7 @@ public class BillingSection extends javax.swing.JPanel {
         Dimension invoiceSize = new Dimension((int) ((screenSize.width*0.30)-20), screenSize.height-120);
         invoice_section.setPreferredSize(invoiceSize);
         invoice_section.removeAll();
-        invoice_section.add(new Invoice(invoiceSize, carrito, this));
+        invoice_section.add(new Invoice(invoiceSize, carrito, this, tasa));
         invoice_section.revalidate();
         invoice_section.repaint();
     }

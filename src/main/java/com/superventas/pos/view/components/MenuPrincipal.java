@@ -13,16 +13,19 @@ import javax.swing.JPanel;
  */
 public class MenuPrincipal extends javax.swing.JPanel {
     private Carrito carrito = new Carrito();
-    private BillingSection bs = new BillingSection(carrito);
-    private ProductsSection ps = new ProductsSection(carrito, bs);
+    private double tasa;
+    private BillingSection bs;
+    private ProductsSection ps;
     private JPanel body;
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal(JPanel body) {
+    public MenuPrincipal(JPanel body, double tasa) {
         initComponents();
-        this.body=body;
-        
+        this.body= body;
+        this.tasa = tasa;
+        this.bs = new BillingSection(carrito, tasa);
+        this.ps = new ProductsSection(carrito, bs, tasa);
     }
 
     /**

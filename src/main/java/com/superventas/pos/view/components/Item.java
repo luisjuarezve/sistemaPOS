@@ -17,7 +17,7 @@ public class Item extends javax.swing.JPanel {
     private Carrito carrito;
     private BillingSection bs;
             
-    public Item(Productos producto, Inventario inventario, Carrito carrito, BillingSection bs) {
+    public Item(Productos producto, Inventario inventario, Carrito carrito, BillingSection bs, double tasa) {
         this.producto = producto;
         this.inventario = inventario;
         this.carrito = carrito;
@@ -26,6 +26,7 @@ public class Item extends javax.swing.JPanel {
         lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 120, 118));
         lbl_nom_art.setText(producto.getNombre());
         lbl_precio_dolar.setText(String.valueOf(producto.getPrecio_venta())+" $");
+        lbl_precio_bs.setText(String.valueOf(producto.getPrecio_venta()*tasa)+" Bs");
         btn_agregar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     }
 

@@ -215,8 +215,8 @@ public class Login extends javax.swing.JFrame {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         empleado = empDAO.Login(txt_usuario.getText(), new String(txt_contrasena.getPassword()));
         if (empleado!=null) {
-           SuperPOS sp = new SuperPOS(empleado);
-           sp.setVisible(true);
+            form_tasaDolar td = new form_tasaDolar(empleado);
+            td.setVisible(true);
            this.dispose();
         }else{
            manejarIntentos();
@@ -230,8 +230,8 @@ public class Login extends javax.swing.JFrame {
         if (evt.getKeyCode() == 10 && !txt_usuario.getText().equals("usuario") && !password.equals("*********") && !password.isEmpty() && !txt_usuario.getText().isEmpty()) {
           empleado = empDAO.Login(txt_usuario.getText(), new String(txt_contrasena.getPassword()));
             if (empleado!=null) {
-               SuperPOS sp = new SuperPOS(empleado);
-               sp.setVisible(true);
+               form_tasaDolar td = new form_tasaDolar(empleado);
+               td.setVisible(true);
                this.dispose();
             }else{
                manejarIntentos();
