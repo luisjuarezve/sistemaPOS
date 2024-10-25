@@ -488,7 +488,7 @@ public class Invoice extends javax.swing.JPanel {
         GridLayout gl = new GridLayout(cant_prod, 1, 10, 10);
         items.setLayout(gl);
         for (ItemCarrito item : carrito.getItems()) {
-            items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), carrito.getInventario(), carrito, bs, tasa));
+            items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), item.getInventario(), carrito, bs, tasa));
         }
     }
     
