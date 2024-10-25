@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ClienteDAO {
     
@@ -29,11 +30,11 @@ public class ClienteDAO {
 
             int filasInsertadas = pstmt.executeUpdate();
             if (filasInsertadas > 0) {
-                System.out.println("Cliente insertado correctamente.");
+               JOptionPane.showMessageDialog(null, "Cliente guardado correctamente.", "Confirmación", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error al insertar el Cliente");
+            JOptionPane.showMessageDialog(null, "Cedula ya registrada en el sistema", "Error al insetar el cliente", JOptionPane.INFORMATION_MESSAGE);
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
@@ -44,7 +45,54 @@ public class ClienteDAO {
         }
     }
    
-    public Cliente leerCliente(String cedula) {
+    public Cliente leerCliente(int cliente_id) {
+        Cliente cliente = null;
+        String sql = "SELECT * FROM CLIENTES WHERE CLIENTE_ID = ?";
+        ConexionBDD cn = new ConexionBDD();
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            connection = cn.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, cliente_id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                
+                // Asumiendo que la tabla CLIENTES tiene las columnas NOMBRE, APELLIDO, etc.
+                int id = rs.getInt("CLIENTE_ID");
+                String cedula= rs.getString("CEDULA");
+                String nombre = rs.getString("NOMBRE");
+                String apellido = rs.getString("APELLIDO");
+                String telefono = rs.getString("TELEFONO");
+                String correoElectronico = rs.getString("CORREO_ELECTRONICO");
+                String direccion = rs.getString("DIRECCION");
+                String comentarios = rs.getString("COMENTARIOS");
+                
+                cliente = new Cliente(id, cedula, nombre, apellido, telefono, correoElectronico, direccion, comentarios);
+                return cliente;
+            } else {
+                System.out.println("Cliente no encontrado.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el Cliente");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) cn.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return cliente;
+    }
+    
+     public Cliente leerClienteCedula(String cedula) {
         Cliente cliente = null;
         String sql = "SELECT * FROM CLIENTES WHERE CEDULA = ?";
         ConexionBDD cn = new ConexionBDD();
@@ -89,6 +137,9 @@ public class ClienteDAO {
         }
         return cliente;
     }
+
+
+    
 
    public List<Cliente> LeerTodosClientes(){
         List<Cliente> clientes = new ArrayList<>();
@@ -166,8 +217,8 @@ public class ClienteDAO {
         }
     }
    
-    public void eliminarCliente(String cedula){
-        String sql = "DELETE FROM CLIENTES WHERE CEDULA = ?";
+    public void eliminarCliente(int cliente_id){
+        String sql = "DELETE FROM CLIENTES WHERE CLIENTE_ID = ?";
         ConexionBDD cn = new ConexionBDD();
         Connection connection = null;
         PreparedStatement pstmt = null;
@@ -175,7 +226,7 @@ public class ClienteDAO {
         try {
             connection = cn.getConnection(); 
             pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, cedula);
+            pstmt.setInt(1, cliente_id);
             int filasEliminadas = pstmt.executeUpdate();
             if (filasEliminadas > 0) {
                 System.out.println("Cliente eliminado correctamente.");

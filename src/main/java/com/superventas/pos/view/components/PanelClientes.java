@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +30,7 @@ public class PanelClientes extends javax.swing.JPanel {
         cli.LeerTodosClientes();
         
     }
-   private void rellenarTablaClientes() {
+   public void rellenarTablaClientes() {
     DefaultTableModel model = new DefaultTableModel(
         new Object [][] {
            
@@ -63,11 +64,6 @@ public class PanelClientes extends javax.swing.JPanel {
 }
 
     
-    
-   
-    
-    
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -177,6 +173,11 @@ public class PanelClientes extends javax.swing.JPanel {
         btn_eliminarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btn_eliminarCliente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_eliminarCliente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_eliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarClienteActionPerformed(evt);
+            }
+        });
         roundedPanel2.add(btn_eliminarCliente);
 
         btn_modificarCliente.setBackground(new java.awt.Color(168, 8, 72));
@@ -206,8 +207,39 @@ public class PanelClientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_nuevoClienteActionPerformed
 
     private void btn_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarClienteActionPerformed
-        new FormCliente("Actualizar Cliente");
+       
+        
+         if (jTable2.getRowCount()>0) {
+            if(jTable2.getSelectedRow()!=-1){
+                
+                int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
+                new FormCliente("Actualizar Cliente",cli.leerCliente(id_cliente));
+                
+            }
+           
+        }
+        
+        
     }//GEN-LAST:event_btn_modificarClienteActionPerformed
+
+    private void btn_eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarClienteActionPerformed
+        
+        
+        if (jTable2.getRowCount()>0) {
+            if(jTable2.getSelectedRow()!=-1){
+                
+                int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
+                cli.eliminarCliente(id_cliente);
+                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+            }
+           
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btn_eliminarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

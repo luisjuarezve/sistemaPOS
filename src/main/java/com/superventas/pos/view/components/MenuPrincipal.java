@@ -209,10 +209,10 @@ public class MenuPrincipal extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void roundedButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton8ActionPerformed
-        //body.removeAll();
-        //body.add(new PanelClientes(body.getSize()),new java.awt.BorderLayout().CENTER);
-        //body.revalidate();
-        //body.repaint();
+        body.removeAll();
+        body.add(new PanelClientes(body.getSize()),new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
         // TODO add your handling code here:
     }//GEN-LAST:event_roundedButton8ActionPerformed
 

@@ -454,6 +454,9 @@
                       <Dimension value="[100, 80]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_guardarActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="com.superventas.pos.view.components.RoundedButton1_Invoice" name="btn_limpiarCampos">
                   <Properties>
@@ -478,6 +481,9 @@
                       <Dimension value="[100, 80]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_limpiarCamposActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="com.superventas.pos.view.components.RoundedButton1_Invoice" name="btn_volver">
                   <Properties>

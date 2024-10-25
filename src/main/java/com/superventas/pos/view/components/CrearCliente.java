@@ -7,15 +7,10 @@ package com.superventas.pos.view.components;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Admin
- */
+
 public class CrearCliente extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CrearCliente
-     */
+    
     public CrearCliente(Dimension tamaño) {
         initComponents();
         this.setPreferredSize(tamaño);
