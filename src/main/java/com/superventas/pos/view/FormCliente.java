@@ -6,31 +6,33 @@ package com.superventas.pos.view;
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.persistence.ClienteDAO;
 import java.awt.GridLayout;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class FormCliente extends javax.swing.JFrame {
+    
     private ClienteDAO cli = new ClienteDAO();
     private Cliente acCliente;
-    public FormCliente(String title) {
+    private JTable tabla;
+    
+    public FormCliente(String title, JTable tabla) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        
         LabelTOP.setText(title);
-        
-            
-            
-            
-        
+        this.tabla = tabla;
     }
 
-    public FormCliente(String title,Cliente cliente) {
+    public FormCliente(String title,Cliente cliente, JTable tabla) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         acCliente= cliente;
+        this.tabla = tabla;
         LabelTOP.setText(title);
         if (title.equals("Actualizar Cliente")) {
             jPanel11.removeAll();
@@ -308,61 +310,47 @@ public class FormCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_volverActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        
         if (LabelTOP.getText().equals("Registro de Cliente")) {
-            
-    Cliente cliente = new Cliente();
-    // Asignar valores del formulario al objeto cliente
-    String cedula = txt_cedulaCliente.getText();
-    if (!cedula.matches("\\d+")) {
-        JOptionPane.showMessageDialog(this, "La cédula debe ser numérica.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    String telefono = txt_telefonoCliente.getText();
-    if (!telefono.matches("\\d+")) {
-        JOptionPane.showMessageDialog(this, "El telefono debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-        }
-    cliente.setCedula(cedula);
-    cliente.setNombre(txt_nombreCliente.getText());
-    cliente.setApellido(txt_apellidoCliente.getText());
-    cliente.setTelefono(txt_telefonoCliente.getText());
-    cliente.setCorreoElectronico(txt_correoCliente.getText());
-    cliente.setDireccion(txt_direccionCliente.getText());
-    cliente.setComentarios(txt_comentarioCliente.getText());
-     try {
-        // Validar que la cédula no esté duplicada
-        if (cli.leerClienteCedula(cedula) != null) {
-            JOptionPane.showMessageDialog(this, "La cédula ya está registrada.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }else{
-            
-            cli.insertarCliente(cliente);
-            
-           
-            this.dispose();
-        }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-   
-    
+            Cliente cliente = new Cliente();
+            // Asignar valores del formulario al objeto cliente
+            String cedula = txt_cedulaCliente.getText();
+            if (!cedula.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "La cédula debe ser numérica.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String telefono = txt_telefonoCliente.getText();
+            if (!telefono.matches("\\d+")) {
+                JOptionPane.showMessageDialog(this, "El telefono debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            cliente.setCedula(cedula);
+            cliente.setNombre(txt_nombreCliente.getText());
+            cliente.setApellido(txt_apellidoCliente.getText());
+            cliente.setTelefono(txt_telefonoCliente.getText());
+            cliente.setCorreoElectronico(txt_correoCliente.getText());
+            cliente.setDireccion(txt_direccionCliente.getText());
+            cliente.setComentarios(txt_comentarioCliente.getText());
+            try {
+                if (cli.leerClienteCedula(cedula) != null) {
+                    JOptionPane.showMessageDialog(this, "La cédula ya está registrada.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }else{
+                    cli.insertarCliente(cliente);
+                    rellenarTablaClientes(tabla);
+                    this.dispose();
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }else if (LabelTOP.getText().equals("Actualizar Cliente")) {
-            
             cli.modificarCliente(acCliente.getCedula(), new Cliente(0, "0", txt_nombreCliente.getText(),txt_apellidoCliente.getText(), txt_telefonoCliente.getText(), txt_correoCliente.getText(), txt_direccionCliente.getText(), txt_comentarioCliente.getText()));
             this.dispose();
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Cliente modificado exitosamente", JOptionPane.INFORMATION_MESSAGE);
-            
+            rellenarTablaClientes(tabla);
         }
-    
-   
-   
-        
-        
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarCamposActionPerformed
-        
         txt_cedulaCliente.setText("");
         txt_nombreCliente.setText("");
         txt_apellidoCliente.setText("");
@@ -408,4 +396,38 @@ public class FormCliente extends javax.swing.JFrame {
     private com.superventas.pos.view.components.RoundedTextField txt_nombreCliente;
     private com.superventas.pos.view.components.RoundedTextField txt_telefonoCliente;
     // End of variables declaration//GEN-END:variables
+    
+    public void rellenarTablaClientes(JTable tabla) {
+        DefaultTableModel model = new DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Comentarios"
+            }
+        ) {
+
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
+
+        tabla.setModel(model);
+        model.setRowCount(0); // Clear the table
+
+        List<Cliente> listaClientes = cli.LeerTodosClientes();
+        for (Cliente cliente : listaClientes) {
+            Object[] fila = new Object[8];
+            fila[0] = cliente.getCliente_id(); 
+            fila[1] = cliente.getCedula();
+            fila[2] = cliente.getNombre();
+            fila[3] = cliente.getApellido();
+            fila[4] = cliente.getTelefono();
+            fila[5] = cliente.getCorreoElectronico();
+            fila[6] = cliente.getDireccion();
+            fila[7] = cliente.getComentarios();
+            model.addRow(fila);
+        }
+    }
+
 }

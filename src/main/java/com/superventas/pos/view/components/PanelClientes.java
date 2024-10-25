@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,48 +21,48 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class PanelClientes extends javax.swing.JPanel {
-     ClienteDAO cli= new ClienteDAO();
-
+    
+    ClienteDAO cli= new ClienteDAO();
+    
     public PanelClientes(Dimension tamaño) {
         initComponents();
         this.setPreferredSize(tamaño);
         responsive(tamaño);
-        rellenarTablaClientes(); 
-        cli.LeerTodosClientes();
-        
+        rellenarTablaClientes(jTable2); 
     }
-   public void rellenarTablaClientes() {
-    DefaultTableModel model = new DefaultTableModel(
-        new Object [][] {
-           
-        },
-        new String [] {
-            "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Comentarios"
-        }
-    ) {
-        
-        public boolean isCellEditable(int row, int column) {
-            return false; // All cells are not editable
-        }
-    };
+    
+    public void rellenarTablaClientes(JTable tabla) {
+        DefaultTableModel model = new DefaultTableModel(
+            new Object [][] {
 
-    jTable2.setModel(model);
-    model.setRowCount(0); // Clear the table
+            },
+            new String [] {
+                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Comentarios"
+            }
+        ) {
 
-    List<Cliente> listaClientes = cli.LeerTodosClientes();
-    for (Cliente cliente : listaClientes) {
-        Object[] fila = new Object[8];
-        fila[0] = cliente.getCliente_id(); 
-        fila[1] = cliente.getCedula();
-        fila[2] = cliente.getNombre();
-        fila[3] = cliente.getApellido();
-        fila[4] = cliente.getTelefono();
-        fila[5] = cliente.getCorreoElectronico();
-        fila[6] = cliente.getDireccion();
-        fila[7] = cliente.getComentarios();
-        model.addRow(fila);
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
+
+        tabla.setModel(model);
+        model.setRowCount(0); // Clear the table
+
+        List<Cliente> listaClientes = cli.LeerTodosClientes();
+        for (Cliente cliente : listaClientes) {
+            Object[] fila = new Object[8];
+            fila[0] = cliente.getCliente_id(); 
+            fila[1] = cliente.getCedula();
+            fila[2] = cliente.getNombre();
+            fila[3] = cliente.getApellido();
+            fila[4] = cliente.getTelefono();
+            fila[5] = cliente.getCorreoElectronico();
+            fila[6] = cliente.getDireccion();
+            fila[7] = cliente.getComentarios();
+            model.addRow(fila);
+        }
     }
-}
 
     
     @SuppressWarnings("unchecked")
@@ -203,42 +204,28 @@ public class PanelClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_nuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoClienteActionPerformed
-        new FormCliente("Registro de Cliente");
+        new FormCliente("Registro de Cliente", jTable2);
     }//GEN-LAST:event_btn_nuevoClienteActionPerformed
 
     private void btn_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarClienteActionPerformed
-       
-        
          if (jTable2.getRowCount()>0) {
             if(jTable2.getSelectedRow()!=-1){
-                
                 int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
-                new FormCliente("Actualizar Cliente",cli.leerCliente(id_cliente));
-                
+                new FormCliente("Actualizar Cliente",cli.leerCliente(id_cliente), jTable2);
             }
-           
         }
-        
-        
     }//GEN-LAST:event_btn_modificarClienteActionPerformed
 
     private void btn_eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarClienteActionPerformed
-        
-        
         if (jTable2.getRowCount()>0) {
             if(jTable2.getSelectedRow()!=-1){
-                
                 int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
                 cli.eliminarCliente(id_cliente);
                 JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+                rellenarTablaClientes(jTable2);
             }
            
         }
-        
-        
-        
-        
-        
     }//GEN-LAST:event_btn_eliminarClienteActionPerformed
 
 
