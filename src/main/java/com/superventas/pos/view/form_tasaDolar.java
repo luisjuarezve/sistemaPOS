@@ -70,7 +70,7 @@ public class form_tasaDolar extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        roundedPanel1.setBackground(new java.awt.Color(168, 8, 72));
+        roundedPanel1.setBackground(new java.awt.Color(0, 0, 0));
         roundedPanel1.setPreferredSize(new java.awt.Dimension(300, 300));
         roundedPanel1.setRoundBottomLeft(20);
         roundedPanel1.setRoundBottomRight(20);
@@ -103,6 +103,11 @@ public class form_tasaDolar extends javax.swing.JFrame {
         txt_tasa.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txt_tasaFocusGained(evt);
+            }
+        });
+        txt_tasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_tasaKeyPressed(evt);
             }
         });
         jPanel4.add(txt_tasa);
@@ -163,6 +168,20 @@ public class form_tasaDolar extends javax.swing.JFrame {
             txt_tasa.setForeground(Color.black);
         }
     }//GEN-LAST:event_txt_tasaFocusGained
+
+    private void txt_tasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tasaKeyPressed
+        if (evt.getKeyCode() == 10) {
+            double tasa = Double.valueOf(txt_tasa.getText());
+            SuperPOS.setTasa(tasa);
+            body.removeAll();
+            BillingSection bs = new BillingSection(carrito, tasa);
+            body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
+            body.add(bs, new java.awt.BorderLayout().EAST);
+            body.revalidate();
+            body.repaint();  // TODO add your handling code here:
+            this.dispose();
+        }
+    }//GEN-LAST:event_txt_tasaKeyPressed
 
     /**
      * @param args the command line arguments
