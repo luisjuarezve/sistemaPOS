@@ -1,6 +1,7 @@
 package com.superventas.pos.view;
 
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Cliente;
 import com.superventas.pos.view.components.BillingSection;
 import com.superventas.pos.view.components.ProductsSection;
 import java.awt.Color;

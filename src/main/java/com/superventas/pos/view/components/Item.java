@@ -1,6 +1,7 @@
 package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
 import java.awt.Font;

@@ -183,7 +183,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="ff" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="V.-00.000.000"/>
+                        <Property name="text" type="java.lang.String" value="V.-00000000"/>
                       </Properties>
                     </Component>
                   </SubComponents>

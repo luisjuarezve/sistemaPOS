@@ -1,8 +1,10 @@
 package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Categorias;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
+import com.superventas.pos.persistence.CategoriasDAO;
 import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import java.awt.Dimension;
@@ -19,6 +21,7 @@ public class ProductsSection extends javax.swing.JPanel {
     private Carrito carrito;
     private BillingSection bs;
     private double tasa;
+    private CategoriasDAO catDAO = new CategoriasDAO();
     
     public ProductsSection(Carrito carrito, BillingSection bs, double tasa) {
         this.carrito = carrito;
@@ -27,6 +30,7 @@ public class ProductsSection extends javax.swing.JPanel {
         initComponents();
         responsive();
         cargarProductos(proD.LeerTodosProductos());
+        cargarCategorias(catDAO.LeerTodosCategorias());
     }
 
     /**
@@ -49,13 +53,6 @@ public class ProductsSection extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jsp_categoria = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        categorieButton8 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton9 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton10 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton11 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton12 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton13 = new com.superventas.pos.view.components.CategorieButton();
-        categorieButton14 = new com.superventas.pos.view.components.CategorieButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(840, 944));
@@ -79,6 +76,11 @@ public class ProductsSection extends javax.swing.JPanel {
         btn_search.setContentAreaFilled(false);
         btn_search.setFocusable(false);
         btn_search.setPreferredSize(new java.awt.Dimension(60, 60));
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_search);
 
         section_search.add(jPanel3, new java.awt.GridBagConstraints());
@@ -127,57 +129,7 @@ public class ProductsSection extends javax.swing.JPanel {
         jsp_categoria.setPreferredSize(new java.awt.Dimension(840, 137));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
-
-        categorieButton8.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton8.setBorder(null);
-        categorieButton8.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton8.setText("Categoria1");
-        categorieButton8.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton8);
-
-        categorieButton9.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton9.setBorder(null);
-        categorieButton9.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton9.setText("Categoria1");
-        categorieButton9.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton9);
-
-        categorieButton10.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton10.setBorder(null);
-        categorieButton10.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton10.setText("Categoria1");
-        categorieButton10.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton10);
-
-        categorieButton11.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton11.setBorder(null);
-        categorieButton11.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton11.setText("Categoria1");
-        categorieButton11.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton11);
-
-        categorieButton12.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton12.setBorder(null);
-        categorieButton12.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton12.setText("Categoria1");
-        categorieButton12.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton12);
-
-        categorieButton13.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton13.setBorder(null);
-        categorieButton13.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton13.setText("Categoria1");
-        categorieButton13.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton13);
-
-        categorieButton14.setBackground(new java.awt.Color(168, 8, 72));
-        categorieButton14.setBorder(null);
-        categorieButton14.setForeground(new java.awt.Color(255, 255, 255));
-        categorieButton14.setText("Categoria1");
-        categorieButton14.setPreferredSize(new java.awt.Dimension(123, 123));
-        jPanel1.add(categorieButton14);
-
+        jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
         jsp_categoria.setViewportView(jPanel1);
 
         jPanel2.add(jsp_categoria, java.awt.BorderLayout.CENTER);
@@ -187,16 +139,13 @@ public class ProductsSection extends javax.swing.JPanel {
         add(section_categories, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_searchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_search;
-    private com.superventas.pos.view.components.CategorieButton categorieButton10;
-    private com.superventas.pos.view.components.CategorieButton categorieButton11;
-    private com.superventas.pos.view.components.CategorieButton categorieButton12;
-    private com.superventas.pos.view.components.CategorieButton categorieButton13;
-    private com.superventas.pos.view.components.CategorieButton categorieButton14;
-    private com.superventas.pos.view.components.CategorieButton categorieButton8;
-    private com.superventas.pos.view.components.CategorieButton categorieButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -251,4 +200,12 @@ public class ProductsSection extends javax.swing.JPanel {
         jScrollPane2.getVerticalScrollBar().setUnitIncrement(16);
         jsp_categoria.getHorizontalScrollBar().setUnitIncrement(16);
     }
+
+    private void cargarCategorias(List<Categorias> listaCategorias) {
+        jPanel1.add(new CategorieButton(new Categorias(0, "TODAS", ""), row_items, carrito, bs, tasa));
+        for (Categorias categoria : listaCategorias) {
+            jPanel1.add(new CategorieButton(categoria, row_items, carrito, bs, tasa));
+        }
+    }
+    
 }

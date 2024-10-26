@@ -1,5 +1,6 @@
 package com.superventas.pos.view.components;
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.view.SuperPOS;
@@ -17,6 +18,7 @@ public class ItemInvoice extends javax.swing.JPanel {
     private BillingSection bs;
     private Inventario inventario;
     private double tasa;
+    
     public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, BillingSection bs, double tasa) {
         initComponents();
         this.bs = bs;
@@ -29,10 +31,10 @@ public class ItemInvoice extends javax.swing.JPanel {
         lbl_cantidad.setText(String.valueOf(cantidad));
         lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));
         lbl_nombreArticulo.setText(producto.getNombre());
-        lbl_precioDolares.setText(String.valueOf(producto.getPrecio_venta())+" $");
-        lbl_precioBolivares.setText(String.valueOf(producto.getPrecio_venta()*tasa)+" Bs");
-        lbl_totalPrecioDolares.setText(String.valueOf(producto.getPrecio_venta()*cantidad)+" $");
-        lbl_totalPrecioBolivares.setText(String.valueOf(producto.getPrecio_venta()*cantidad*tasa)+" Bs");
+        lbl_precioDolares.setText(String.format("%.2f", producto.getPrecio_venta()) + " $");
+        lbl_precioBolivares.setText(String.format("%.2f", producto.getPrecio_venta() * tasa) + " Bs");
+        lbl_totalPrecioDolares.setText(String.format("%.2f", producto.getPrecio_venta() * cantidad) + " $");
+        lbl_totalPrecioBolivares.setText(String.format("%.2f", producto.getPrecio_venta() * cantidad * tasa) + " Bs");
         jPanel1.setPreferredSize(new Dimension(size.width-20, size.height-10));
     }
 

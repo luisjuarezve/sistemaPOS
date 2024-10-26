@@ -1,5 +1,6 @@
 package com.superventas.pos.view.components;
 import com.superventas.pos.model.Carrito;
+import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
 import com.superventas.pos.view.form_tasaDolar;
@@ -16,6 +17,8 @@ public class MenuPrincipal extends javax.swing.JPanel {
     /**
      * Creates new form MenuPrincipal
      */
+    
+
     public MenuPrincipal(JPanel body) {
         initComponents();
         this.body= body;

@@ -19,6 +19,14 @@ public class FormCliente extends javax.swing.JFrame {
     private Cliente acCliente;
     private JTable tabla;
     
+    public FormCliente(String cedula) {
+        initComponents();
+        LabelTOP.setText("Registro de Cliente");
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+        txt_cedulaCliente.setText(cedula);
+    }
+    
     public FormCliente(String title, JTable tabla) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -336,8 +344,12 @@ public class FormCliente extends javax.swing.JFrame {
                     return;
                 }else{
                     cli.insertarCliente(cliente);
-                    rellenarTablaClientes(tabla);
-                    this.dispose();
+                    try {
+                        rellenarTablaClientes(tabla);
+                        this.dispose();
+                    } catch (Exception e) {
+                        this.dispose();
+                    }
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -103,50 +103,94 @@ public Productos leerProducto(String productoId) {
     return producto;
 }
  
-public List<Productos> LeerTodosProductos() {
-    List<Productos> productos = new ArrayList<>();
-    String sql = "SELECT * FROM PRODUCTOS"; // Correct table name
-    ConexionBDD cn = new ConexionBDD();
-    Connection connection = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
-    try {
-        connection = cn.getConnection();
-        pstmt = connection.prepareStatement(sql);
-        rs = pstmt.executeQuery();
-        while (rs.next()) {
-            int id = rs.getInt("PRODUCTO_ID");
-            String codigo = rs.getString("CODIGO");
-            String nombre = rs.getString("NOMBRE");
-            String descripcion = rs.getString("DESCRIPCION");
-            String foto = rs.getString("FOTO");
-            String tipoVenta = rs.getString("TIPO_VENTA");
-            double precioCompra = rs.getDouble("PRECIO_COMPRA");
-            double ganancia = rs.getDouble("GANANCIA");
-            double precioVenta = rs.getDouble("PRECIO_VENTA");
-            double precioMayoreo = rs.getDouble("PRECIO_MAYOREO");
-            double impuesto = rs.getDouble("IMPUESTO");
-            int proveedorId = rs.getInt("PROVEEDOR_ID");
-            int categoriaId = rs.getInt("CATEGORIA_ID");
-
-            Productos producto = new Productos(id, Integer.parseInt(codigo), nombre, descripcion, foto, tipoVenta, precioCompra, ganancia, precioVenta, precioMayoreo, impuesto, proveedorId, categoriaId);
-            productos.add(producto);
-        }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        System.out.println("Error al obtener los productos");
-    } finally {
+    public List<Productos> LeerTodosProductos() {
+        List<Productos> productos = new ArrayList<>();
+        String sql = "SELECT * FROM PRODUCTOS"; // Correct table name
+        ConexionBDD cn = new ConexionBDD();
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            if (rs != null) rs.close();
-            if (pstmt != null) pstmt.close();
-            if (connection != null) cn.closeConnection(); // Cierra la conexión correctamente
+            connection = cn.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("PRODUCTO_ID");
+                String codigo = rs.getString("CODIGO");
+                String nombre = rs.getString("NOMBRE");
+                String descripcion = rs.getString("DESCRIPCION");
+                String foto = rs.getString("FOTO");
+                String tipoVenta = rs.getString("TIPO_VENTA");
+                double precioCompra = rs.getDouble("PRECIO_COMPRA");
+                double ganancia = rs.getDouble("GANANCIA");
+                double precioVenta = rs.getDouble("PRECIO_VENTA");
+                double precioMayoreo = rs.getDouble("PRECIO_MAYOREO");
+                double impuesto = rs.getDouble("IMPUESTO");
+                int proveedorId = rs.getInt("PROVEEDOR_ID");
+                int categoriaId = rs.getInt("CATEGORIA_ID");
+
+                Productos producto = new Productos(id, Integer.parseInt(codigo), nombre, descripcion, foto, tipoVenta, precioCompra, ganancia, precioVenta, precioMayoreo, impuesto, proveedorId, categoriaId);
+                productos.add(producto);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Error al obtener los productos");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) cn.closeConnection(); // Cierra la conexión correctamente
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return productos;
     }
-    return productos;
-}
 
+    public List<Productos> LeerTodosProductosCategoria(int categoria_id) {
+        List<Productos> productos = new ArrayList<>();
+        String sql = "SELECT * FROM PRODUCTOS WHERE CATEGORIA_ID = ?"; // Correct table name
+        ConexionBDD cn = new ConexionBDD();
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            connection = cn.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, categoria_id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("PRODUCTO_ID");
+                String codigo = rs.getString("CODIGO");
+                String nombre = rs.getString("NOMBRE");
+                String descripcion = rs.getString("DESCRIPCION");
+                String foto = rs.getString("FOTO");
+                String tipoVenta = rs.getString("TIPO_VENTA");
+                double precioCompra = rs.getDouble("PRECIO_COMPRA");
+                double ganancia = rs.getDouble("GANANCIA");
+                double precioVenta = rs.getDouble("PRECIO_VENTA");
+                double precioMayoreo = rs.getDouble("PRECIO_MAYOREO");
+                double impuesto = rs.getDouble("IMPUESTO");
+                int proveedorId = rs.getInt("PROVEEDOR_ID");
+                int categoriaId = rs.getInt("CATEGORIA_ID");
+                Productos producto = new Productos(id, Integer.parseInt(codigo), nombre, descripcion, foto, tipoVenta, precioCompra, ganancia, precioVenta, precioMayoreo, impuesto, proveedorId, categoriaId);
+                productos.add(producto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al obtener los productos");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) cn.closeConnection(); // Cierra la conexión correctamente
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return productos;
+    }
+    
 public void modificarProductos(String producto_id, Productos producto){
         String sql = "UPDATE PRODUCTOS SET  NOMBRE=?, DESCRIPCION=?, FOTO=?, TIPO_VENTA=?, PRECIO_COMPRA=?, GANANCIA=?, PRECIO_VENTA=?, PRECIO_MAYOREO=?, IMPUESTO=?, PROVEEDOR_ID=?, CATEGORIA_ID=?  WHERE PRODUCTOS_ID = ?";
         ConexionBDD cn = new ConexionBDD();
