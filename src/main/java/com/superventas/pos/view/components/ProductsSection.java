@@ -12,8 +12,11 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
+import javax.swing.SwingUtilities;
 
 public class ProductsSection extends javax.swing.JPanel {
     private ProductosDAO proD = new ProductosDAO();
@@ -22,6 +25,7 @@ public class ProductsSection extends javax.swing.JPanel {
     private BillingSection bs;
     private double tasa;
     private CategoriasDAO catDAO = new CategoriasDAO();
+    private Timer timer = new Timer();
     
     public ProductsSection(Carrito carrito, BillingSection bs, double tasa) {
         this.carrito = carrito;
@@ -45,7 +49,6 @@ public class ProductsSection extends javax.swing.JPanel {
         section_search = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         searchBar1 = new com.superventas.pos.view.components.SearchBar();
-        btn_search = new javax.swing.JButton();
         section_items = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         row_items = new javax.swing.JPanel();
@@ -68,20 +71,20 @@ public class ProductsSection extends javax.swing.JPanel {
 
         searchBar1.setText("ESCRIBE EL NOMBRE O CODIGO DEL PRODUCTO A BUSCAR");
         searchBar1.setPreferredSize(new java.awt.Dimension(735, 60));
-        jPanel3.add(searchBar1);
-
-        btn_search.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\search.png"));
-        btn_search.setBorder(null);
-        btn_search.setBorderPainted(false);
-        btn_search.setContentAreaFilled(false);
-        btn_search.setFocusable(false);
-        btn_search.setPreferredSize(new java.awt.Dimension(60, 60));
-        btn_search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_searchActionPerformed(evt);
+        searchBar1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchBar1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchBar1FocusLost(evt);
             }
         });
-        jPanel3.add(btn_search);
+        searchBar1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchBar1KeyReleased(evt);
+            }
+        });
+        jPanel3.add(searchBar1);
 
         section_search.add(jPanel3, new java.awt.GridBagConstraints());
 
@@ -139,13 +142,36 @@ public class ProductsSection extends javax.swing.JPanel {
         add(section_categories, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_searchActionPerformed
+    private void searchBar1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchBar1KeyReleased
+        timer.cancel(); // Cancelar el temporizador anterior
+        timer = new Timer(); // Crear un nuevo temporizador
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> {
+                    row_items.removeAll();
+                    row_items.revalidate();
+                    row_items.repaint();
+                    cargarProductos(proD.LeerTodosProductosBuscador(searchBar1.getText()));
+                });
+            }
+        }, 300); 
+    }//GEN-LAST:event_searchBar1KeyReleased
 
+    private void searchBar1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBar1FocusGained
+        if (searchBar1.getText().equals("ESCRIBE EL NOMBRE O CODIGO DEL PRODUCTO A BUSCAR")) {
+            searchBar1.setText("");
+        }
+    }//GEN-LAST:event_searchBar1FocusGained
+
+    private void searchBar1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBar1FocusLost
+        if (searchBar1.getText().equals("")) {
+            searchBar1.setText("ESCRIBE EL NOMBRE O CODIGO DEL PRODUCTO A BUSCAR");
+        }
+    }//GEN-LAST:event_searchBar1FocusLost
+        
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_search;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
