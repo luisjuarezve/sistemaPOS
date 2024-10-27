@@ -5,6 +5,7 @@ import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.ItemCarrito;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.ClienteDAO;
+import com.superventas.pos.persistence.Notas_de_entregaDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import com.superventas.pos.view.FormCliente;
 import java.awt.Color;
@@ -28,6 +29,7 @@ public class Invoice extends javax.swing.JPanel {
     private Cliente cliente;
     private ClienteDAO cliDAO = new ClienteDAO();
     private double monto_total;
+    private Notas_de_entregaDAO notaDAO = new Notas_de_entregaDAO();
     /**
      * Creates new form Invoice
      */ /////////asdasdsad le puedo pasar billing section
@@ -41,6 +43,7 @@ public class Invoice extends javax.swing.JPanel {
         this.cliente = cliente;
         responsive();
         cargarProductos(carrito);
+        lbl_nro_nota.setText(String.valueOf(notaDAO.contarNotasDeEntrega()+1));
         lbl_exento_dolar.setText(String.format("%.2f", carrito.calcularExcento()) + " $");
         lbl_exento_bs.setText(String.format("%.2f", carrito.calcularExcento() * tasa) + " Bs");
         lbl_big_dolar.setText(String.format("%.2f", carrito.calcularBIG()) + " $");

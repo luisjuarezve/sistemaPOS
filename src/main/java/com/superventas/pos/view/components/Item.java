@@ -26,8 +26,8 @@ public class Item extends javax.swing.JPanel {
         initComponents();
         lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 120, 118));
         lbl_nom_art.setText(producto.getNombre());
-        lbl_precio_dolar.setText(String.valueOf(producto.getPrecio_venta())+" $");
-        lbl_precio_bs.setText(String.valueOf(producto.getPrecio_venta()*tasa)+" Bs");
+        lbl_precio_dolar.setText(String.format("%.2f", producto.getPrecio_venta())+" $");
+        lbl_precio_bs.setText(String.format("%.2f", producto.getPrecio_venta()*tasa)+" Bs");
         btn_agregar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
     }
 
