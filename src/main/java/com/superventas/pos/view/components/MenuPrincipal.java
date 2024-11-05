@@ -188,6 +188,11 @@ public class MenuPrincipal extends javax.swing.JPanel {
         roundedButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         roundedButton6.setPreferredSize(new java.awt.Dimension(215, 290));
         roundedButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        roundedButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton6ActionPerformed(evt);
+            }
+        });
         jPanel5.add(roundedButton6);
 
         ContenedorCenter.add(jPanel5);
@@ -243,6 +248,13 @@ public class MenuPrincipal extends javax.swing.JPanel {
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_roundedButton4ActionPerformed
+
+    private void roundedButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton6ActionPerformed
+        body.removeAll();
+        body.add(new PanelEmpleados(body.getSize()),new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
+    }//GEN-LAST:event_roundedButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

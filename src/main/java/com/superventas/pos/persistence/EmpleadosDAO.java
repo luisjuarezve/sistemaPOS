@@ -121,6 +121,44 @@ public class EmpleadosDAO {
         return empleado;
     }
     
+    public Empleados leerEmpleadosUsuario(String usuario) {
+        Empleados empleado = null;
+        String sql = "SELECT * FROM EMPLEADOS WHERE USUARIO = ?";
+        ConexionBDD cn = new ConexionBDD();
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            connection = cn.getConnection();
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, usuario);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt("EMPLEADO_ID");
+                int rol_id = rs.getInt("ROL_ID");
+                String nombre = rs.getString("NOMBRE");
+                String apellido = rs.getString("APELLIDO");
+                String correoElectronico = rs.getString("CORREO_ELECTRONICO");
+                String contrasena = rs.getString("CONTRASENA");
+                empleado = new Empleados(id, rol_id, nombre, apellido, correoElectronico, usuario, contrasena);
+            } else {
+                System.out.println("Empleado no encontrado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al leer el Empleado");
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (connection != null) cn.closeConnection();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return empleado;
+    }
+    
     public List<Empleados> LeerTodosEmpleados() {
         List<Empleados> empleados = new ArrayList<>();
         String sql = "SELECT * FROM EMPLEADOS";
