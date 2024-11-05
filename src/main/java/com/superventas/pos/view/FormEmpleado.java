@@ -1,6 +1,8 @@
 package com.superventas.pos.view;
 import com.superventas.pos.model.Empleados;
+import com.superventas.pos.model.Rol;
 import com.superventas.pos.persistence.EmpleadosDAO;
+import com.superventas.pos.persistence.RolDAO;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -9,12 +11,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class FormEmpleado extends javax.swing.JFrame {
     
+    private RolDAO rolDAO = new RolDAO();
     private EmpleadosDAO empDAO = new EmpleadosDAO();
     private Empleados acEmpleado;
     private JTable tabla;
     
     public FormEmpleado(String title, JTable tabla) {
         initComponents();
+        llenarComboBoxRoles();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         LabelTOP.setText(title);
@@ -23,12 +27,14 @@ public class FormEmpleado extends javax.swing.JFrame {
 
     public FormEmpleado(String title, Empleados empleados, JTable tabla) {
         initComponents();
+        llenarComboBoxRoles();        
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         acEmpleado= empleados;
         this.tabla = tabla;
         LabelTOP.setText(title);
         if (title.equals("Actualizar Empleado")) {
+            cmb_rol.setSelectedIndex(acEmpleado.getRol_id());
             txt_nombreEmpleado.setText(empleados.getNombre());
             txt_apellidoEmpleado.setText(empleados.getApellido());
             txt_correoEmpleado.setText(empleados.getCorreo_electronico());
@@ -47,6 +53,8 @@ public class FormEmpleado extends javax.swing.JFrame {
         ContenedorCenter = new javax.swing.JPanel();
         ContenedorFormularioInterno = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        cmb_rol = new javax.swing.JComboBox<>();
         jPanel12 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txt_nombreEmpleado = new com.superventas.pos.view.components.RoundedTextField();
@@ -92,17 +100,15 @@ public class FormEmpleado extends javax.swing.JFrame {
         ContenedorFormularioInterno.setLayout(new java.awt.GridLayout(7, 1));
 
         jPanel2.setOpaque(false);
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Rol:");
+        jPanel2.add(jLabel11);
+
+        cmb_rol.setPreferredSize(new java.awt.Dimension(180, 30));
+        jPanel2.add(cmb_rol);
 
         ContenedorFormularioInterno.add(jPanel2);
 
@@ -286,33 +292,40 @@ public class FormEmpleado extends javax.swing.JFrame {
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         if (LabelTOP.getText().equals("Registro de Empleado")) {
-            Empleados empleado = new Empleados();
-            String usuario = txt_usuario.getText();
-            empleado.setRol_id(1);
-            empleado.setNombre(txt_nombreEmpleado.getText());
-            empleado.setApellido(txt_apellidoEmpleado.getText());
-            empleado.setCorreo_electronico(txt_correoEmpleado.getText());
-            empleado.setUsuario(txt_usuario.getText());
-            empleado.setContrasena(new String(txt_contrasena.getPassword()));
-            
-            try {
-                if (empDAO.leerEmpleadosUsuario(usuario) != null) {
-                    JOptionPane.showMessageDialog(this, "El usuario ya esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }else{
-                    empDAO.insertarEmpleados(empleado);
+            if (cmb_rol.getSelectedIndex() != 0) {
+                if (!txt_nombreEmpleado.getText().isEmpty() && !txt_apellidoEmpleado.getText().isEmpty() && !txt_correoEmpleado.getText().isEmpty() && !txt_usuario.getText().isEmpty() && !new String(txt_contrasena.getPassword()).isEmpty()) {
+                    Empleados empleado = new Empleados();
+                    empleado.setRol_id(cmb_rol.getSelectedIndex());
+                    String usuario = txt_usuario.getText();
+                    empleado.setNombre(txt_nombreEmpleado.getText());
+                    empleado.setApellido(txt_apellidoEmpleado.getText());
+                    empleado.setCorreo_electronico(txt_correoEmpleado.getText());
+                    empleado.setUsuario(txt_usuario.getText());
+                    empleado.setContrasena(new String(txt_contrasena.getPassword()));
                     try {
-                        rellenarTablaEmpleados(tabla);
-                        this.dispose();
+                        if (empDAO.leerEmpleadosUsuario(usuario) != null) {
+                            JOptionPane.showMessageDialog(this, "El usuario ya esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }else{
+                            empDAO.insertarEmpleados(empleado);
+                            try {
+                                rellenarTablaEmpleados(tabla);
+                                this.dispose();
+                            } catch (Exception e) {
+                                this.dispose();
+                            }
+                        }
                     } catch (Exception e) {
-                        this.dispose();
+                        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Debes llenar todos los camposs", "Campos Vacios", JOptionPane.INFORMATION_MESSAGE);
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Rol no Seleccionado", "Debes seleccionar un rol", JOptionPane.INFORMATION_MESSAGE);
             }
         }else if (LabelTOP.getText().equals("Actualizar Empleado")) {
-            empDAO.modificarEmpleados(String.valueOf(acEmpleado.getEmpleado_id()), new Empleados(0, acEmpleado.getRol_id(), txt_nombreEmpleado.getText(), txt_apellidoEmpleado.getText(), txt_correoEmpleado.getText(), txt_usuario.getText(), new String(txt_contrasena.getPassword())));
+            empDAO.modificarEmpleados(String.valueOf(acEmpleado.getEmpleado_id()), new Empleados(0, cmb_rol.getSelectedIndex(), txt_nombreEmpleado.getText(), txt_apellidoEmpleado.getText(), txt_correoEmpleado.getText(), txt_usuario.getText(), new String(txt_contrasena.getPassword())));
             this.dispose();
             JOptionPane.showMessageDialog(null, "Empleado actualizado exitosamente", "Empleado modificado exitosamente", JOptionPane.INFORMATION_MESSAGE);
             rellenarTablaEmpleados(tabla);
@@ -341,7 +354,9 @@ public class FormEmpleado extends javax.swing.JFrame {
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_guardar;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_limpiarCampos;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_volver;
+    private javax.swing.JComboBox<String> cmb_rol;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -379,16 +394,25 @@ public class FormEmpleado extends javax.swing.JFrame {
         model.setRowCount(0); // Clear the table
 
         List<Empleados> listaEmpleados = empDAO.LeerTodosEmpleados();
+       
         for (Empleados empleados : listaEmpleados) {
             Object[] fila = new Object[7];
             fila[0] = empleados.getEmpleado_id();
-            fila[1] = empleados.getRol_id();
+            fila[1] = rolDAO.leerRol(String.valueOf(empleados.getRol_id())).getNombre();
             fila[2] = empleados.getNombre();
             fila[3] = empleados.getApellido();
             fila[4] = empleados.getCorreo_electronico();
             fila[5] = empleados.getUsuario();
             fila[6] = empleados.getContrasena();
             model.addRow(fila);
+        }
+    }
+
+    private void llenarComboBoxRoles() {
+        List<Rol> roles = rolDAO.LeerTodosRoles();
+        cmb_rol.addItem("-");
+        for (Rol rol : roles) {
+            cmb_rol.addItem(rol.getNombre()); 
         }
     }
 

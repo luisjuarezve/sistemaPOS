@@ -2,6 +2,7 @@ package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.persistence.EmpleadosDAO;
+import com.superventas.pos.persistence.RolDAO;
 import com.superventas.pos.view.FormEmpleado;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelEmpleados extends javax.swing.JPanel {
     
+    RolDAO rolDAO = new RolDAO();
     EmpleadosDAO empDAO = new EmpleadosDAO();
     
     public PanelEmpleados(Dimension tamaño) {
@@ -48,7 +50,7 @@ public class PanelEmpleados extends javax.swing.JPanel {
         for (Empleados empleados : listaEmpleados) {
             Object[] fila = new Object[7];
             fila[0] = empleados.getEmpleado_id();
-            fila[1] = empleados.getRol_id();
+            fila[1] = rolDAO.leerRol(String.valueOf(empleados.getRol_id())).getNombre();
             fila[2] = empleados.getNombre();
             fila[3] = empleados.getApellido();
             fila[4] = empleados.getCorreo_electronico();
