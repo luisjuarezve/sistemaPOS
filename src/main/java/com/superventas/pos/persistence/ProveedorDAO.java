@@ -52,7 +52,7 @@ public class ProveedorDAO {
     }
 }
     
-    public Proveedor leerProveedor(String proveedor_id) {
+    public Proveedor leerProveedor(int proveedor_id) {
     Proveedor proveedor = null;
     String sql = "SELECT * FROM PROVEEDOR WHERE PROVEEDOR_ID = ?";
     ConexionBDD cn = new ConexionBDD();
@@ -63,7 +63,7 @@ public class ProveedorDAO {
     try {
         connection = cn.getConnection();
         pstmt = connection.prepareStatement(sql);
-        pstmt.setString(1, proveedor_id);
+        pstmt.setInt(1, proveedor_id);
         
         // Imprimir la consulta para depuración
         System.out.println("Ejecutando consulta: " + pstmt.toString());
@@ -82,7 +82,7 @@ public class ProveedorDAO {
             String comentario = rs.getString("COMENTARIO");
             String tipo_pago = rs.getString("TIPO_PAGO");
 
-            proveedor = new Proveedor(Integer.parseInt(proveedor_id), tipo_doc, nro_doc, razon_social, telefono, direccion, correo_electronico, fecha_registro, encargado, telefono_encargado, comentario, tipo_pago);
+            proveedor = new Proveedor(proveedor_id, tipo_doc, nro_doc, razon_social, telefono, direccion, correo_electronico, fecha_registro, encargado, telefono_encargado, comentario, tipo_pago);
         } else {
             System.out.println("Proveedor no encontrado.");
         }
@@ -183,7 +183,7 @@ public class ProveedorDAO {
             }
         }
     }
-     public void eliminarProveedor(String proveedor_id){
+     public void eliminarProveedor(int proveedor_id){
         String sql = "DELETE FROM PROVEEDOR WHERE PROVEEDOR_ID = ?";
         ConexionBDD cn = new ConexionBDD();
         Connection connection = null;
@@ -192,7 +192,7 @@ public class ProveedorDAO {
         try {
             connection = cn.getConnection(); 
             pstmt = connection.prepareStatement(sql);
-            pstmt.setString(1, proveedor_id);
+            pstmt.setInt(1, proveedor_id);
             int filasEliminadas = pstmt.executeUpdate();
             if (filasEliminadas > 0) {
                 System.out.println("Cliente eliminado correctamente.");
