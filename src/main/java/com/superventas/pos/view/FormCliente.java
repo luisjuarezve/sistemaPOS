@@ -120,9 +120,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel8.setText("Cedula:");
         jPanel11.add(jLabel8);
 
-        txt_cedulaCliente.setBorder(null);
-        txt_cedulaCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_cedulaCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_cedulaCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_cedulaCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel11.add(txt_cedulaCliente);
 
@@ -136,9 +134,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel9.setText("Nombre:");
         jPanel12.add(jLabel9);
 
-        txt_nombreCliente.setBorder(null);
-        txt_nombreCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_nombreCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_nombreCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_nombreCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel12.add(txt_nombreCliente);
 
@@ -152,9 +148,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel10.setText("Apellido:");
         jPanel13.add(jLabel10);
 
-        txt_apellidoCliente.setBorder(null);
-        txt_apellidoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_apellidoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_apellidoCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_apellidoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel13.add(txt_apellidoCliente);
 
@@ -168,9 +162,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel11.setText("Telefono:");
         jPanel14.add(jLabel11);
 
-        txt_telefonoCliente.setBorder(null);
-        txt_telefonoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_telefonoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_telefonoCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_telefonoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel14.add(txt_telefonoCliente);
 
@@ -184,9 +176,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel12.setText("Correo:");
         jPanel15.add(jLabel12);
 
-        txt_correoCliente.setBorder(null);
-        txt_correoCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_correoCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_correoCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_correoCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel15.add(txt_correoCliente);
 
@@ -200,9 +190,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel13.setText("Direccion:");
         jPanel16.add(jLabel13);
 
-        txt_direccionCliente.setBorder(null);
-        txt_direccionCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_direccionCliente.setMargin(new java.awt.Insets(5, 10, 2, 6));
+        txt_direccionCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_direccionCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel16.add(txt_direccionCliente);
 
@@ -216,9 +204,7 @@ public class FormCliente extends javax.swing.JFrame {
         jLabel14.setText("Comentario:");
         jPanel17.add(jLabel14);
 
-        txt_comentarioCliente.setBorder(null);
-        txt_comentarioCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txt_comentarioCliente.setMargin(new java.awt.Insets(5, 6, 2, 6));
+        txt_comentarioCliente.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_comentarioCliente.setPreferredSize(new java.awt.Dimension(180, 30));
         jPanel17.add(txt_comentarioCliente);
 
@@ -355,7 +341,7 @@ public class FormCliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }else if (LabelTOP.getText().equals("Actualizar Cliente")) {
-            cli.modificarCliente(acCliente.getCedula(), new Cliente(0, "0", txt_nombreCliente.getText(),txt_apellidoCliente.getText(), txt_telefonoCliente.getText(), txt_correoCliente.getText(), txt_direccionCliente.getText(), txt_comentarioCliente.getText()));
+            cli.modificarCliente(acCliente.getCedula(), new Cliente(0, "0", txt_nombreCliente.getText(), txt_apellidoCliente.getText(), txt_telefonoCliente.getText(), txt_correoCliente.getText(), txt_direccionCliente.getText(), txt_comentarioCliente.getText()));
             this.dispose();
             JOptionPane.showMessageDialog(null, "Cliente actualizado exitosamente", "Cliente modificado exitosamente", JOptionPane.INFORMATION_MESSAGE);
             rellenarTablaClientes(tabla);
@@ -367,8 +353,8 @@ public class FormCliente extends javax.swing.JFrame {
         txt_nombreCliente.setText("");
         txt_apellidoCliente.setText("");
         txt_telefonoCliente.setText("");
-        txt_correoCliente.setText("");
         txt_direccionCliente.setText("");
+        txt_correoCliente.setText("");
         txt_comentarioCliente.setText("");
     }//GEN-LAST:event_btn_limpiarCamposActionPerformed
 
