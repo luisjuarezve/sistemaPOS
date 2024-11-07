@@ -165,12 +165,17 @@ public class MenuPrincipal extends javax.swing.JPanel {
         roundedButton5.setForeground(new java.awt.Color(255, 255, 255));
         roundedButton5.setIcon(new ImageIcon
             ("src/main/java/com/superventas/pos/img/Reportes.png"));
-        roundedButton5.setText("Reportes (F5)");
+        roundedButton5.setText("Productos (F5)");
         roundedButton5.setFocusable(false);
         roundedButton5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         roundedButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         roundedButton5.setPreferredSize(new java.awt.Dimension(215, 290));
         roundedButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        roundedButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton5ActionPerformed(evt);
+            }
+        });
         jPanel4.add(roundedButton5);
 
         ContenedorCenter.add(jPanel4);
@@ -255,6 +260,13 @@ public class MenuPrincipal extends javax.swing.JPanel {
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_roundedButton6ActionPerformed
+
+    private void roundedButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton5ActionPerformed
+        body.removeAll();
+        body.add(new ProductosMenu(body.getSize()),new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
+    }//GEN-LAST:event_roundedButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
