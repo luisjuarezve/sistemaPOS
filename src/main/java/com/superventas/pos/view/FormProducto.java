@@ -371,6 +371,11 @@ public class FormProducto extends javax.swing.JFrame {
         btn_volver.setFocusable(false);
         btn_volver.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btn_volver.setPreferredSize(new java.awt.Dimension(120, 80));
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
         Button.add(btn_volver);
 
         ContenedorButtom.add(Button, new java.awt.GridBagConstraints());
@@ -417,6 +422,10 @@ public class FormProducto extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_roundedButton1_Invoice1ActionPerformed
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;

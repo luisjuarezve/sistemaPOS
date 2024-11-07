@@ -1,17 +1,21 @@
 package com.superventas.pos.view;
+
 import com.superventas.pos.model.Proveedor;
 import com.superventas.pos.persistence.ProveedorDAO;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class FormProveedor extends javax.swing.JFrame {
-    
+
     private ProveedorDAO proDAO = new ProveedorDAO();
     private Proveedor acProveedor;
     private JTable tabla;
-    
+
     public FormProveedor(String title, JTable tabla) {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -28,11 +32,22 @@ public class FormProveedor extends javax.swing.JFrame {
         this.tabla = tabla;
         LabelTOP.setText(title);
         if (title.equals("Actualizar Proveedor")) {
-            //falta esto
+            jPanel11.removeAll();
+
+            cmb_tipo.setSelectedItem(proveedor.getTipo_doc());
+            txt_nroDoc.setText(proveedor.getNro_doc());
+            txt_razonSocial.setText(proveedor.getRazon_social());
+            txt_telefonoProveedor.setText(proveedor.getTelefono());
+            txt_direccionProveedor.setText(proveedor.getDireccion());
+            txt_correoProveedor.setText(proveedor.getCorreo_electronico());
+            txt_telefonoEncargado.setText(proveedor.getTelefono_encargado());
+            cmb_tipoPago.setSelectedItem(proveedor.getTipo_pago());
+            txt_comentario.setText(proveedor.getComentario());
+            txt_encargadProveedor.setText(proveedor.getEncargado());
+
         }
     }
 
-     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,6 +77,9 @@ public class FormProveedor extends javax.swing.JFrame {
         jPanel17 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         txt_telefonoEncargado = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        txt_comentario = new com.superventas.pos.view.components.RoundedTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         cmb_tipoPago = new javax.swing.JComboBox<>();
@@ -91,7 +109,7 @@ public class FormProveedor extends javax.swing.JFrame {
 
         ContenedorFormularioInterno.setOpaque(false);
         ContenedorFormularioInterno.setPreferredSize(new java.awt.Dimension(300, 350));
-        ContenedorFormularioInterno.setLayout(new java.awt.GridLayout(8, 1));
+        ContenedorFormularioInterno.setLayout(new java.awt.GridLayout(9, 1));
 
         jPanel11.setOpaque(false);
         jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
@@ -188,6 +206,20 @@ public class FormProveedor extends javax.swing.JFrame {
         jPanel17.add(txt_telefonoEncargado);
 
         ContenedorFormularioInterno.add(jPanel17);
+
+        jPanel19.setOpaque(false);
+        jPanel19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
+
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Comentario");
+        jPanel19.add(jLabel16);
+
+        txt_comentario.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_comentario.setPreferredSize(new java.awt.Dimension(160, 30));
+        jPanel19.add(txt_comentario);
+
+        ContenedorFormularioInterno.add(jPanel19);
 
         jPanel18.setOpaque(false);
         jPanel18.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 15));
@@ -296,17 +328,141 @@ public class FormProveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_volverActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        //esto   
+        
+       String tipoDoc = cmb_tipo.getSelectedItem().toString();
+        String nroDoc = txt_nroDoc.getText();
+        String razonSocial = txt_razonSocial.getText();
+        String telefono = txt_telefonoProveedor.getText();
+        String direccion = txt_direccionProveedor.getText();
+        String correoElectronico = txt_correoProveedor.getText();
+        LocalDate fechaRegistro = LocalDate.now();
+        String encargado = txt_encargadProveedor.getText();
+        String telefonoEncargado = txt_telefonoEncargado.getText();
+        String comentario = txt_comentario.getText();
+        String tipoPago = cmb_tipoPago.getSelectedItem().toString();
+
+        if (LabelTOP.getText().equals("Registro de Proveedor")) {
+
+            // Validaciones 
+            if (cmb_tipoPago.getSelectedIndex() != 0 && cmb_tipo.getSelectedIndex() != 0) {
+                if (!nroDoc.isEmpty() && !razonSocial.isEmpty() && !telefono.isEmpty() && !direccion.isEmpty() && !correoElectronico.isEmpty()
+                        && !encargado.isEmpty() && !telefonoEncargado.isEmpty() && !comentario.isEmpty()) {
+
+                    if (!telefono.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El teléfono debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!telefonoEncargado.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El teléfono del encargado debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!nroDoc.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El numero de documento debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (telefono.equals(telefonoEncargado)) {
+                        JOptionPane.showMessageDialog(this, "El teléfono del proveedor y el del encargado no pueden ser iguales.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Crear el objeto Proveedor
+                    Proveedor proveedor = new Proveedor(0, tipoDoc, nroDoc, razonSocial, telefono, direccion, correoElectronico, fechaRegistro, encargado, telefonoEncargado, comentario, tipoPago);
+
+                    // Intentar insertar el proveedor
+                       
+                        if (proDAO.leerProveedorTipoNum(tipoDoc, nroDoc)!= null) {
+                            
+                            JOptionPane.showMessageDialog(this, "El numero de documento ya esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                           return;
+                        } else {
+                          
+                            try {
+                                proDAO.insertarProveedor(proveedor);
+                                rellenarTablaProveedor(tabla);
+                                this.dispose();
+                            } catch (Exception e) {
+                               
+                            }
+                        }
+                    
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Los comboBox deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else if (LabelTOP.getText().equals("Actualizar Proveedor")) {
+            if (cmb_tipoPago.getSelectedIndex() != 0) {
+                if (!nroDoc.isEmpty() && !razonSocial.isEmpty() && !telefono.isEmpty() && !direccion.isEmpty() && !correoElectronico.isEmpty()
+                        && !encargado.isEmpty() && !telefonoEncargado.isEmpty() && !comentario.isEmpty()) {
+
+                    if (!telefono.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El teléfono debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!telefonoEncargado.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El teléfono del encargado debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (!nroDoc.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(this, "El numero de documento debe ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (telefono.equals(telefonoEncargado)) {
+                        JOptionPane.showMessageDialog(this, "El teléfono del proveedor y el del encargado no pueden ser iguales.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    // Crear el objeto Proveedor
+                    Proveedor proveedor = new Proveedor(0, tipoDoc, nroDoc, razonSocial, telefono, direccion, correoElectronico, fechaRegistro, encargado, telefonoEncargado, comentario, tipoPago);
+
+                    // Intentar insertar el proveedor
+                    try {
+                        proDAO.modificarProveedor(String.valueOf(acProveedor.getProveedor_id()), proveedor);
+
+                        rellenarTablaProveedor(tabla);
+                        this.dispose();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "Error al guardar el proveedor: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+
+                JOptionPane.showMessageDialog(this, "Los comboBox deben estar llenos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarCamposActionPerformed
-        //falta esto
+        cmb_tipo.setSelectedIndex(0);
+        txt_nroDoc.setText("");
+        txt_razonSocial.setText("");
+        txt_telefonoProveedor.setText("");
+        txt_direccionProveedor.setText("");
+        txt_correoProveedor.setText("");
+        txt_encargadProveedor.setText("");
+        txt_telefonoEncargado.setText("");
+        txt_comentario.setText("");
+        cmb_tipoPago.setSelectedIndex(0);
     }//GEN-LAST:event_btn_limpiarCamposActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;
     private javax.swing.JPanel ContenedorButtom;
@@ -325,6 +481,7 @@ public class FormProveedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -334,6 +491,8 @@ public class FormProveedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
+    private com.superventas.pos.view.components.RoundedTextField txt_comentario;
     private com.superventas.pos.view.components.RoundedTextField txt_correoProveedor;
     private com.superventas.pos.view.components.RoundedTextField txt_direccionProveedor;
     private com.superventas.pos.view.components.RoundedTextField txt_encargadProveedor;
@@ -342,15 +501,13 @@ public class FormProveedor extends javax.swing.JFrame {
     private com.superventas.pos.view.components.RoundedTextField txt_telefonoEncargado;
     private com.superventas.pos.view.components.RoundedTextField txt_telefonoProveedor;
     // End of variables declaration//GEN-END:variables
-    
+
     public void rellenarTablaProveedor(JTable tabla) {
         DefaultTableModel model = new DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Tipo_doc", "Nro Doc", "Razón Social", "Teléfono", "Dirección", "Correo Electrónico",  "Fecha Registro", "Encagado", "Tel Encagado", "Comentario", "Tipo pago"
-            }
+                new Object[][]{},
+                new String[]{
+                    "ID", "Tipo_doc", "Nro Doc", "Razón Social", "Teléfono", "Dirección", "Correo Electrónico", "Fecha Registro", "Encagado", "Tel Encagado", "Comentario", "Tipo pago"
+                }
         ) {
 
             public boolean isCellEditable(int row, int column) {

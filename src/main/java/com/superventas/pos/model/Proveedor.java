@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Proveedor {
     private int proveedor_id;
-    private char tipo_doc;
+    private String tipo_doc;
     private String nro_doc;
     private String razon_social;
     private String telefono;

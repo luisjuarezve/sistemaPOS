@@ -223,7 +223,7 @@ public class PanelProveedor extends javax.swing.JPanel {
             if(jTable2.getSelectedRow()!=-1){
                 int id_proveedor = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
                 proDAO.eliminarProveedor(id_proveedor);
-                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Proveedor eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
                 rellenarTablaProveedor(jTable2);
             }
            
