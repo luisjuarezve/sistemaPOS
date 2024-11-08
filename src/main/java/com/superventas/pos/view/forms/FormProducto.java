@@ -10,15 +10,20 @@ import com.superventas.pos.persistence.CategoriasDAO;
 import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import com.superventas.pos.persistence.ProveedorDAO;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,6 +41,7 @@ public class FormProducto extends javax.swing.JFrame {
     private File selectedFile;
     private String destinationPath;
     private Productos acProducto = null;
+    private Timer timer = new Timer();
     /**
      * Creates new form FormProductos
      */
@@ -59,6 +65,7 @@ public class FormProducto extends javax.swing.JFrame {
             jPanel19.removeAll();
             jPanel20.removeAll();
             jPanel21.removeAll();
+            destinationPath = acProducto.getFoto();
             cmb_CategoriaId.setSelectedItem(catDAO.leerCategoria(String.valueOf(acProducto.getCategoria_id())).getNombre());
             cmb_ProveedorId.setSelectedItem(proDAO.leerProveedor(acProducto.getProveedor_id()).getRazon_social());
             cmb_TipoVentaProducto.setSelectedItem(acProducto.getTipo_venta());
@@ -229,8 +236,18 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel2.setText("(*) Codigo:");
         jPanel2.add(jLabel2);
 
+        txt_CodigoProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_CodigoProducto.setText("0");
         txt_CodigoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_CodigoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_CodigoProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_CodigoProductoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_CodigoProductoFocusLost(evt);
+            }
+        });
         jPanel2.add(txt_CodigoProducto);
 
         Parte1.add(jPanel2);
@@ -243,8 +260,18 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel3.setText("(*) Nombre:");
         jPanel3.add(jLabel3);
 
+        txt_NombreProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_NombreProducto.setText("Producto");
         txt_NombreProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_NombreProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_NombreProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_NombreProductoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_NombreProductoFocusLost(evt);
+            }
+        });
         jPanel3.add(txt_NombreProducto);
 
         Parte1.add(jPanel3);
@@ -257,8 +284,18 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel4.setText("Descripcion:");
         jPanel4.add(jLabel4);
 
+        txt_DescripcionProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_DescripcionProducto.setText("Descripcion");
         txt_DescripcionProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_DescripcionProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_DescripcionProducto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_DescripcionProductoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DescripcionProductoFocusLost(evt);
+            }
+        });
         jPanel4.add(txt_DescripcionProducto);
 
         Parte1.add(jPanel4);
@@ -285,8 +322,15 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel6.setText("(*) Precio Compra:");
         jPanel6.add(jLabel6);
 
+        txt_PrecioCompraProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_PrecioCompraProducto.setText("0.00");
         txt_PrecioCompraProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_PrecioCompraProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_PrecioCompraProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_PrecioCompraProductoKeyReleased(evt);
+            }
+        });
         jPanel6.add(txt_PrecioCompraProducto);
 
         Parte1.add(jPanel6);
@@ -299,8 +343,15 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel8.setText("(*) Ganancia % :");
         jPanel10.add(jLabel8);
 
+        txt_GananciaProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_GananciaProducto.setText("30.00");
         txt_GananciaProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_GananciaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_GananciaProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_GananciaProductoKeyReleased(evt);
+            }
+        });
         jPanel10.add(txt_GananciaProducto);
 
         Parte1.add(jPanel10);
@@ -313,8 +364,15 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel9.setText("(*) Precio Venta:");
         jPanel11.add(jLabel9);
 
+        txt_PrecioVentaProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_PrecioVentaProducto.setText("0.00");
         txt_PrecioVentaProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_PrecioVentaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        txt_PrecioVentaProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_PrecioVentaProductoKeyReleased(evt);
+            }
+        });
         jPanel11.add(txt_PrecioVentaProducto);
 
         Parte1.add(jPanel11);
@@ -335,6 +393,8 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel7.setText("Precio Mayoreo:");
         jPanel7.add(jLabel7);
 
+        txt_PrecioMayoreoProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_PrecioMayoreoProducto.setText("0.00");
         txt_PrecioMayoreoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_PrecioMayoreoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel7.add(txt_PrecioMayoreoProducto);
@@ -349,6 +409,8 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel10.setText("(*) Impuesto %:");
         jPanel12.add(jLabel10);
 
+        txt_ImpuestoProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_ImpuestoProducto.setText("16.00");
         txt_ImpuestoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_ImpuestoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel12.add(txt_ImpuestoProducto);
@@ -363,6 +425,8 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel13.setText("(*) Cantidad:");
         jPanel19.add(jLabel13);
 
+        txt_CantidadProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_CantidadProducto.setText("1");
         txt_CantidadProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_CantidadProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel19.add(txt_CantidadProducto);
@@ -377,6 +441,8 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel14.setText("(*) Inventario minimo:");
         jPanel20.add(jLabel14);
 
+        txt_InventarioMinProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_InventarioMinProducto.setText("0");
         txt_InventarioMinProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_InventarioMinProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel20.add(txt_InventarioMinProducto);
@@ -391,6 +457,8 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel15.setText("(*) Inventario maximo:");
         jPanel21.add(jLabel15);
 
+        txt_InventarioMaxProducto.setForeground(new java.awt.Color(153, 153, 153));
+        txt_InventarioMaxProducto.setText("0");
         txt_InventarioMaxProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_InventarioMaxProducto.setPreferredSize(new java.awt.Dimension(145, 25));
         jPanel21.add(txt_InventarioMaxProducto);
@@ -544,7 +612,7 @@ public class FormProducto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Error al guardar el archivo: " + ex.getMessage());
             }
         } else  {
-            if (acProducto == null) {
+            if (destinationPath == null) {
                 destinationPath = "src/main/java/img_products/ImgAggProducto.png";
             }
         }
@@ -558,10 +626,10 @@ public class FormProducto extends javax.swing.JFrame {
                 producto.setFoto(destinationPath);
                 producto.setTipo_venta(cmb_TipoVentaProducto.getSelectedItem().toString());
                 producto.setPrecio_compra(Double.valueOf(txt_PrecioCompraProducto.getText()));
-                producto.setGanancia(Double.valueOf(txt_GananciaProducto.getText()));
+                producto.setGanancia(Double.valueOf(txt_GananciaProducto.getText())/100);
                 producto.setPrecio_venta(Double.valueOf(txt_PrecioVentaProducto.getText()));
                 producto.setPrecio_mayoreo(Double.valueOf(txt_PrecioMayoreoProducto.getText()));
-                producto.setImpuesto(Double.valueOf(txt_ImpuestoProducto.getText()));
+                producto.setImpuesto(Double.valueOf(txt_ImpuestoProducto.getText())/100);
                 producto.setProveedor_id(proDAO.leerProveedorRazonSocial(cmb_ProveedorId.getSelectedItem().toString()).getProveedor_id());
                 producto.setCategoria_id(catDAO.leerCategoriaNombre(cmb_CategoriaId.getSelectedItem().toString()).getCategoria_id());
                 if (LabelTOP.getText().equals("Nuevo Producto")) {
@@ -618,6 +686,98 @@ public class FormProducto extends javax.swing.JFrame {
         txt_PrecioMayoreoProducto.setText("");
         txt_ImpuestoProducto.setText("");
     }//GEN-LAST:event_btn_limpiarCamposActionPerformed
+ 
+    private void txt_GananciaProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_GananciaProductoKeyReleased
+        timer.cancel(); // Cancelar el temporizador anterior
+        timer = new Timer(); // Crear un nuevo temporizador
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> {
+                    double ganacia = Double.parseDouble(txt_GananciaProducto.getText())/100;
+                    double precio_compra = Double.parseDouble(txt_PrecioCompraProducto.getText());
+                    double precio_sugerido = precio_compra*(1+ganacia);
+                    txt_PrecioVentaProducto.setText(String.format(Locale.US, "%.2f" , precio_sugerido)); 
+                });
+            }
+        }, 300); 
+    }//GEN-LAST:event_txt_GananciaProductoKeyReleased
+
+    private void txt_PrecioCompraProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PrecioCompraProductoKeyReleased
+        timer.cancel(); // Cancelar el temporizador anterior
+        timer = new Timer(); // Crear un nuevo temporizador
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> {
+                    double ganacia = Double.parseDouble(txt_GananciaProducto.getText())/100;
+                    double precio_compra = Double.parseDouble(txt_PrecioCompraProducto.getText());
+                    double precio_sugerido = precio_compra*(1+ganacia);
+                    txt_PrecioVentaProducto.setText(String.format(Locale.US,"%.2f", precio_sugerido)); 
+                });
+            }
+        }, 300); 
+    }//GEN-LAST:event_txt_PrecioCompraProductoKeyReleased
+
+    private void txt_PrecioVentaProductoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_PrecioVentaProductoKeyReleased
+        timer.cancel(); // Cancelar el temporizador anterior
+        timer = new Timer(); // Crear un nuevo temporizador
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(() -> {
+                    //pv = pc*(1+i)
+                    //pv/pc-1=i
+                    double precio_venta = Double.parseDouble(txt_PrecioVentaProducto.getText());
+                    double precio_compra = Double.parseDouble(txt_PrecioCompraProducto.getText());
+                    double ganacia = ((precio_venta/precio_compra)-1)*100;
+                    txt_GananciaProducto.setText(String.format(Locale.US,"%.2f", ganacia)); 
+                });
+            }
+        }, 300); 
+    }//GEN-LAST:event_txt_PrecioVentaProductoKeyReleased
+
+    private void txt_CodigoProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CodigoProductoFocusGained
+        if (txt_CodigoProducto.getText().equals("0")) {
+            txt_CodigoProducto.setText("");
+            txt_CodigoProducto.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_CodigoProductoFocusGained
+
+    private void txt_CodigoProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_CodigoProductoFocusLost
+        if (txt_CodigoProducto.getText().isEmpty()) {
+            txt_CodigoProducto.setText("0");
+            txt_CodigoProducto.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_txt_CodigoProductoFocusLost
+
+    private void txt_NombreProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_NombreProductoFocusGained
+        if (txt_NombreProducto.getText().equals("Producto")) {
+            txt_NombreProducto.setText("");
+            txt_NombreProducto.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_NombreProductoFocusGained
+
+    private void txt_NombreProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_NombreProductoFocusLost
+        if (txt_NombreProducto.getText().isEmpty()) {
+            txt_NombreProducto.setText("Producto");
+            txt_NombreProducto.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_txt_NombreProductoFocusLost
+
+    private void txt_DescripcionProductoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DescripcionProductoFocusGained
+        if (txt_DescripcionProducto.getText().equals("Descripcion")) {
+            txt_DescripcionProducto.setText("");
+            txt_DescripcionProducto.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_txt_DescripcionProductoFocusGained
+
+    private void txt_DescripcionProductoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DescripcionProductoFocusLost
+        if (txt_DescripcionProducto.getText().isEmpty()) {
+            txt_DescripcionProducto.setText("Descripcion");
+            txt_DescripcionProducto.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_txt_DescripcionProductoFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;
