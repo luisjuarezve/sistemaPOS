@@ -1,9 +1,11 @@
-package com.superventas.pos.view.components;
+package com.superventas.pos.view.menus;
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
-import com.superventas.pos.view.form_tasaDolar;
+import com.superventas.pos.view.components.BillingSection;
+import com.superventas.pos.view.components.ProductsSection;
+import com.superventas.pos.view.forms.formTasaDolar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -235,7 +237,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
         if (SuperPOS.getTasa() == 0) {
-            form_tasaDolar ftd = new form_tasaDolar(body, carrito);
+            formTasaDolar ftd = new formTasaDolar(body, carrito);
             ftd.setVisible(true);
         }else{
             body.removeAll();
@@ -263,7 +265,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton5ActionPerformed
         body.removeAll();
-        body.add(new ProductosMenu(body.getSize()),new java.awt.BorderLayout().CENTER);
+        body.add(new PanelProductos(body.getSize(), body),new java.awt.BorderLayout().CENTER);
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_roundedButton5ActionPerformed

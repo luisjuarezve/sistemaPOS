@@ -1,7 +1,8 @@
-package com.superventas.pos.view;
+package com.superventas.pos.view.forms;
 
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
+import com.superventas.pos.view.SuperPOS;
 import com.superventas.pos.view.components.BillingSection;
 import com.superventas.pos.view.components.ProductsSection;
 import java.awt.Color;
@@ -9,12 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class form_tasaDolar extends javax.swing.JFrame {
+public class formTasaDolar extends javax.swing.JFrame {
 
     private JPanel body;
     private Carrito carrito;
     
-    public form_tasaDolar(JPanel body, Carrito carrito) {
+    public formTasaDolar(JPanel body, Carrito carrito) {
         initComponents();
         this.setBackground(new Color(0,0,0,0));
         this.setLocationRelativeTo(null);

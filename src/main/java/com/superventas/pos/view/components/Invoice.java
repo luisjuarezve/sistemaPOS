@@ -7,7 +7,7 @@ import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.ClienteDAO;
 import com.superventas.pos.persistence.Notas_de_entregaDAO;
 import com.superventas.pos.persistence.ProductosDAO;
-import com.superventas.pos.view.FormCliente;
+import com.superventas.pos.view.forms.FormCliente;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;

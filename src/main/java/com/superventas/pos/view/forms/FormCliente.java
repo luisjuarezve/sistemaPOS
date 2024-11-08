@@ -1,4 +1,4 @@
-package com.superventas.pos.view;
+package com.superventas.pos.view.forms;
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.persistence.ClienteDAO;
 import java.awt.GridLayout;

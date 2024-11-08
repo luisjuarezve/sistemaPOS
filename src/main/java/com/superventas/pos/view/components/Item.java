@@ -4,6 +4,7 @@ import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -24,7 +25,7 @@ public class Item extends javax.swing.JPanel {
         this.carrito = carrito;
         this.bs = bs;
         initComponents();
-        lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 120, 118));
+        lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 150, 150));
         lbl_nom_art.setText(producto.getNombre());
         lbl_precio_dolar.setText(String.format("%.2f", producto.getPrecio_venta())+" $");
         lbl_precio_bs.setText(String.format("%.2f", producto.getPrecio_venta()*tasa)+" Bs");
@@ -75,12 +76,12 @@ public class Item extends javax.swing.JPanel {
 
         container_item.setBackground(new java.awt.Color(255, 255, 255));
         container_item.setPreferredSize(new java.awt.Dimension(121, 190));
-        container_item.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        container_item.setLayout(new java.awt.BorderLayout());
 
         lbl_img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_img.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\producto_item.jpg"));
         lbl_img.setPreferredSize(new java.awt.Dimension(120, 118));
-        container_item.add(lbl_img, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        container_item.add(lbl_img, java.awt.BorderLayout.NORTH);
 
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(120, 30));
@@ -109,7 +110,7 @@ public class Item extends javax.swing.JPanel {
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.CENTER);
 
-        container_item.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, -1, -1));
+        container_item.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         btn_agregar.setBorder(null);
         btn_agregar.setForeground(new java.awt.Color(255, 255, 255));
@@ -120,7 +121,7 @@ public class Item extends javax.swing.JPanel {
                 btn_agregarActionPerformed(evt);
             }
         });
-        container_item.add(btn_agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 155, -1, -1));
+        container_item.add(btn_agregar, java.awt.BorderLayout.PAGE_END);
 
         add(container_item, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents

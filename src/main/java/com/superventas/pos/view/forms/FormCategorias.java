@@ -1,49 +1,40 @@
-package com.superventas.pos.view;
-import com.superventas.pos.model.Empleados;
-import com.superventas.pos.model.Rol;
-import com.superventas.pos.persistence.EmpleadosDAO;
-import com.superventas.pos.persistence.RolDAO;
+package com.superventas.pos.view.forms;
+
+import com.superventas.pos.model.Categorias;
+import com.superventas.pos.persistence.CategoriasDAO;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class FormEmpleado extends javax.swing.JFrame {
-    
-    private RolDAO rolDAO = new RolDAO();
-    private EmpleadosDAO empDAO = new EmpleadosDAO();
-    private Empleados acEmpleado;
+public class FormCategorias extends javax.swing.JFrame {
+
+    private CategoriasDAO catDAO = new CategoriasDAO();
+    private Categorias acCategorias;
     private JTable tabla;
-    
-    public FormEmpleado(String title, JTable tabla) {
+
+    public FormCategorias(String title, JTable tabla) {
         initComponents();
-        llenarComboBoxRoles();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         LabelTOP.setText(title);
         this.tabla = tabla;
     }
 
-    public FormEmpleado(String title, Empleados empleados, JTable tabla) {
+    public FormCategorias(String title, Categorias categorias, JTable tabla) {
         initComponents();
-        llenarComboBoxRoles();        
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        acEmpleado= empleados;
+        acCategorias = categorias;
         this.tabla = tabla;
         LabelTOP.setText(title);
-        if (title.equals("Actualizar Empleado")) {
-            cmb_rol.setSelectedIndex(acEmpleado.getRol_id());
-            txt_nombreEmpleado.setText(empleados.getNombre());
-            txt_apellidoEmpleado.setText(empleados.getApellido());
-            txt_correoEmpleado.setText(empleados.getCorreo_electronico());
-            txt_usuario.setText(empleados.getUsuario());
-            txt_contrasena.setText(empleados.getContrasena());
+        if (title.equals("Actualizar Categoria")) {
+            txt_nombreCategoria.setText(categorias.getNombre());
+            txt_descripcionCategoria.setText(categorias.getDescripcion());
         }
     }
 
-     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,25 +43,14 @@ public class FormEmpleado extends javax.swing.JFrame {
         LabelTOP = new javax.swing.JLabel();
         ContenedorCenter = new javax.swing.JPanel();
         ContenedorFormularioInterno = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        cmb_rol = new javax.swing.JComboBox<>();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        txt_nombreEmpleado = new com.superventas.pos.view.components.RoundedTextField();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        txt_apellidoEmpleado = new com.superventas.pos.view.components.RoundedTextField();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        txt_correoEmpleado = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel1 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        txt_usuario = new com.superventas.pos.view.components.RoundedTextField();
+        txt_nombreCategoria = new com.superventas.pos.view.components.RoundedTextField();
         jPanel17 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        txt_contrasena = new javax.swing.JPasswordField();
-        jPanel1 = new javax.swing.JPanel();
+        txt_descripcionCategoria = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel2 = new javax.swing.JPanel();
         ContenedorButtom = new javax.swing.JPanel();
         Button = new javax.swing.JPanel();
         btn_guardar = new com.superventas.pos.view.components.RoundedButton1_Invoice();
@@ -79,15 +59,16 @@ public class FormEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(400, 450));
 
         ContenedorFormulario.setBackground(new java.awt.Color(41, 1, 138));
-        ContenedorFormulario.setPreferredSize(new java.awt.Dimension(400, 550));
+        ContenedorFormulario.setPreferredSize(new java.awt.Dimension(400, 450));
         ContenedorFormulario.setLayout(new java.awt.BorderLayout());
 
         LabelTOP.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         LabelTOP.setForeground(new java.awt.Color(255, 255, 255));
         LabelTOP.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LabelTOP.setText("Registrar Empleado");
+        LabelTOP.setText("Registro de Categoria");
         LabelTOP.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
         LabelTOP.setPreferredSize(new java.awt.Dimension(209, 60));
         ContenedorFormulario.add(LabelTOP, java.awt.BorderLayout.NORTH);
@@ -96,91 +77,8 @@ public class FormEmpleado extends javax.swing.JFrame {
         ContenedorCenter.setLayout(new java.awt.GridBagLayout());
 
         ContenedorFormularioInterno.setOpaque(false);
-        ContenedorFormularioInterno.setPreferredSize(new java.awt.Dimension(300, 350));
-        ContenedorFormularioInterno.setLayout(new java.awt.GridLayout(7, 1));
-
-        jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Rol:");
-        jPanel2.add(jLabel11);
-
-        cmb_rol.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel2.add(cmb_rol);
-
-        ContenedorFormularioInterno.add(jPanel2);
-
-        jPanel12.setOpaque(false);
-        jPanel12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Nombre:");
-        jPanel12.add(jLabel9);
-
-        txt_nombreEmpleado.setMargin(new java.awt.Insets(2, 12, 2, 6));
-        txt_nombreEmpleado.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel12.add(txt_nombreEmpleado);
-
-        ContenedorFormularioInterno.add(jPanel12);
-
-        jPanel13.setOpaque(false);
-        jPanel13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Apellido:");
-        jPanel13.add(jLabel10);
-
-        txt_apellidoEmpleado.setMargin(new java.awt.Insets(2, 12, 2, 6));
-        txt_apellidoEmpleado.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel13.add(txt_apellidoEmpleado);
-
-        ContenedorFormularioInterno.add(jPanel13);
-
-        jPanel15.setOpaque(false);
-        jPanel15.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Correo:");
-        jPanel15.add(jLabel12);
-
-        txt_correoEmpleado.setMargin(new java.awt.Insets(2, 12, 2, 6));
-        txt_correoEmpleado.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel15.add(txt_correoEmpleado);
-
-        ContenedorFormularioInterno.add(jPanel15);
-
-        jPanel16.setOpaque(false);
-        jPanel16.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Usuario:");
-        jPanel16.add(jLabel13);
-
-        txt_usuario.setMargin(new java.awt.Insets(2, 12, 2, 6));
-        txt_usuario.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel16.add(txt_usuario);
-
-        ContenedorFormularioInterno.add(jPanel16);
-
-        jPanel17.setOpaque(false);
-        jPanel17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
-
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Contraseña:");
-        jPanel17.add(jLabel14);
-
-        txt_contrasena.setMargin(new java.awt.Insets(2, 12, 2, 6));
-        txt_contrasena.setPreferredSize(new java.awt.Dimension(180, 30));
-        jPanel17.add(txt_contrasena);
-
-        ContenedorFormularioInterno.add(jPanel17);
+        ContenedorFormularioInterno.setPreferredSize(new java.awt.Dimension(300, 200));
+        ContenedorFormularioInterno.setLayout(new java.awt.GridLayout(4, 1));
 
         jPanel1.setOpaque(false);
 
@@ -196,6 +94,49 @@ public class FormEmpleado extends javax.swing.JFrame {
         );
 
         ContenedorFormularioInterno.add(jPanel1);
+
+        jPanel16.setOpaque(false);
+        jPanel16.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Nombre:");
+        jPanel16.add(jLabel13);
+
+        txt_nombreCategoria.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_nombreCategoria.setPreferredSize(new java.awt.Dimension(180, 30));
+        jPanel16.add(txt_nombreCategoria);
+
+        ContenedorFormularioInterno.add(jPanel16);
+
+        jPanel17.setOpaque(false);
+        jPanel17.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 15));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Descripcion:");
+        jPanel17.add(jLabel14);
+
+        txt_descripcionCategoria.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_descripcionCategoria.setPreferredSize(new java.awt.Dimension(180, 30));
+        jPanel17.add(txt_descripcionCategoria);
+
+        ContenedorFormularioInterno.add(jPanel17);
+
+        jPanel2.setOpaque(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        ContenedorFormularioInterno.add(jPanel2);
 
         ContenedorCenter.add(ContenedorFormularioInterno, new java.awt.GridBagConstraints());
 
@@ -275,7 +216,7 @@ public class FormEmpleado extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 450, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -291,59 +232,38 @@ public class FormEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_volverActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
-        if (LabelTOP.getText().equals("Registro de Empleado")) {
-            if (cmb_rol.getSelectedIndex() != 0) {
-                if (!txt_nombreEmpleado.getText().isEmpty() && !txt_apellidoEmpleado.getText().isEmpty() && !txt_correoEmpleado.getText().isEmpty() && !txt_usuario.getText().isEmpty() && !new String(txt_contrasena.getPassword()).isEmpty()) {
-                    Empleados empleado = new Empleados();
-                    empleado.setRol_id(cmb_rol.getSelectedIndex());
-                    String usuario = txt_usuario.getText();
-                    empleado.setNombre(txt_nombreEmpleado.getText());
-                    empleado.setApellido(txt_apellidoEmpleado.getText());
-                    empleado.setCorreo_electronico(txt_correoEmpleado.getText());
-                    empleado.setUsuario(txt_usuario.getText());
-                    empleado.setContrasena(new String(txt_contrasena.getPassword()));
-                    try {
-                        if (empDAO.leerEmpleadosUsuario(usuario) != null) {
-                            JOptionPane.showMessageDialog(this, "El usuario ya esta registrado.", "Error", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }else{
-                            empDAO.insertarEmpleados(empleado);
-                            try {
-                                rellenarTablaEmpleados(tabla);
-                                this.dispose();
-                            } catch (Exception e) {
-                                this.dispose();
-                            }
-                        }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Debes llenar todos los camposs", "Campos Vacios", JOptionPane.INFORMATION_MESSAGE);
+        if (!txt_nombreCategoria.getText().isEmpty()) {
+            if (LabelTOP.getText().equals("Registro de Categoria")) {
+                Categorias categoria = new Categorias();
+                categoria.setNombre(txt_nombreCategoria.getText());
+                categoria.setDescripcion(txt_descripcionCategoria.getText());
+                try {
+                    catDAO.insertarCategorias(categoria);
+                    rellenarTablaCategorias(tabla);
+                    this.dispose();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Rol no Seleccionado", "Debes seleccionar un rol", JOptionPane.INFORMATION_MESSAGE);
+            } else if (LabelTOP.getText().equals("Actualizar Categoria")) {
+                catDAO.modificarCategoria(String.valueOf(acCategorias.getCategoria_id()), new Categorias(0, txt_nombreCategoria.getText(), txt_descripcionCategoria.getText()));
+                this.dispose();
+                JOptionPane.showMessageDialog(null, "Categoria actualizada exitosamente", "Categoria modificada exitosamente", JOptionPane.INFORMATION_MESSAGE);
+                rellenarTablaCategorias(tabla);
             }
-        }else if (LabelTOP.getText().equals("Actualizar Empleado")) {
-            empDAO.modificarEmpleados(String.valueOf(acEmpleado.getEmpleado_id()), new Empleados(0, cmb_rol.getSelectedIndex(), txt_nombreEmpleado.getText(), txt_apellidoEmpleado.getText(), txt_correoEmpleado.getText(), txt_usuario.getText(), new String(txt_contrasena.getPassword())));
-            this.dispose();
-            JOptionPane.showMessageDialog(null, "Empleado actualizado exitosamente", "Empleado modificado exitosamente", JOptionPane.INFORMATION_MESSAGE);
-            rellenarTablaEmpleados(tabla);
+        } else {
+            JOptionPane.showMessageDialog(null, "La categoria debe tener un nombre", "Campo Vacio", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarCamposActionPerformed
-       txt_nombreEmpleado.setText("");
-       txt_apellidoEmpleado.setText("");
-       txt_correoEmpleado.setText("");
-       txt_usuario.setText("");
-       txt_contrasena.setText("");
+        txt_nombreCategoria.setText("");
+        txt_descripcionCategoria.setText("");
     }//GEN-LAST:event_btn_limpiarCamposActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;
     private javax.swing.JPanel ContenedorButtom;
@@ -354,34 +274,23 @@ public class FormEmpleado extends javax.swing.JFrame {
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_guardar;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_limpiarCampos;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_volver;
-    private javax.swing.JComboBox<String> cmb_rol;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel2;
-    private com.superventas.pos.view.components.RoundedTextField txt_apellidoEmpleado;
-    private javax.swing.JPasswordField txt_contrasena;
-    private com.superventas.pos.view.components.RoundedTextField txt_correoEmpleado;
-    private com.superventas.pos.view.components.RoundedTextField txt_nombreEmpleado;
-    private com.superventas.pos.view.components.RoundedTextField txt_usuario;
+    private com.superventas.pos.view.components.RoundedTextField txt_descripcionCategoria;
+    private com.superventas.pos.view.components.RoundedTextField txt_nombreCategoria;
     // End of variables declaration//GEN-END:variables
-    
-    public void rellenarTablaEmpleados(JTable tabla) {
+
+    public void rellenarTablaCategorias(JTable tabla) {
         DefaultTableModel model = new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "rol", "Nombre", "Apellido", "Correo Electrónico", "usuario", "contrasena"
+                "ID", "Nombre", "Descripción"
             }
         ) {
 
@@ -393,26 +302,15 @@ public class FormEmpleado extends javax.swing.JFrame {
         tabla.setModel(model);
         model.setRowCount(0); // Clear the table
 
-        List<Empleados> listaEmpleados = empDAO.LeerTodosEmpleados();
-       
-        for (Empleados empleados : listaEmpleados) {
-            Object[] fila = new Object[7];
-            fila[0] = empleados.getEmpleado_id();
-            fila[1] = rolDAO.leerRol(String.valueOf(empleados.getRol_id())).getNombre();
-            fila[2] = empleados.getNombre();
-            fila[3] = empleados.getApellido();
-            fila[4] = empleados.getCorreo_electronico();
-            fila[5] = empleados.getUsuario();
-            fila[6] = empleados.getContrasena();
-            model.addRow(fila);
-        }
-    }
-
-    private void llenarComboBoxRoles() {
-        List<Rol> roles = rolDAO.LeerTodosRoles();
-        cmb_rol.addItem("-");
-        for (Rol rol : roles) {
-            cmb_rol.addItem(rol.getNombre()); 
+        List<Categorias> listaCategorias = catDAO.LeerTodosCategorias();
+        for (Categorias categoria : listaCategorias) {
+            if (categoria.getCategoria_id()>0) {
+                Object[] fila = new Object[3];
+                fila[0] = categoria.getCategoria_id();
+                fila[1] = categoria.getNombre();
+                fila[2] = categoria.getDescripcion();
+                model.addRow(fila);
+            }
         }
     }
 

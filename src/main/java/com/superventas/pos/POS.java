@@ -8,7 +8,7 @@ import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.view.Login;
 import com.superventas.pos.view.SuperPOS;
 import com.superventas.pos.view.components.CrearCliente;
-import com.superventas.pos.view.components.ProductosMenu;
+import com.superventas.pos.view.menus.PanelProductos;
 import java.awt.Dimension;
 
 

@@ -1,4 +1,4 @@
-package com.superventas.pos.view;
+package com.superventas.pos.view.forms;
 
 import com.superventas.pos.model.Proveedor;
 import com.superventas.pos.persistence.ProveedorDAO;

@@ -1,11 +1,11 @@
-package com.superventas.pos.view.components;
+package com.superventas.pos.view.menus;
 
 import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Proveedor;
 import com.superventas.pos.persistence.ClienteDAO;
 import com.superventas.pos.persistence.ProveedorDAO;
-import com.superventas.pos.view.FormCliente;
-import com.superventas.pos.view.FormProveedor;
+import com.superventas.pos.view.forms.FormCliente;
+import com.superventas.pos.view.forms.FormProveedor;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -50,20 +50,22 @@ public class PanelProveedor extends javax.swing.JPanel {
 
         List<Proveedor> listaProveedores = proDAO.LeerTodosProveedor();
         for (Proveedor proveedor : listaProveedores) {
-            Object[] fila = new Object[12];
-            fila[0] = proveedor.getProveedor_id();
-            fila[1] = proveedor.getTipo_doc();
-            fila[2] = proveedor.getNro_doc();
-            fila[3] = proveedor.getRazon_social();
-            fila[4] = proveedor.getTelefono();
-            fila[5] = proveedor.getCorreo_electronico();
-            fila[6] = proveedor.getDireccion();
-            fila[7] = proveedor.getFecha_registro();
-            fila[8] = proveedor.getEncargado();
-            fila[9] = proveedor.getTelefono_encargado();
-            fila[10] = proveedor.getComentario();
-            fila[11] = proveedor.getTipo_pago();
-            model.addRow(fila);
+            if (proveedor.getProveedor_id()>0) {
+                Object[] fila = new Object[12];
+                fila[0] = proveedor.getProveedor_id();
+                fila[1] = proveedor.getTipo_doc();
+                fila[2] = proveedor.getNro_doc();
+                fila[3] = proveedor.getRazon_social();
+                fila[4] = proveedor.getTelefono();
+                fila[5] = proveedor.getCorreo_electronico();
+                fila[6] = proveedor.getDireccion();
+                fila[7] = proveedor.getFecha_registro();
+                fila[8] = proveedor.getEncargado();
+                fila[9] = proveedor.getTelefono_encargado();
+                fila[10] = proveedor.getComentario();
+                fila[11] = proveedor.getTipo_pago();
+                model.addRow(fila);
+            }
         }
     }
 

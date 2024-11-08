@@ -1,9 +1,26 @@
-package com.superventas.pos.view;
+package com.superventas.pos.view.forms;
 
+import com.superventas.pos.model.Categorias;
+import com.superventas.pos.model.Empleados;
+import com.superventas.pos.model.Inventario;
+import com.superventas.pos.model.Productos;
+import com.superventas.pos.model.Proveedor;
+import com.superventas.pos.model.Rol;
+import com.superventas.pos.persistence.CategoriasDAO;
+import com.superventas.pos.persistence.InventarioDAO;
+import com.superventas.pos.persistence.ProductosDAO;
+import com.superventas.pos.persistence.ProveedorDAO;
 import java.awt.Image;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,11 +28,53 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class FormProducto extends javax.swing.JFrame {
 
+    private ProveedorDAO proDAO = new ProveedorDAO();
+    private CategoriasDAO catDAO = new CategoriasDAO();
+    private ProductosDAO productoDAO = new ProductosDAO();
+    private InventarioDAO invDAO = new InventarioDAO();
+    private JTable tabla;
+    private File selectedFile;
+    private String destinationPath;
+    private Productos acProducto = null;
     /**
      * Creates new form FormProductos
      */
-    public FormProducto() {
+    public FormProducto(JTable tabla, String titulo) {
         initComponents();
+        this.tabla = tabla;
+        LabelTOP.setText(titulo);
+        llenarComboBoxProveedor();
+        llenarComboBoxCategorias();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public FormProducto(JTable tabla, String titulo, Productos acProducto) {
+        initComponents();
+        this.tabla = tabla;
+        this.acProducto = acProducto;
+        LabelTOP.setText(titulo);
+        llenarComboBoxProveedor();
+        llenarComboBoxCategorias();
+        if (LabelTOP.getText().equals("Actualizar Producto")) {
+            jPanel19.removeAll();
+            jPanel20.removeAll();
+            jPanel21.removeAll();
+            cmb_CategoriaId.setSelectedItem(catDAO.leerCategoria(String.valueOf(acProducto.getCategoria_id())).getNombre());
+            cmb_ProveedorId.setSelectedItem(proDAO.leerProveedor(acProducto.getProveedor_id()).getRazon_social());
+            cmb_TipoVentaProducto.setSelectedItem(acProducto.getTipo_venta());
+            txt_CodigoProducto.setText(String.valueOf(acProducto.getCodigo()));
+            txt_NombreProducto.setText(acProducto.getNombre());
+            txt_DescripcionProducto.setText(acProducto.getDescripcion());
+            txt_PrecioCompraProducto.setText(String.valueOf(acProducto.getPrecio_compra()));
+            txt_GananciaProducto.setText(String.valueOf(acProducto.getGanancia()));
+            txt_PrecioVentaProducto.setText(String.valueOf(acProducto.getPrecio_venta()));
+            txt_PrecioMayoreoProducto.setText(String.valueOf(acProducto.getPrecio_mayoreo()));
+            txt_ImpuestoProducto.setText(String.valueOf(acProducto.getImpuesto()));
+            lbl_ImagenNuevoProducto.setIcon(redimensionarIcon(acProducto.getFoto(), 200, 200));
+            txt_InventarioMaxProducto.setText("1");
+            txt_InventarioMinProducto.setText("1");
+            txt_CantidadProducto.setText("1");
+        }
         this.setLocationRelativeTo(null);
     }
 
@@ -39,7 +98,7 @@ public class FormProducto extends javax.swing.JFrame {
         roundedButton1_Invoice1 = new com.superventas.pos.view.components.RoundedButton1_Invoice();
         formulario = new javax.swing.JPanel();
         Parte1 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txt_CodigoProducto = new com.superventas.pos.view.components.RoundedTextField();
@@ -55,29 +114,35 @@ public class FormProducto extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txt_PrecioCompraProducto = new com.superventas.pos.view.components.RoundedTextField();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        txt_PrecioMayoreoProducto = new com.superventas.pos.view.components.RoundedTextField();
-        jPanel8 = new javax.swing.JPanel();
-        parte2 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         txt_GananciaProducto = new com.superventas.pos.view.components.RoundedTextField();
         jPanel11 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txt_PrecioVentaProducto = new com.superventas.pos.view.components.RoundedTextField();
+        parte2 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txt_PrecioMayoreoProducto = new com.superventas.pos.view.components.RoundedTextField();
         jPanel12 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txt_ImpuestoProducto = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel19 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        txt_CantidadProducto = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        txt_InventarioMinProducto = new com.superventas.pos.view.components.RoundedTextField();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        txt_InventarioMaxProducto = new com.superventas.pos.view.components.RoundedTextField();
         jPanel13 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         cmb_ProveedorId = new javax.swing.JComboBox<>();
         jPanel14 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         cmb_CategoriaId = new javax.swing.JComboBox<>();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel16 = new javax.swing.JPanel();
         ContenedorButtom = new javax.swing.JPanel();
         Button = new javax.swing.JPanel();
         btn_guardar = new com.superventas.pos.view.components.RoundedButton1_Invoice();
@@ -85,6 +150,7 @@ public class FormProducto extends javax.swing.JFrame {
         btn_volver = new com.superventas.pos.view.components.RoundedButton1_Invoice();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         ContenedorFormulario.setBackground(new java.awt.Color(41, 1, 138));
         ContenedorFormulario.setLayout(new java.awt.BorderLayout());
@@ -116,7 +182,8 @@ public class FormProducto extends javax.swing.JFrame {
         jPanel17.setLayout(new java.awt.GridBagLayout());
 
         lbl_ImagenNuevoProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_ImagenNuevoProducto.setIcon(new ImageIcon ("src/main/java/com/superventas/pos/img/ImgAggProducto.png"));
+        lbl_ImagenNuevoProducto.setIcon(redimensionarIcon("src/main/java/com/superventas/pos/img/ImgAggProducto.png", 200, 200)
+        );
         lbl_ImagenNuevoProducto.setPreferredSize(new java.awt.Dimension(200, 200));
         jPanel17.add(lbl_ImagenNuevoProducto, new java.awt.GridBagConstraints());
 
@@ -151,18 +218,18 @@ public class FormProducto extends javax.swing.JFrame {
         Parte1.setPreferredSize(new java.awt.Dimension(350, 100));
         Parte1.setLayout(new java.awt.GridLayout(8, 1));
 
-        jPanel1.setOpaque(false);
-        Parte1.add(jPanel1);
+        jPanel8.setOpaque(false);
+        Parte1.add(jPanel8);
 
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Codigo:");
+        jLabel2.setText("(*) Codigo:");
         jPanel2.add(jLabel2);
 
-        txt_CodigoProducto.setBorder(null);
+        txt_CodigoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_CodigoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel2.add(txt_CodigoProducto);
 
@@ -173,10 +240,10 @@ public class FormProducto extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Nombre:");
+        jLabel3.setText("(*) Nombre:");
         jPanel3.add(jLabel3);
 
-        txt_NombreProducto.setBorder(null);
+        txt_NombreProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_NombreProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel3.add(txt_NombreProducto);
 
@@ -190,7 +257,7 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel4.setText("Descripcion:");
         jPanel4.add(jLabel4);
 
-        txt_DescripcionProducto.setBorder(null);
+        txt_DescripcionProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_DescripcionProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel4.add(txt_DescripcionProducto);
 
@@ -204,7 +271,7 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel5.setText("Tipo Venta:");
         jPanel5.add(jLabel5);
 
-        cmb_TipoVentaProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_TipoVentaProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "UNIDAD", "PESO", "GRANEL" }));
         cmb_TipoVentaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel5.add(cmb_TipoVentaProducto);
 
@@ -215,31 +282,42 @@ public class FormProducto extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Precio Compra:");
+        jLabel6.setText("(*) Precio Compra:");
         jPanel6.add(jLabel6);
 
-        txt_PrecioCompraProducto.setBorder(null);
+        txt_PrecioCompraProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_PrecioCompraProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel6.add(txt_PrecioCompraProducto);
 
         Parte1.add(jPanel6);
 
-        jPanel7.setOpaque(false);
-        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        jPanel10.setOpaque(false);
+        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Precio Mayoreo:");
-        jPanel7.add(jLabel7);
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("(*) Ganancia % :");
+        jPanel10.add(jLabel8);
 
-        txt_PrecioMayoreoProducto.setBorder(null);
-        txt_PrecioMayoreoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel7.add(txt_PrecioMayoreoProducto);
+        txt_GananciaProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_GananciaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel10.add(txt_GananciaProducto);
 
-        Parte1.add(jPanel7);
+        Parte1.add(jPanel10);
 
-        jPanel8.setOpaque(false);
-        Parte1.add(jPanel8);
+        jPanel11.setOpaque(false);
+        jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("(*) Precio Venta:");
+        jPanel11.add(jLabel9);
+
+        txt_PrecioVentaProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_PrecioVentaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel11.add(txt_PrecioVentaProducto);
+
+        Parte1.add(jPanel11);
 
         formulario.add(Parte1, java.awt.BorderLayout.WEST);
 
@@ -249,47 +327,75 @@ public class FormProducto extends javax.swing.JFrame {
         jPanel9.setOpaque(false);
         parte2.add(jPanel9);
 
-        jPanel10.setOpaque(false);
-        jPanel10.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        jPanel7.setOpaque(false);
+        jPanel7.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Ganancia % :");
-        jPanel10.add(jLabel8);
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Precio Mayoreo:");
+        jPanel7.add(jLabel7);
 
-        txt_GananciaProducto.setBorder(null);
-        txt_GananciaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel10.add(txt_GananciaProducto);
+        txt_PrecioMayoreoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_PrecioMayoreoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel7.add(txt_PrecioMayoreoProducto);
 
-        parte2.add(jPanel10);
-
-        jPanel11.setOpaque(false);
-        jPanel11.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Precio Venta:");
-        jPanel11.add(jLabel9);
-
-        txt_PrecioVentaProducto.setBorder(null);
-        txt_PrecioVentaProducto.setPreferredSize(new java.awt.Dimension(150, 25));
-        jPanel11.add(txt_PrecioVentaProducto);
-
-        parte2.add(jPanel11);
+        parte2.add(jPanel7);
 
         jPanel12.setOpaque(false);
         jPanel12.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Impuesto:");
+        jLabel10.setText("(*) Impuesto %:");
         jPanel12.add(jLabel10);
 
-        txt_ImpuestoProducto.setBorder(null);
+        txt_ImpuestoProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
         txt_ImpuestoProducto.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel12.add(txt_ImpuestoProducto);
 
         parte2.add(jPanel12);
+
+        jPanel19.setOpaque(false);
+        jPanel19.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("(*) Cantidad:");
+        jPanel19.add(jLabel13);
+
+        txt_CantidadProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_CantidadProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel19.add(txt_CantidadProducto);
+
+        parte2.add(jPanel19);
+
+        jPanel20.setOpaque(false);
+        jPanel20.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("(*) Inventario minimo:");
+        jPanel20.add(jLabel14);
+
+        txt_InventarioMinProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_InventarioMinProducto.setPreferredSize(new java.awt.Dimension(150, 25));
+        jPanel20.add(txt_InventarioMinProducto);
+
+        parte2.add(jPanel20);
+
+        jPanel21.setOpaque(false);
+        jPanel21.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("(*) Inventario maximo:");
+        jPanel21.add(jLabel15);
+
+        txt_InventarioMaxProducto.setMargin(new java.awt.Insets(2, 12, 2, 6));
+        txt_InventarioMaxProducto.setPreferredSize(new java.awt.Dimension(145, 25));
+        jPanel21.add(txt_InventarioMaxProducto);
+
+        parte2.add(jPanel21);
 
         jPanel13.setOpaque(false);
         jPanel13.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
@@ -299,7 +405,6 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel11.setText("Proveedor ID:");
         jPanel13.add(jLabel11);
 
-        cmb_ProveedorId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmb_ProveedorId.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel13.add(cmb_ProveedorId);
 
@@ -313,17 +418,10 @@ public class FormProducto extends javax.swing.JFrame {
         jLabel12.setText("Categoria ID:");
         jPanel14.add(jLabel12);
 
-        cmb_CategoriaId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmb_CategoriaId.setPreferredSize(new java.awt.Dimension(150, 25));
         jPanel14.add(cmb_CategoriaId);
 
         parte2.add(jPanel14);
-
-        jPanel15.setOpaque(false);
-        parte2.add(jPanel15);
-
-        jPanel16.setOpaque(false);
-        parte2.add(jPanel16);
 
         formulario.add(parte2, java.awt.BorderLayout.CENTER);
 
@@ -351,6 +449,11 @@ public class FormProducto extends javax.swing.JFrame {
         btn_guardar.setFocusable(false);
         btn_guardar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btn_guardar.setPreferredSize(new java.awt.Dimension(120, 80));
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
         Button.add(btn_guardar);
 
         btn_limpiarCampos.setBackground(new java.awt.Color(168, 8, 72));
@@ -361,6 +464,11 @@ public class FormProducto extends javax.swing.JFrame {
         btn_limpiarCampos.setFocusable(false);
         btn_limpiarCampos.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         btn_limpiarCampos.setPreferredSize(new java.awt.Dimension(120, 80));
+        btn_limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarCamposActionPerformed(evt);
+            }
+        });
         Button.add(btn_limpiarCampos);
 
         btn_volver.setBackground(new java.awt.Color(168, 8, 72));
@@ -386,7 +494,7 @@ public class FormProducto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1010, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -409,23 +517,107 @@ public class FormProducto extends javax.swing.JFrame {
     private void roundedButton1_Invoice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton1_Invoice1ActionPerformed
         String ruta = "";
         JFileChooser file = new JFileChooser();
+        file.setDialogTitle("Guardar Foto");
         FileNameExtensionFilter filtrado = new FileNameExtensionFilter("JPG, PNG & GIF", "jpg", "png", "gif");
         file.setFileFilter(filtrado);
-
         int respuesta = file.showOpenDialog(this);
-
-        if (respuesta == JFileChooser.APPROVE_OPTION){
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            selectedFile = file.getSelectedFile();
             ruta = file.getSelectedFile().getPath();
-            Image mImagen = new ImageIcon(ruta).getImage();
-            ImageIcon mIcono = new ImageIcon(mImagen.getScaledInstance(lbl_ImagenNuevoProducto.getWidth(), lbl_ImagenNuevoProducto.getHeight(), Image.SCALE_SMOOTH));
-            lbl_ImagenNuevoProducto.setIcon(mIcono);
+            ImageIcon mImagen = redimensionarIcon(ruta, 200, 200);
+            lbl_ImagenNuevoProducto.setIcon(mImagen);
         }
-        // TODO add your handling code here:
     }//GEN-LAST:event_roundedButton1_Invoice1ActionPerformed
 
     private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
         this.dispose();
     }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        if (selectedFile != null) {
+            try {
+                destinationPath = "src/main/java/img_products/" + selectedFile.getName(); // Cambiar a la ruta deseada
+                File destinationFile = new File(destinationPath);
+                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                JOptionPane.showMessageDialog(this, "Archivo guardado correctamente en " + destinationPath);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo: " + ex.getMessage());
+            }
+        } else  {
+            if (acProducto == null) {
+                destinationPath = "src/main/java/img_products/ImgAggProducto.png";
+            }
+        }
+
+        if (cmb_TipoVentaProducto.getSelectedIndex() != 0 && cmb_ProveedorId.getSelectedIndex() != 0 && cmb_CategoriaId.getSelectedIndex() != 0) {
+            if (!txt_CodigoProducto.getText().isEmpty() && !txt_NombreProducto.getText().isEmpty() && !txt_PrecioCompraProducto.getText().isEmpty() && !txt_GananciaProducto.getText().isEmpty() && !txt_PrecioVentaProducto.getText().isEmpty() && !txt_ImpuestoProducto.getText().isEmpty() && !txt_CantidadProducto.getText().isEmpty() && !txt_InventarioMinProducto.getText().isEmpty() && !txt_InventarioMaxProducto.getText().isEmpty()) {
+                Productos producto = new Productos();
+                producto.setCodigo(Integer.parseInt(txt_CodigoProducto.getText()));
+                producto.setNombre(txt_NombreProducto.getText());
+                producto.setDescripcion(txt_DescripcionProducto.getText());
+                producto.setFoto(destinationPath);
+                producto.setTipo_venta(cmb_TipoVentaProducto.getSelectedItem().toString());
+                producto.setPrecio_compra(Double.valueOf(txt_PrecioCompraProducto.getText()));
+                producto.setGanancia(Double.valueOf(txt_GananciaProducto.getText()));
+                producto.setPrecio_venta(Double.valueOf(txt_PrecioVentaProducto.getText()));
+                producto.setPrecio_mayoreo(Double.valueOf(txt_PrecioMayoreoProducto.getText()));
+                producto.setImpuesto(Double.valueOf(txt_ImpuestoProducto.getText()));
+                producto.setProveedor_id(proDAO.leerProveedorRazonSocial(cmb_ProveedorId.getSelectedItem().toString()).getProveedor_id());
+                producto.setCategoria_id(catDAO.leerCategoriaNombre(cmb_CategoriaId.getSelectedItem().toString()).getCategoria_id());
+                if (LabelTOP.getText().equals("Nuevo Producto")) {
+                    try {
+                        if (productoDAO.leerProductoCodigo(String.valueOf(producto.getCodigo())) != null) {
+                            JOptionPane.showMessageDialog(this, "El codigo ya esta registrado.", "Producto Registrado en sistema", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            productoDAO.insertarProductos(producto);
+                            try {
+                                Inventario inventario = new Inventario();
+                                inventario.setCantidad(Double.valueOf(txt_CantidadProducto.getText()));
+                                inventario.setInventario_min(Double.valueOf(txt_InventarioMinProducto.getText()));
+                                inventario.setInventario_max(Double.valueOf(txt_InventarioMaxProducto.getText()));
+                                inventario.setProducto_id(productoDAO.leerProductoCodigo(String.valueOf(producto.getCodigo())).getProducto_id());
+                                invDAO.insertarInventario(inventario);
+                                JOptionPane.showMessageDialog(this, "El Producto se ha registrado exitosamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(this, "Error inesperado en inventario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            rellenarTablaProductos(tabla);
+                            this.dispose();
+                        }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else if (LabelTOP.getText().equals("Actualizar Producto")) {
+                    try {
+                        productoDAO.modificarProductos(String.valueOf(acProducto.getProducto_id()), producto);
+                        JOptionPane.showMessageDialog(this, "El Producto se ha actualizado exitosamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+                        rellenarTablaProductos(tabla);
+                        this.dispose();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Los debes llenar todas los campos marcados con el (*)", "Mensaje de alerta", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Los debes llenar todas las listas desplegables", "Mensaje de alerta", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarCamposActionPerformed
+        cmb_TipoVentaProducto.setSelectedIndex(0);
+        cmb_ProveedorId.setSelectedIndex(0);
+        cmb_CategoriaId.setSelectedIndex(0);
+        txt_CodigoProducto.setText("");
+        txt_NombreProducto.setText("");
+        txt_DescripcionProducto.setText("");
+        txt_PrecioCompraProducto.setText("");
+        txt_GananciaProducto.setText("");
+        txt_PrecioVentaProducto.setText("");
+        txt_PrecioMayoreoProducto.setText("");
+        txt_ImpuestoProducto.setText("");
+    }//GEN-LAST:event_btn_limpiarCamposActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Button;
@@ -446,6 +638,9 @@ public class FormProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -454,17 +649,17 @@ public class FormProducto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -475,13 +670,79 @@ public class FormProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_ImagenNuevoProducto;
     private javax.swing.JPanel parte2;
     private com.superventas.pos.view.components.RoundedButton1_Invoice roundedButton1_Invoice1;
+    private com.superventas.pos.view.components.RoundedTextField txt_CantidadProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_CodigoProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_DescripcionProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_GananciaProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_ImpuestoProducto;
+    private com.superventas.pos.view.components.RoundedTextField txt_InventarioMaxProducto;
+    private com.superventas.pos.view.components.RoundedTextField txt_InventarioMinProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_NombreProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_PrecioCompraProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_PrecioMayoreoProducto;
     private com.superventas.pos.view.components.RoundedTextField txt_PrecioVentaProducto;
     // End of variables declaration//GEN-END:variables
+
+    public void rellenarTablaProductos(JTable tabla) {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "ID", "Codigo", "Nombre", "Descripcion", "Tipo Venta", "Precio Compra", "Ganacia", "Precio Venta", "Precio Mayoreo", "Impuesto", "Proveedor", "Categoria"
+                }
+        ) {
+
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
+
+        tabla.setModel(model);
+        model.setRowCount(0); // Clear the table
+
+        List<Productos> listaProductos = productoDAO.LeerTodosProductos();
+
+        for (Productos producto : listaProductos) {
+            Object[] fila = new Object[12];
+            fila[0] = producto.getProducto_id();
+            fila[1] = producto.getCodigo();
+            fila[2] = producto.getNombre();
+            fila[3] = producto.getDescripcion();
+            fila[4] = producto.getTipo_venta();
+            fila[5] = producto.getPrecio_compra();
+            fila[6] = producto.getGanancia();
+            fila[7] = producto.getPrecio_venta();
+            fila[8] = producto.getPrecio_mayoreo();
+            fila[9] = producto.getImpuesto();
+            fila[10] = proDAO.leerProveedor(producto.getProveedor_id()).getRazon_social();
+            fila[11] = catDAO.leerCategoria(String.valueOf(producto.getCategoria_id())).getNombre();
+            model.addRow(fila);
+        }
+    }
+
+    private void llenarComboBoxProveedor() {
+        List<Proveedor> listaProveedores = proDAO.LeerTodosProveedor();
+        cmb_ProveedorId.addItem("-");
+        for (Proveedor proveedor : listaProveedores) {
+            cmb_ProveedorId.addItem(proveedor.getRazon_social());
+        }
+    }
+
+    private void llenarComboBoxCategorias() {
+        List<Categorias> listaCategorias = catDAO.LeerTodosCategorias();
+        cmb_CategoriaId.addItem("-");
+        for (Categorias categoria : listaCategorias) {
+            cmb_CategoriaId.addItem(categoria.getNombre());
+        }
+    }
+
+    public ImageIcon redimensionarIcon(String url, int width, int height) {
+        ImageIcon icon = new ImageIcon(url);
+        // Obtener la imagen original
+        Image img = icon.getImage();
+        // Redimensionar la imagen
+        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        // Crear un nuevo ImageIcon con la imagen redimensionada
+        ImageIcon newIcon = new ImageIcon(newImg);
+        return newIcon;
+    }
 }

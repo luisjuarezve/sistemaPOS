@@ -1,18 +1,33 @@
-package com.superventas.pos.view.components;
-import com.superventas.pos.view.FormProducto;
+package com.superventas.pos.view.menus;
+import com.superventas.pos.model.Productos;
+import com.superventas.pos.persistence.CategoriasDAO;
+import com.superventas.pos.persistence.ProductosDAO;
+import com.superventas.pos.persistence.ProveedorDAO;
+import com.superventas.pos.view.forms.FormEmpleado;
+import com.superventas.pos.view.forms.FormProducto;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Admin
  */
-public class ProductosMenu extends javax.swing.JPanel {
+public class PanelProductos extends javax.swing.JPanel {
 
+    private ProveedorDAO proDAO = new ProveedorDAO();
+    private CategoriasDAO catDAO = new CategoriasDAO();
+    private ProductosDAO productoDAO = new ProductosDAO();
+    private JPanel body;
     /**
      * Creates new form ProductosMenu
      */
-    public ProductosMenu(Dimension tamaño) {
+    public PanelProductos(Dimension tamaño, JPanel body) {
         initComponents();
+        this.body = body;
+        rellenarTablaProductos(jTable1);
         responsive(tamaño);
     }
 
@@ -104,6 +119,11 @@ public class ProductosMenu extends javax.swing.JPanel {
         btn_ModificarProducto.setFocusable(false);
         btn_ModificarProducto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btn_ModificarProducto.setPreferredSize(new java.awt.Dimension(150, 40));
+        btn_ModificarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ModificarProductoActionPerformed(evt);
+            }
+        });
         Botones.add(btn_ModificarProducto);
 
         btn_CategoriaProducto.setBackground(new java.awt.Color(168, 8, 72));
@@ -113,6 +133,11 @@ public class ProductosMenu extends javax.swing.JPanel {
         btn_CategoriaProducto.setFocusable(false);
         btn_CategoriaProducto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btn_CategoriaProducto.setPreferredSize(new java.awt.Dimension(150, 40));
+        btn_CategoriaProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CategoriaProductoActionPerformed(evt);
+            }
+        });
         Botones.add(btn_CategoriaProducto);
 
         Header.add(Botones, java.awt.BorderLayout.CENTER);
@@ -195,23 +220,12 @@ public class ProductosMenu extends javax.swing.JPanel {
         jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "Codigo", "Nombre", "Descripcion", "Tipo Venta", "Precio Compra", "Ganacia", "Precio Venta", "Precio Mayoreo", "Impuesto", "Proveedor", "Categoria"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         Table.add(jScrollPane1, new java.awt.GridBagConstraints());
@@ -234,9 +248,27 @@ public class ProductosMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_searchBar2FocusLost
 
     private void btn_NuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoProductoActionPerformed
-        FormProducto fp = new FormProducto();
+        FormProducto fp = new FormProducto(jTable1, "Nuevo Producto");
         fp.setVisible(true);
     }//GEN-LAST:event_btn_NuevoProductoActionPerformed
+
+    private void btn_ModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarProductoActionPerformed
+        if (jTable1.getRowCount()>0) {
+            if(jTable1.getSelectedRow()!=-1){
+                String id_producto = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(),0));
+                FormProducto fp = new FormProducto(jTable1, "Actualizar Producto", productoDAO.leerProducto(id_producto));
+                fp.setVisible(true);
+            }
+        }
+        
+    }//GEN-LAST:event_btn_ModificarProductoActionPerformed
+
+    private void btn_CategoriaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CategoriaProductoActionPerformed
+        body.removeAll();
+        body.add(new PanelCategorias(body.getSize(), body),new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
+    }//GEN-LAST:event_btn_CategoriaProductoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -276,4 +308,41 @@ public class ProductosMenu extends javax.swing.JPanel {
         Table.setPreferredSize(new Dimension((int) xWidth, (int) (yHeitght * 0.65)));
         jScrollPane1.setPreferredSize(new Dimension((int) (xWidth*0.90) , (int) (yHeitght * 0.65 * 0.90)));
     }
+    
+     public void rellenarTablaProductos(JTable tabla) {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "ID", "Codigo", "Nombre", "Descripcion", "Tipo Venta", "Precio Compra", "Ganacia", "Precio Venta", "Precio Mayoreo", "Impuesto", "Proveedor", "Categoria"
+                }
+        ) {
+
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
+
+        tabla.setModel(model);
+        model.setRowCount(0); // Clear the table
+
+        List<Productos> listaProductos = productoDAO.LeerTodosProductos();
+
+        for (Productos producto : listaProductos) {
+            Object[] fila = new Object[12];
+            fila[0] = producto.getProducto_id();
+            fila[1] = producto.getCodigo();
+            fila[2] = producto.getNombre();
+            fila[3] = producto.getDescripcion();
+            fila[4] = producto.getTipo_venta();
+            fila[5] = producto.getPrecio_compra();
+            fila[6] = producto.getGanancia();
+            fila[7] = producto.getPrecio_venta();
+            fila[8] = producto.getPrecio_mayoreo();
+            fila[9] = producto.getImpuesto();
+            fila[10] = proDAO.leerProveedor(producto.getProveedor_id()).getRazon_social();
+            fila[11] = catDAO.leerCategoria(String.valueOf(producto.getCategoria_id())).getNombre();
+            model.addRow(fila);
+        }
+    }
+    
 }

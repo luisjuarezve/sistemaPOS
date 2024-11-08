@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.superventas.pos.view.components;
+package com.superventas.pos.view.menus;
 
-import com.superventas.pos.model.Cliente;
-import com.superventas.pos.persistence.ClienteDAO;
-import com.superventas.pos.view.FormCliente;
-import java.awt.Color;
+import com.superventas.pos.model.Empleados;
+import com.superventas.pos.persistence.EmpleadosDAO;
+import com.superventas.pos.persistence.RolDAO;
+import com.superventas.pos.view.forms.FormEmpleado;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.util.List;
@@ -20,24 +16,25 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class PanelClientes extends javax.swing.JPanel {
+public class PanelEmpleados extends javax.swing.JPanel {
     
-    ClienteDAO cli= new ClienteDAO();
+    RolDAO rolDAO = new RolDAO();
+    EmpleadosDAO empDAO = new EmpleadosDAO();
     
-    public PanelClientes(Dimension tamaño) {
+    public PanelEmpleados(Dimension tamaño) {
         initComponents();
         this.setPreferredSize(tamaño);
         responsive(tamaño);
-        rellenarTablaClientes(jTable2); 
+        rellenarTablaEmpleados(jTable2); 
     }
     
-    public void rellenarTablaClientes(JTable tabla) {
+    public void rellenarTablaEmpleados(JTable tabla) {
         DefaultTableModel model = new DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Cédula", "Nombre", "Apellido", "Teléfono", "Correo Electrónico", "Dirección", "Comentarios"
+                "id", "rol", "Nombre", "Apellido", "Correo Electrónico", "usuario", "contrasena"
             }
         ) {
 
@@ -49,17 +46,16 @@ public class PanelClientes extends javax.swing.JPanel {
         tabla.setModel(model);
         model.setRowCount(0); // Clear the table
 
-        List<Cliente> listaClientes = cli.LeerTodosClientes();
-        for (Cliente cliente : listaClientes) {
-            Object[] fila = new Object[8];
-            fila[0] = cliente.getCliente_id(); 
-            fila[1] = cliente.getCedula();
-            fila[2] = cliente.getNombre();
-            fila[3] = cliente.getApellido();
-            fila[4] = cliente.getTelefono();
-            fila[5] = cliente.getCorreoElectronico();
-            fila[6] = cliente.getDireccion();
-            fila[7] = cliente.getComentarios();
+        List<Empleados> listaEmpleados = empDAO.LeerTodosEmpleados();
+        for (Empleados empleados : listaEmpleados) {
+            Object[] fila = new Object[7];
+            fila[0] = empleados.getEmpleado_id();
+            fila[1] = rolDAO.leerRol(String.valueOf(empleados.getRol_id())).getNombre();
+            fila[2] = empleados.getNombre();
+            fila[3] = empleados.getApellido();
+            fila[4] = empleados.getCorreo_electronico();
+            fila[5] = empleados.getUsuario();
+            fila[6] = empleados.getContrasena();
             model.addRow(fila);
         }
     }
@@ -96,7 +92,7 @@ public class PanelClientes extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Registro de clientes");
+        jLabel1.setText("Registro de empleados");
         Header.add(jLabel1, new java.awt.GridBagConstraints());
 
         Contenedor_Principal.add(Header, java.awt.BorderLayout.NORTH);
@@ -105,32 +101,8 @@ public class PanelClientes extends javax.swing.JPanel {
         Contenedor_table.setPreferredSize(new java.awt.Dimension(750, 500));
         Contenedor_table.setLayout(new java.awt.GridBagLayout());
 
-        jScrollPane2.setOpaque(false);
         jScrollPane2.setPreferredSize(new java.awt.Dimension(700, 402));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Cedula", "Nombre", "Apellido", "Telefono", "Correo Electronico", "Direccion"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
         jTable2.setOpaque(false);
         jTable2.setSelectionBackground(new java.awt.Color(153, 153, 153));
         jScrollPane2.setViewportView(jTable2);
@@ -204,14 +176,14 @@ public class PanelClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_nuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoClienteActionPerformed
-        new FormCliente("Registro de Cliente", jTable2);
+        new FormEmpleado("Registro de Empleado", jTable2);
     }//GEN-LAST:event_btn_nuevoClienteActionPerformed
 
     private void btn_modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarClienteActionPerformed
          if (jTable2.getRowCount()>0) {
             if(jTable2.getSelectedRow()!=-1){
-                int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
-                new FormCliente("Actualizar Cliente",cli.leerCliente(id_cliente), jTable2);
+                String id_empleado = String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0));
+                new FormEmpleado("Actualizar Empleado", empDAO.leerEmpleados(id_empleado), jTable2);
             }
         }
     }//GEN-LAST:event_btn_modificarClienteActionPerformed
@@ -219,10 +191,10 @@ public class PanelClientes extends javax.swing.JPanel {
     private void btn_eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarClienteActionPerformed
         if (jTable2.getRowCount()>0) {
             if(jTable2.getSelectedRow()!=-1){
-                int id_cliente = Integer.parseInt(String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0)));
-                cli.eliminarCliente(id_cliente);
-                JOptionPane.showMessageDialog(null, "Cliente eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
-                rellenarTablaClientes(jTable2);
+                String id_empleado = String.valueOf(jTable2.getValueAt(jTable2.getSelectedRow(),0));
+                empDAO.eliminarEmpleados(id_empleado);
+                JOptionPane.showMessageDialog(null, "Empleado eliminado exitosamente", "Eliminacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+                rellenarTablaEmpleados(jTable2);
             }
            
         }
