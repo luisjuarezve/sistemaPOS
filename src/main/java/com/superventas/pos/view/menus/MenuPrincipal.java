@@ -16,14 +16,16 @@ import javax.swing.JPanel;
 public class MenuPrincipal extends javax.swing.JPanel {
     private Carrito carrito = new Carrito();
     private JPanel body;
+    private Empleados empleado;
     /**
      * Creates new form MenuPrincipal
      */
     
 
-    public MenuPrincipal(JPanel body) {
+    public MenuPrincipal(JPanel body, Empleados empleado) {
         initComponents();
         this.body= body;
+        this.empleado = empleado;
     }
 
     /**
@@ -237,11 +239,11 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
         if (SuperPOS.getTasa() == 0) {
-            formTasaDolar ftd = new formTasaDolar(body, carrito);
+            formTasaDolar ftd = new formTasaDolar(body, carrito, empleado);
             ftd.setVisible(true);
         }else{
             body.removeAll();
-            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa());
+            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa(), empleado, new Cliente());
             body.add(new ProductsSection(carrito, bs, SuperPOS.getTasa()), new java.awt.BorderLayout().WEST);
             body.add(bs, new java.awt.BorderLayout().EAST);
             body.revalidate();

@@ -2,6 +2,7 @@ package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
+import com.superventas.pos.model.Empleados;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +12,7 @@ public class BillingSection extends javax.swing.JPanel {
     private Carrito carrito;
     private double tasa;
     private Cliente cliente;
+    private Empleados empleado;
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -20,17 +22,19 @@ public class BillingSection extends javax.swing.JPanel {
         return cliente;
     }
     
-    public BillingSection(Carrito carrito, double tasa) {
+    public BillingSection(Carrito carrito, double tasa, Empleados empleado) {
         this.carrito = carrito;
         this.tasa = tasa;
+        this.empleado = empleado;
         this.cliente = cliente;
         initComponents();
         responsive();
     }
     
-    public BillingSection(Carrito carrito, double tasa, Cliente cliente) {
+    public BillingSection(Carrito carrito, double tasa, Empleados empleado, Cliente cliente) {
         this.carrito = carrito;
         this.tasa = tasa;
+        this.empleado = empleado;
         this.cliente = cliente;
         initComponents();
         responsive();
@@ -69,7 +73,7 @@ public class BillingSection extends javax.swing.JPanel {
         Dimension invoiceSize = new Dimension((int) ((screenSize.width*0.30)-20), screenSize.height-120);
         invoice_section.setPreferredSize(invoiceSize);
         invoice_section.removeAll();
-        invoice_section.add(new Invoice(invoiceSize, carrito, this, tasa, cliente));
+        invoice_section.add(new Invoice(invoiceSize, carrito, this, tasa, cliente, empleado));
         invoice_section.revalidate();
         invoice_section.repaint();
     }

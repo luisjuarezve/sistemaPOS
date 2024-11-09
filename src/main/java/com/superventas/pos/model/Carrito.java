@@ -68,4 +68,8 @@ public class Carrito {
     public ArrayList<ItemCarrito> getItems() {
         return items;
     }
+    
+    public void limpiarCarrito() { 
+        items.clear(); 
+    }
 }

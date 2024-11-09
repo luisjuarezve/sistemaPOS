@@ -2,6 +2,7 @@ package com.superventas.pos.view.forms;
 
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
+import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
 import com.superventas.pos.view.components.BillingSection;
 import com.superventas.pos.view.components.ProductsSection;
@@ -14,13 +15,15 @@ public class formTasaDolar extends javax.swing.JFrame {
 
     private JPanel body;
     private Carrito carrito;
+    private Empleados empleado;
     
-    public formTasaDolar(JPanel body, Carrito carrito) {
+    public formTasaDolar(JPanel body, Carrito carrito, Empleados empleado) {
         initComponents();
         this.setBackground(new Color(0,0,0,0));
         this.setLocationRelativeTo(null);
         this.body = body;
         this.carrito = carrito;
+        this.empleado = empleado;
         
         txt_tasa.getDocument().addDocumentListener(new DocumentListener(){
             @Override
@@ -156,7 +159,7 @@ public class formTasaDolar extends javax.swing.JFrame {
         double tasa = Double.valueOf(txt_tasa.getText());
         SuperPOS.setTasa(tasa);
         body.removeAll();
-        BillingSection bs = new BillingSection(carrito, tasa);
+        BillingSection bs = new BillingSection(carrito, tasa, empleado);
         body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
         body.add(bs, new java.awt.BorderLayout().EAST);
         body.revalidate();
@@ -176,7 +179,7 @@ public class formTasaDolar extends javax.swing.JFrame {
             double tasa = Double.valueOf(txt_tasa.getText());
             SuperPOS.setTasa(tasa);
             body.removeAll();
-            BillingSection bs = new BillingSection(carrito, tasa);
+            BillingSection bs = new BillingSection(carrito, tasa, empleado);
             body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
             body.add(bs, new java.awt.BorderLayout().EAST);
             body.revalidate();

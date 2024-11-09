@@ -2,9 +2,14 @@ package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Cliente;
+import com.superventas.pos.model.Detalle_nota_entrega;
+import com.superventas.pos.model.Empleados;
+import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.ItemCarrito;
+import com.superventas.pos.model.Notas_de_entrega;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.ClienteDAO;
+import com.superventas.pos.persistence.Detalle_nota_entregaDAO;
 import com.superventas.pos.persistence.Notas_de_entregaDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import com.superventas.pos.view.forms.FormCliente;
@@ -13,13 +18,15 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Invoice extends javax.swing.JPanel {
-    
+
     private ProductosDAO proDAO = new ProductosDAO();
     private Dimension invoiceSize;
     private Dimension itemsSize;
@@ -30,10 +37,13 @@ public class Invoice extends javax.swing.JPanel {
     private ClienteDAO cliDAO = new ClienteDAO();
     private double monto_total;
     private Notas_de_entregaDAO notaDAO = new Notas_de_entregaDAO();
+    private Detalle_nota_entregaDAO detalleDAO = new Detalle_nota_entregaDAO();
+    private Empleados empleados;
+    private Carrito carrito;
     /**
      * Creates new form Invoice
-     */ /////////asdasdsad le puedo pasar billing section
-    public Invoice(Dimension invoiceSize, Carrito carrito, BillingSection bs, double tasa, Cliente cliente) {
+     */
+    public Invoice(Dimension invoiceSize, Carrito carrito, BillingSection bs, double tasa, Cliente cliente, Empleados empleados) {
         initComponents();
         this.invoiceSize = invoiceSize;
         this.itemsSize = new Dimension(invoiceSize.width - 44, invoiceSize.height - 417);
@@ -41,9 +51,11 @@ public class Invoice extends javax.swing.JPanel {
         this.bs = bs;
         this.tasa = tasa;
         this.cliente = cliente;
+        this.empleados = empleados;
+        this.carrito = carrito;
         responsive();
         cargarProductos(carrito);
-        lbl_nro_nota.setText(String.valueOf(notaDAO.contarNotasDeEntrega()+1));
+        lbl_nro_nota.setText(String.valueOf(notaDAO.contarNotasDeEntrega() + 1));
         lbl_exento_dolar.setText(String.format("%.2f", carrito.calcularExcento()) + " $");
         lbl_exento_bs.setText(String.format("%.2f", carrito.calcularExcento() * tasa) + " Bs");
         lbl_big_dolar.setText(String.format("%.2f", carrito.calcularBIG()) + " $");
@@ -56,8 +68,7 @@ public class Invoice extends javax.swing.JPanel {
         this.monto_total = monto_total;
         verificarEstadoBotonPagar();
     }
-        
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -420,6 +431,11 @@ public class Invoice extends javax.swing.JPanel {
         btn_pagar.setEnabled(false);
         btn_pagar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn_pagar.setPreferredSize(new java.awt.Dimension(400, 90));
+        btn_pagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pagarActionPerformed(evt);
+            }
+        });
         contenedor_buttom.add(btn_pagar);
 
         payment_invoice.add(contenedor_buttom);
@@ -433,7 +449,7 @@ public class Invoice extends javax.swing.JPanel {
         if (cliente != null) {
             bs.setCliente(cliente);
             verificarEstadoBotonPagar();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Cedula no registrada en el Sistema", "Registrar cliente", JOptionPane.QUESTION_MESSAGE);
             FormCliente fr = new FormCliente(cedula);
             fr.addWindowListener(new WindowAdapter() {
@@ -450,7 +466,36 @@ public class Invoice extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        cliente.limpiar();
+        verificarEstadoBotonPagar();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btn_pagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pagarActionPerformed
+        try {
+            notaDAO.insertarNotasDeEntrega(new Notas_de_entrega(0, cliente.getCliente_id(), empleados.getEmpleado_id(), "PAGADO", LocalDate.now(), carrito.calcularBIG()+carrito.calcularExcento(), carrito.calcularIVA(), carrito.calcularBIG()+carrito.calcularExcento()+carrito.calcularIVA()));
+            JOptionPane.showMessageDialog(this, "Nota de entrega registrada Exitosamente!", "Registro Exitoso!", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                ArrayList<ItemCarrito> listaProductos = carrito.getItems();
+                for (ItemCarrito Producto : listaProductos) {
+                    Detalle_nota_entrega dnt = new Detalle_nota_entrega();
+                    dnt.setNota_id(Integer.parseInt(lbl_nro_nota.getText()));
+                    dnt.setProducto_id(Producto.getProducto().getProducto_id());
+                    dnt.setCantidad(Producto.getCantidad());
+                    dnt.setImpuesto(Producto.getProducto().getImpuesto());
+                    dnt.setPrecio_unitario(Producto.getProducto().getPrecio_venta());
+                    detalleDAO.insertarDetalle_nota_entrega(dnt);
+                }
+                cliente.limpiar();
+                carrito.limpiarCarrito();
+                bs.responsive();
+                verificarEstadoBotonPagar();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al insertar los detalles!", "Error de registro", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error inesperado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_pagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -509,8 +554,8 @@ public class Invoice extends javax.swing.JPanel {
     private javax.swing.JPanel products_container;
     private javax.swing.JPanel products_invoice;
     // End of variables declaration//GEN-END:variables
-    
-    private void cargarProductos(Carrito carrito){
+
+    private void cargarProductos(Carrito carrito) {
         int cant_prod = carrito.getItems().size();
         GridLayout gl = new GridLayout(cant_prod, 1, 10, 10);
         items.setLayout(gl);
@@ -518,22 +563,22 @@ public class Invoice extends javax.swing.JPanel {
             items.add(new ItemInvoice(itemsInvoiceSize, item.getProducto(), item.getCantidad(), item.getInventario(), carrito, bs, tasa));
         }
     }
-    
-    private void responsive(){
+
+    private void responsive() {
         jsp_products.setPreferredSize(itemsSize);
         Contenedor_totalPagar.setPreferredSize(new Dimension(invoiceSize.width, 78));
         Contenedor_totalapagar.setPreferredSize(new Dimension(invoiceSize.width, 68));
         jsp_products.getVerticalScrollBar().setUnitIncrement(16);
     }
-    
+
     private void verificarEstadoBotonPagar() {
         if (cliente != null) {
-            lbl_cliente_nombre.setText(cliente.getNombre().toUpperCase()+" "+cliente.getApellido().toUpperCase());
-            lbl_cedula_cliente.setText("V.-"+cliente.getCedula());
+            lbl_cliente_nombre.setText(cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase());
+            lbl_cedula_cliente.setText("V.-" + cliente.getCedula());
             if (monto_total > 0) {
                 btn_pagar.setEnabled(true);
                 btn_pagar.setText("Cobrar (" + String.format("%.2f", monto_total) + ") $");
-            }else {
+            } else {
                 btn_pagar.setText("Cobrar");
                 btn_pagar.setEnabled(false);
             }
