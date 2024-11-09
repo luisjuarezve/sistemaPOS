@@ -575,7 +575,7 @@ public class Invoice extends javax.swing.JPanel {
         if (cliente != null) {
             lbl_cliente_nombre.setText(cliente.getNombre().toUpperCase() + " " + cliente.getApellido().toUpperCase());
             lbl_cedula_cliente.setText("V.-" + cliente.getCedula());
-            if (monto_total > 0) {
+            if (monto_total > 0 && !lbl_cliente_nombre.getText().isBlank()) {
                 btn_pagar.setEnabled(true);
                 btn_pagar.setText("Cobrar (" + String.format("%.2f", monto_total) + ") $");
             } else {

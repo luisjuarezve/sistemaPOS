@@ -243,7 +243,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
             ftd.setVisible(true);
         }else{
             body.removeAll();
-            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa(), empleado, new Cliente());
+            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa(), empleado);
             body.add(new ProductsSection(carrito, bs, SuperPOS.getTasa()), new java.awt.BorderLayout().WEST);
             body.add(bs, new java.awt.BorderLayout().EAST);
             body.revalidate();
