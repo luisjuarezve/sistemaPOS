@@ -444,6 +444,8 @@
                             </Property>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioCompraProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioCompraProductoFocusLost"/>
                             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_PrecioCompraProductoKeyReleased"/>
                           </Events>
                         </Component>
@@ -472,7 +474,7 @@
                         <Component class="com.superventas.pos.view.components.RoundedTextField" name="txt_GananciaProducto">
                           <Properties>
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                              <Color blue="99" green="99" red="99" type="rgb"/>
+                              <Color blue="0" green="0" red="0" type="rgb"/>
                             </Property>
                             <Property name="text" type="java.lang.String" value="30.00"/>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -483,6 +485,8 @@
                             </Property>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_GananciaProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_GananciaProductoFocusLost"/>
                             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_GananciaProductoKeyReleased"/>
                           </Events>
                         </Component>
@@ -522,6 +526,8 @@
                             </Property>
                           </Properties>
                           <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioVentaProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioVentaProductoFocusLost"/>
                             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_PrecioVentaProductoKeyReleased"/>
                           </Events>
                         </Component>
@@ -584,6 +590,10 @@
                               <Dimension value="[150, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioMayoreoProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_PrecioMayoreoProductoFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -612,7 +622,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="99" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="16.00"/>
+                            <Property name="text" type="java.lang.String" value="00.00"/>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[2, 12, 2, 6]"/>
                             </Property>
@@ -620,6 +630,10 @@
                               <Dimension value="[150, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_ImpuestoProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_ImpuestoProductoFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -648,7 +662,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="99" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="1"/>
+                            <Property name="text" type="java.lang.String" value="0"/>
                             <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                               <Insets value="[2, 12, 2, 6]"/>
                             </Property>
@@ -656,6 +670,10 @@
                               <Dimension value="[150, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CantidadProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_CantidadProductoFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -692,6 +710,10 @@
                               <Dimension value="[150, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_InventarioMinProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_InventarioMinProductoFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -728,6 +750,10 @@
                               <Dimension value="[145, 25]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_InventarioMaxProductoFocusGained"/>
+                            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_InventarioMaxProductoFocusLost"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
