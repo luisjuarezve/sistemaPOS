@@ -1,11 +1,9 @@
 package com.superventas.pos.view.forms;
 
 import com.superventas.pos.model.Carrito;
-import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
-import com.superventas.pos.view.components.BillingSection;
-import com.superventas.pos.view.components.ProductsSection;
+import com.superventas.pos.view.menus.PanelFacturar;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
@@ -159,9 +157,7 @@ public class formTasaDolar extends javax.swing.JFrame {
         double tasa = Double.valueOf(txt_tasa.getText());
         SuperPOS.setTasa(tasa);
         body.removeAll();
-        BillingSection bs = new BillingSection(carrito, tasa, empleado);
-        body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
-        body.add(bs, new java.awt.BorderLayout().EAST);
+        body.add(new PanelFacturar(body.getSize(), body, empleado));
         body.revalidate();
         body.repaint();  // TODO add your handling code here:
         this.dispose();
@@ -179,9 +175,7 @@ public class formTasaDolar extends javax.swing.JFrame {
             double tasa = Double.valueOf(txt_tasa.getText());
             SuperPOS.setTasa(tasa);
             body.removeAll();
-            BillingSection bs = new BillingSection(carrito, tasa, empleado);
-            body.add(new ProductsSection(carrito, bs, tasa), new java.awt.BorderLayout().WEST);
-            body.add(bs, new java.awt.BorderLayout().EAST);
+            body.add(new PanelFacturar(body.getSize(), body, empleado));
             body.revalidate();
             body.repaint();  // TODO add your handling code here:
             this.dispose();

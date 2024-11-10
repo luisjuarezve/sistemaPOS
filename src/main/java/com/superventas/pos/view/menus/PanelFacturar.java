@@ -26,6 +26,7 @@ import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -62,6 +63,7 @@ public class PanelFacturar extends javax.swing.JPanel {
         this.empleado = empleado;
         this.setPreferredSize(tamano);
         responsive(tamano);
+        cargarMontoFactura(carrito);
         cargarCategorias(catDAO.LeerTodosCategorias());
         cargarProductos(proDAO.LeerTodosProductos());
         jsp_categoria.getVerticalScrollBar().setUnitIncrement(16);
@@ -132,7 +134,6 @@ public class PanelFacturar extends javax.swing.JPanel {
         lbl_big_bs = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         lbl_iva = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         lbl_iva_dolar = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lbl_iva_bs = new javax.swing.JLabel();
@@ -473,10 +474,6 @@ public class PanelFacturar extends javax.swing.JPanel {
         lbl_iva.setText("IVA 16% :");
         jPanel15.add(lbl_iva);
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel6.setText("-");
-        jPanel15.add(jLabel6);
-
         lbl_iva_dolar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbl_iva_dolar.setText("128$");
         jPanel15.add(lbl_iva_dolar);
@@ -667,7 +664,6 @@ public class PanelFacturar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -764,6 +760,7 @@ public class PanelFacturar extends javax.swing.JPanel {
         }
         items.revalidate();
         items.repaint();
+        cargarMontoFactura(carrito);
         verificarEstadoBotonPagar();
     }
     
@@ -821,5 +818,16 @@ public class PanelFacturar extends javax.swing.JPanel {
                 btn_pagar.setEnabled(false);
             }
         }
+    }
+
+    private void cargarMontoFactura(Carrito carrito) {
+        lbl_exento_dolar.setText(String.format(Locale.US,"%.2f", carrito.calcularExcento())+" $");
+        lbl_exento_bs.setText(String.format(Locale.US,"%.2f", carrito.calcularExcento()*SuperPOS.getTasa())+" Bs");
+        lbl_big_dolar.setText(String.format(Locale.US,"%.2f", carrito.calcularBIG())+" $");
+        lbl_big_bs.setText(String.format(Locale.US,"%.2f", carrito.calcularBIG()*SuperPOS.getTasa())+" Bs");
+        lbl_iva_dolar.setText(String.format(Locale.US,"%.2f", carrito.calcularIVA())+" $");
+        lbl_iva_bs.setText(String.format(Locale.US,"%.2f", carrito.calcularIVA())+" Bs");
+        lbl_precioTotalapagarDolares.setText(String.format(Locale.US,"%.2f", carrito.calcularBIG()+carrito.calcularExcento()+carrito.calcularIVA())+" $");
+        lbl_PrecioTotalapagarBolivares.setText(String.format(Locale.US,"%.2f", carrito.calcularBIG()+carrito.calcularExcento()+carrito.calcularIVA()*SuperPOS.getTasa())+" Bs");
     }
 }

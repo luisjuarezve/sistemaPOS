@@ -2,7 +2,7 @@ package com.superventas.pos.view.menus;
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
-import com.superventas.pos.view.forms.FormTasaDolar;
+import com.superventas.pos.view.forms.formTasaDolar;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 /**
@@ -235,7 +235,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
         if (SuperPOS.getTasa() == 0) {
-            FormTasaDolar ftd = new FormTasaDolar(body, carrito, empleado);
+            formTasaDolar ftd = new formTasaDolar(body, carrito, empleado);
             ftd.setVisible(true);
         }else{
             body.removeAll();
