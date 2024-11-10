@@ -1,9 +1,8 @@
 package com.superventas.pos.view.components;
 import com.superventas.pos.model.Carrito;
-import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
-import com.superventas.pos.view.SuperPOS;
+import com.superventas.pos.view.menus.PanelFacturar;
 import java.awt.Dimension;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -15,18 +14,18 @@ public class ItemInvoice extends javax.swing.JPanel {
     
     private Carrito carrito;
     private Productos productos;
-    private BillingSection bs;
     private Inventario inventario;
     private double tasa;
+    private PanelFacturar panelFacturar; 
     
-    public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, BillingSection bs, double tasa) {
+    public ItemInvoice(Dimension size, Productos producto, int cantidad, Inventario inventario, Carrito carrito, double tasa, PanelFacturar panelFacturar) {
         initComponents();
-        this.bs = bs;
         this.productos = producto;
         this.carrito = carrito;
         this.inventario = inventario;
         this.setPreferredSize(size);
         this.tasa = tasa;
+        this.panelFacturar = panelFacturar;
         lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 65, 65));
         lbl_cantidad.setText(String.valueOf(cantidad));
         lbl_cantidad_existencia.setText(String.valueOf(inventario.getCantidad()));
@@ -75,7 +74,7 @@ public class ItemInvoice extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(356, 85));
+        setPreferredSize(new java.awt.Dimension(356, 75));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -190,24 +189,27 @@ public class ItemInvoice extends javax.swing.JPanel {
 
         lbl_img.setIcon(new ImageIcon("src\\main\\java\\com\\superventas\\pos\\img\\producto_item_invoice.jpg")
         );
+        lbl_img.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        lbl_img.setIconTextGap(10);
         lbl_img.setPreferredSize(new java.awt.Dimension(65, 65));
         jPanel1.add(lbl_img, java.awt.BorderLayout.WEST);
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
-
         jPanel9.setBackground(new java.awt.Color(204, 204, 204));
         jPanel9.setPreferredSize(new java.awt.Dimension(365, 2));
-        add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 83, -1, -1));
+        jPanel9.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
+        jPanel1.add(jPanel9, java.awt.BorderLayout.SOUTH);
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_masActionPerformed
         carrito.disminuirProducto(productos);
-        bs.responsive();
+        panelFacturar.cargarProductosFactura(carrito);
     }//GEN-LAST:event_btn_masActionPerformed
 
     private void btn_menosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_menosActionPerformed
         carrito.agregarProducto(productos, inventario);
-        bs.responsive();
+        panelFacturar.cargarProductosFactura(carrito);
     }//GEN-LAST:event_btn_menosActionPerformed
 
 
@@ -250,5 +252,10 @@ public class ItemInvoice extends javax.swing.JPanel {
         ImageIcon newIcon = new ImageIcon(newImg);
         return newIcon;
     }
+    
+    public void updateInvoice(Productos producto ) {
+        this.productos = producto;
+    }
+
     
 }

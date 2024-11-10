@@ -1,12 +1,8 @@
 package com.superventas.pos.view.menus;
 import com.superventas.pos.model.Carrito;
-import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
-import com.superventas.pos.view.components.BillingSection;
-import com.superventas.pos.view.components.ProductsSection;
-import com.superventas.pos.view.forms.formTasaDolar;
-import java.awt.Color;
+import com.superventas.pos.view.forms.FormTasaDolar;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 /**
@@ -239,15 +235,13 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
         if (SuperPOS.getTasa() == 0) {
-            formTasaDolar ftd = new formTasaDolar(body, carrito, empleado);
+            FormTasaDolar ftd = new FormTasaDolar(body, carrito, empleado);
             ftd.setVisible(true);
         }else{
             body.removeAll();
-            BillingSection bs = new BillingSection(carrito, SuperPOS.getTasa(), empleado);
-            body.add(new ProductsSection(carrito, bs, SuperPOS.getTasa()), new java.awt.BorderLayout().WEST);
-            body.add(bs, new java.awt.BorderLayout().EAST);
+            body.add(new PanelFacturar(body.getSize(), body, empleado));
             body.revalidate();
-            body.repaint();  // TODO add your handling code here:
+            body.repaint();  
         }
     }//GEN-LAST:event_roundedButton2ActionPerformed
 
@@ -293,4 +287,5 @@ public class MenuPrincipal extends javax.swing.JPanel {
     private com.superventas.pos.view.components.RoundedButton roundedButton7;
     private com.superventas.pos.view.components.RoundedButton roundedButton8;
     // End of variables declaration//GEN-END:variables
+    
 }

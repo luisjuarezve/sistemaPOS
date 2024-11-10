@@ -1,10 +1,9 @@
 package com.superventas.pos.view.components;
 
 import com.superventas.pos.model.Carrito;
-import com.superventas.pos.model.Cliente;
 import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
-import java.awt.Dimension;
+import com.superventas.pos.view.menus.PanelFacturar;
 import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -17,13 +16,13 @@ public class Item extends javax.swing.JPanel {
     private Productos producto;
     private Inventario inventario;
     private Carrito carrito;
-    private BillingSection bs;
+    private PanelFacturar panelFacturar; 
             
-    public Item(Productos producto, Inventario inventario, Carrito carrito, BillingSection bs, double tasa) {
+    public Item(Productos producto, Inventario inventario, Carrito carrito, double tasa, PanelFacturar panelFacturar) {
         this.producto = producto;
         this.inventario = inventario;
         this.carrito = carrito;
-        this.bs = bs;
+        this.panelFacturar = panelFacturar;
         initComponents();
         lbl_img.setIcon(redimensionarIcon(producto.getFoto(), 150, 150));
         lbl_nom_art.setText(producto.getNombre());
@@ -128,7 +127,7 @@ public class Item extends javax.swing.JPanel {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         carrito.agregarProducto(producto, inventario);
-        bs.responsive();
+        panelFacturar.cargarProductosFactura(carrito);
     }//GEN-LAST:event_btn_agregarActionPerformed
 
 

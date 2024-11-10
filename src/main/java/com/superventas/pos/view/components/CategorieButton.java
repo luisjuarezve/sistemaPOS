@@ -6,6 +6,7 @@ import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.persistence.ProductosDAO;
+import com.superventas.pos.view.menus.PanelFacturar;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,15 +27,15 @@ public class CategorieButton extends JButton {
     private JPanel row_items;
     private Categorias categoria;
     private Carrito carrito;
-    private BillingSection bs;
     private double tasa;
+    private PanelFacturar panelFacturar;
 
-    public CategorieButton(Categorias categoria, JPanel row_items, Carrito carrito, BillingSection bs, double tasa) {
+    public CategorieButton(Categorias categoria, JPanel row_items, Carrito carrito, double tasa, PanelFacturar panelFacturar) {
         super(categoria.getNombre());
         this.categoria = categoria;
+        this.panelFacturar = panelFacturar;
         this.row_items = row_items;
         this.carrito = carrito;
-        this.bs = bs;
         this.tasa = tasa;
         this.cornerRadius = 10;
         this.setPreferredSize(new Dimension(123, 123));
@@ -75,7 +76,7 @@ public class CategorieButton extends JButton {
     }
     
     
-    private void cargarProductos(List<Productos> listaProductos){
+    public void cargarProductos(List<Productos> listaProductos){
         int cant_prod = listaProductos.size()-1;
         int row_prod = (cant_prod/6);
         
@@ -89,8 +90,10 @@ public class CategorieButton extends JButton {
             for (int i = 0; i <= 17; i++) {
                 if (i<=cant_prod) {
                     Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
-                    Item item = new Item(listaProductos.get(i), inventario, carrito, bs, tasa);
-                    row_items.add(item);
+                    if (inventario.getCantidad()>0) {
+                        Item item = new Item(listaProductos.get(i), inventario, carrito, tasa, panelFacturar);
+                        row_items.add(item);
+                    }
                 }else{
                     JPanel njp = new JPanel();
                     njp.setOpaque(false);
@@ -105,7 +108,9 @@ public class CategorieButton extends JButton {
             row_items.setLayout(gl);
             for (int i = 0; i < cant_prod; i++) {
                 Inventario inventario = invD.leerInventario(listaProductos.get(i).getProducto_id());
-                row_items.add(new Item(listaProductos.get(i), inventario, carrito,bs, tasa));
+                if (inventario.getCantidad()>0) {
+                    row_items.add(new Item(listaProductos.get(i), inventario, carrito, tasa, panelFacturar));
+                }
             }
         }
     }
