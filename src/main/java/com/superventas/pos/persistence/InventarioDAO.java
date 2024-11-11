@@ -113,8 +113,8 @@ public List<Inventario> leerTodosInventario() {
     }
     return inventarios;
 }
-public void modificarInventario(String id, Inventario inventario) {
-    String sql = "UPDATE INVENTARIO SET CANTIDAD = ?, INVENTARIO_MIN = ?, INVENTARIO_MAX = ?, PRODUCTO_ID = ? WHERE ID = ?";
+public void modificarInventario(String producto_id, Inventario inventario) {
+    String sql = "UPDATE INVENTARIO SET CANTIDAD = ?, INVENTARIO_MIN = ?, INVENTARIO_MAX = ? WHERE PRODUCTO_ID = ?";
     ConexionBDD cn = new ConexionBDD();
     Connection connection = null;
     PreparedStatement pstmt = null;
@@ -124,8 +124,7 @@ public void modificarInventario(String id, Inventario inventario) {
         pstmt.setDouble(1, inventario.getCantidad());
         pstmt.setDouble(2, inventario.getInventario_min());
         pstmt.setDouble(3, inventario.getInventario_max());
-        pstmt.setInt(4, inventario.getProducto_id());
-        pstmt.setString(5, id);  // Corrected index
+        pstmt.setString(4, producto_id);  // Corrected index
 
         int filasActualizadas = pstmt.executeUpdate();
         if (filasActualizadas > 0) {
@@ -159,7 +158,7 @@ public void modificarInventario(String id, Inventario inventario) {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error al eliminar el Cliente");
+            System.out.println("Error al eliminar el Inventario");
         } finally {
             try {
                 if (pstmt != null) pstmt.close();
@@ -170,4 +169,31 @@ public void modificarInventario(String id, Inventario inventario) {
         }
     }
     
+    public void eliminarInventarioProducto_id(String Producto_id){
+        String sql = "DELETE FROM INVENTARIO WHERE PRODUCTO_ID = ?";
+        ConexionBDD cn = new ConexionBDD();
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            connection = cn.getConnection(); 
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setString(1, Producto_id);
+            int filasEliminadas = pstmt.executeUpdate();
+            if (filasEliminadas > 0) {
+                System.out.println("Inventario eliminado correctamente.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al eliminar el Inventario");
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                cn.closeConnection(); 
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+  
 }

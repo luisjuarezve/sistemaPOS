@@ -2,7 +2,7 @@ package com.superventas.pos.view.menus;
 import com.superventas.pos.model.Carrito;
 import com.superventas.pos.model.Empleados;
 import com.superventas.pos.view.SuperPOS;
-import com.superventas.pos.view.forms.formTasaDolar;
+import com.superventas.pos.view.forms.FormTasaDolar;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 /**
@@ -126,6 +126,11 @@ public class MenuPrincipal extends javax.swing.JPanel {
         roundedButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         roundedButton3.setPreferredSize(new java.awt.Dimension(215, 290));
         roundedButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        roundedButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roundedButton3ActionPerformed(evt);
+            }
+        });
         jPanel7.add(roundedButton3);
 
         ContenedorNorth.add(jPanel7, java.awt.BorderLayout.EAST);
@@ -235,7 +240,7 @@ public class MenuPrincipal extends javax.swing.JPanel {
 
     private void roundedButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton2ActionPerformed
         if (SuperPOS.getTasa() == 0) {
-            formTasaDolar ftd = new formTasaDolar(body, carrito, empleado);
+            FormTasaDolar ftd = new FormTasaDolar(body, carrito, empleado);
             ftd.setVisible(true);
         }else{
             body.removeAll();
@@ -265,6 +270,13 @@ public class MenuPrincipal extends javax.swing.JPanel {
         body.revalidate();
         body.repaint();
     }//GEN-LAST:event_roundedButton5ActionPerformed
+
+    private void roundedButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roundedButton3ActionPerformed
+        body.removeAll();
+        body.add(new PanelInventario(body.getSize(), body),new java.awt.BorderLayout().CENTER);
+        body.revalidate();
+        body.repaint();
+    }//GEN-LAST:event_roundedButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

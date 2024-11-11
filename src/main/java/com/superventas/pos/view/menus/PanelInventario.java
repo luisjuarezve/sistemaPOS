@@ -1,12 +1,15 @@
 package com.superventas.pos.view.menus;
+import com.superventas.pos.model.Inventario;
 import com.superventas.pos.model.Productos;
 import com.superventas.pos.persistence.CategoriasDAO;
+import com.superventas.pos.persistence.InventarioDAO;
 import com.superventas.pos.persistence.ProductosDAO;
 import com.superventas.pos.persistence.ProveedorDAO;
-import com.superventas.pos.view.forms.FormEmpleado;
+import com.superventas.pos.view.forms.FormInventario;
 import com.superventas.pos.view.forms.FormProducto;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,16 +19,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class PanelProductos extends javax.swing.JPanel {
+public class PanelInventario extends javax.swing.JPanel {
 
     private ProveedorDAO proDAO = new ProveedorDAO();
     private CategoriasDAO catDAO = new CategoriasDAO();
     private ProductosDAO productoDAO = new ProductosDAO();
+    private InventarioDAO invDAO = new InventarioDAO();
     private JPanel body;
     /**
      * Creates new form ProductosMenu
      */
-    public PanelProductos(Dimension tamaño, JPanel body) {
+    public PanelInventario(Dimension tamaño, JPanel body) {
         initComponents();
         this.body = body;
         rellenarTablaProductos(jTable1);
@@ -47,10 +51,8 @@ public class PanelProductos extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Botones = new javax.swing.JPanel();
-        btn_NuevoProducto = new com.superventas.pos.view.components.RoundedButton1_Invoice();
         btn_EliminarProducto = new com.superventas.pos.view.components.RoundedButton1_Invoice();
         btn_ModificarProducto = new com.superventas.pos.view.components.RoundedButton1_Invoice();
-        btn_CategoriaProducto = new com.superventas.pos.view.components.RoundedButton1_Invoice();
         Center = new javax.swing.JPanel();
         Separador = new javax.swing.JPanel();
         Title_CatalogoProducto = new javax.swing.JPanel();
@@ -82,27 +84,13 @@ public class PanelProductos extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("PRODUCTO");
+        jLabel1.setText("INVENTARIO");
         jPanel5.add(jLabel1);
 
         Header.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         Botones.setOpaque(false);
         Botones.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
-
-        btn_NuevoProducto.setBackground(new java.awt.Color(168, 8, 72));
-        btn_NuevoProducto.setBorder(null);
-        btn_NuevoProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btn_NuevoProducto.setText("Nuevo");
-        btn_NuevoProducto.setFocusable(false);
-        btn_NuevoProducto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_NuevoProducto.setPreferredSize(new java.awt.Dimension(150, 40));
-        btn_NuevoProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_NuevoProductoActionPerformed(evt);
-            }
-        });
-        Botones.add(btn_NuevoProducto);
 
         btn_EliminarProducto.setBackground(new java.awt.Color(168, 8, 72));
         btn_EliminarProducto.setBorder(null);
@@ -131,20 +119,6 @@ public class PanelProductos extends javax.swing.JPanel {
             }
         });
         Botones.add(btn_ModificarProducto);
-
-        btn_CategoriaProducto.setBackground(new java.awt.Color(168, 8, 72));
-        btn_CategoriaProducto.setBorder(null);
-        btn_CategoriaProducto.setForeground(new java.awt.Color(255, 255, 255));
-        btn_CategoriaProducto.setText("Categoria");
-        btn_CategoriaProducto.setFocusable(false);
-        btn_CategoriaProducto.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btn_CategoriaProducto.setPreferredSize(new java.awt.Dimension(150, 40));
-        btn_CategoriaProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_CategoriaProductoActionPerformed(evt);
-            }
-        });
-        Botones.add(btn_CategoriaProducto);
 
         Header.add(Botones, java.awt.BorderLayout.CENTER);
 
@@ -250,31 +224,18 @@ public class PanelProductos extends javax.swing.JPanel {
 
     private void searchBar2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchBar2FocusLost
        searchBar2.setText(" ");
-        // TODO add your handling code here:
     }//GEN-LAST:event_searchBar2FocusLost
-
-    private void btn_NuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_NuevoProductoActionPerformed
-        FormProducto fp = new FormProducto(jTable1, "Nuevo Producto");
-        fp.setVisible(true);
-    }//GEN-LAST:event_btn_NuevoProductoActionPerformed
 
     private void btn_ModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarProductoActionPerformed
         if (jTable1.getRowCount()>0) {
             if(jTable1.getSelectedRow()!=-1){
-                String id_producto = String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(),0));
-                FormProducto fp = new FormProducto(jTable1, "Actualizar Producto", productoDAO.leerProducto(id_producto));
-                fp.setVisible(true);
+                int id_producto = Integer.parseInt(String.valueOf(jTable1.getValueAt(jTable1.getSelectedRow(),0)));
+                FormInventario fi = new FormInventario("Actualizar Inventario", invDAO.leerInventario(id_producto), jTable1);
+                fi.setVisible(true);
             }
         }
-        
+        rellenarTablaProductos(jTable1);
     }//GEN-LAST:event_btn_ModificarProductoActionPerformed
-
-    private void btn_CategoriaProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CategoriaProductoActionPerformed
-        body.removeAll();
-        body.add(new PanelCategorias(body.getSize(), body),new java.awt.BorderLayout().CENTER);
-        body.revalidate();
-        body.repaint();
-    }//GEN-LAST:event_btn_CategoriaProductoActionPerformed
 
     private void btn_EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarProductoActionPerformed
         if (jTable1.getRowCount()>0) {
@@ -298,10 +259,8 @@ public class PanelProductos extends javax.swing.JPanel {
     private javax.swing.JPanel Share_Bar;
     private javax.swing.JPanel Table;
     private javax.swing.JPanel Title_CatalogoProducto;
-    private com.superventas.pos.view.components.RoundedButton1_Invoice btn_CategoriaProducto;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_EliminarProducto;
     private com.superventas.pos.view.components.RoundedButton1_Invoice btn_ModificarProducto;
-    private com.superventas.pos.view.components.RoundedButton1_Invoice btn_NuevoProducto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -330,7 +289,7 @@ public class PanelProductos extends javax.swing.JPanel {
         DefaultTableModel model = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "ID", "Codigo", "Nombre", "Descripcion", "Tipo Venta", "Precio Compra", "Ganacia", "Precio Venta", "Precio Mayoreo", "Impuesto", "Proveedor", "Categoria"
+                    "id", "Producto", "Cantidad", "Inventario Minimo", "Inventario Maximo",  "Precio Compra", "Precio Venta", "Utilidad", "Total Inversion", "Total Utilidad", "Total Inversion + Utilidad"
                 }
         ) {
 
@@ -342,22 +301,24 @@ public class PanelProductos extends javax.swing.JPanel {
         tabla.setModel(model);
         model.setRowCount(0); // Clear the table
 
-        List<Productos> listaProductos = productoDAO.LeerTodosProductos();
+        List<Inventario> inventario = invDAO.leerTodosInventario();
 
-        for (Productos producto : listaProductos) {
-            Object[] fila = new Object[12];
-            fila[0] = producto.getProducto_id();
-            fila[1] = producto.getCodigo();
-            fila[2] = producto.getNombre();
-            fila[3] = producto.getDescripcion();
-            fila[4] = producto.getTipo_venta();
-            fila[5] = producto.getPrecio_compra();
-            fila[6] = producto.getGanancia();
-            fila[7] = producto.getPrecio_venta();
-            fila[8] = producto.getPrecio_mayoreo();
-            fila[9] = producto.getImpuesto();
-            fila[10] = proDAO.leerProveedor(producto.getProveedor_id()).getRazon_social();
-            fila[11] = catDAO.leerCategoria(String.valueOf(producto.getCategoria_id())).getNombre();
+        for (Inventario producto : inventario) {
+            Productos p = productoDAO.leerProducto(String.valueOf(producto.getProducto_id()));
+            Inventario i = invDAO.leerInventario(p.getProducto_id());
+            double utilidad = p.getPrecio_venta()-p.getPrecio_compra();;
+            Object[] fila = new Object[11];
+            fila[0] = p.getProducto_id();
+            fila[1] = p.getNombre();
+            fila[2] = String.format(Locale.US, "%.2f", i.getCantidad());
+            fila[3] = String.format(Locale.US, "%.2f", i.getInventario_min());
+            fila[4] = String.format(Locale.US, "%.2f", i.getInventario_max());
+            fila[5] = String.format(Locale.US, "%.2f", p.getPrecio_compra())+" $";
+            fila[6] = String.format(Locale.US, "%.2f", p.getPrecio_venta())+" $";
+            fila[7] = String.format(Locale.US, "%.2f", utilidad)+" $";
+            fila[8] = String.format(Locale.US, "%.2f", i.getCantidad()*p.getPrecio_compra())+" $";
+            fila[9] = String.format(Locale.US, "%.2f", i.getCantidad()*utilidad)+" $";
+            fila[10] = String.format(Locale.US, "%.2f", i.getCantidad()*p.getPrecio_compra()+i.getCantidad()*utilidad)+" $";
             model.addRow(fila);
         }
     }
